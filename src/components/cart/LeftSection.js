@@ -112,6 +112,9 @@ const LeftSection = () => {
                 attribute2: item.attribute2,
                 attribute3: item.attribute3,
                 product: item.product,
+                selectedAttribute1 : item.selectedAttribute1,
+                selectedAttribute2 : item.selectedAttribute2,
+                selectedAttribute3 : item.selectedAttribute3,
               }}
             />
           ))}

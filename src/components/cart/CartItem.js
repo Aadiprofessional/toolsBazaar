@@ -22,9 +22,10 @@ const CartItem = ({ item, onRemoveItem, onUpdateQuantity }) => {
       toast.info(`Only ${item.product.inventory} items available in stock. Cannot increase quantity further.`);
     }
   };
-
+  
   const handleDecrease = () => {
     if (quantity > item.product.minCartValue) {
+      console.log(item);
       const newQuantity = Number(quantity) - 1;
       setQuantity(newQuantity);
       onUpdateQuantity(item.cartId, newQuantity); 
@@ -71,15 +72,15 @@ const CartItem = ({ item, onRemoveItem, onUpdateQuantity }) => {
             </p>
             <p className="detail-text">
               <strong className="detail-title">{item.attribute1}:</strong>{" "}
-              {item.product.attribute1Id}
+              {item.selectedAttribute1}
             </p>
             <p className="detail-text">
               <strong className="detail-title">{item.attribute2}:</strong>{" "}
-              {item.product.attribute2Id}
+              {item.selectedAttribute2}
             </p>
             <p className="detail-text">
               <strong className="detail-title">{item.attribute3}:</strong>{" "}
-              {item.product.attribute3Id}
+              {item.selectedAttribute3}
             </p>
             <button onClick={handleRemoveItem} className="remove-button">
               <span className="remove-text">Remove</span>

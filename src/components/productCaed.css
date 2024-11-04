@@ -2,12 +2,11 @@
     width: 100%;
     max-width: 200px;
     border: 1px solid #ddd;
-    border-radius: 8px;
     padding: 20px;
     position: relative;
     background-color: #fff;
     box-sizing: border-box;
-    margin: 15px;
+
     cursor: pointer;
     overflow: hidden;
     display: flex;
@@ -29,7 +28,7 @@
   /* Media Query for Phones */
   @media (max-width: 468px) {
     .product-card {
-      max-width: 100px;
+      max-width: 140px;
       padding: 10px;
     }
   

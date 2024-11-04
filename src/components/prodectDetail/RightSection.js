@@ -14,9 +14,13 @@ const RightSection = ({
   mainId,
   productId,
   categoryId,
+  selectedAttribute1,
+  selectedAttribute2,
+  selectedAttribute3,
   attribute1Id,
   attribute2Id,
   attribute3Id
+  
 }) => {
   const [quantity, setQuantity] = useState(product?.minCartValue || 1);
   const [isLoading, setIsLoading] = useState(false);
@@ -78,7 +82,11 @@ const RightSection = ({
           productId,
           attribute1Id = product.attribute1Id,
           attribute2Id  = product.attribute2Id,
-          attribute3Id  = product.attribute3Id
+          attribute3Id  = product.attribute3Id,
+          selectedAttribute1 = selectedAttribute1,
+          selectedAttribute2 = selectedAttribute2,
+          selectedAttribute3 = selectedAttribute3,
+
         );
         toast.success("Product added to cart successfully!");
       } finally {

@@ -66,7 +66,10 @@ export const CartProvider = ({ children }) => {
     productId,
     attribute1Id,
     attribute2Id,
-    attribute3Id
+    attribute3Id,
+    selectedAttribute1,
+    selectedAttribute2,
+    selectedAttribute3,
   ) => {
     setLoading(true);
     console.log(productId);
@@ -89,9 +92,12 @@ export const CartProvider = ({ children }) => {
       productId,
       attribute1Id,
       attribute2Id,
-      attribute3Id
+      attribute3Id,
+      selectedAttribute1,
+      selectedAttribute2,
+      selectedAttribute3,
     };
-
+  
     try {
       const response = await axios.post(
         `https://toolsbazaar-server-1036279390366.asia-south1.run.app/addItem`,

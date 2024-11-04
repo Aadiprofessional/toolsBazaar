@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Banner = () => {
-  const bannerImageUrl = 'https://firebasestorage.googleapis.com/v0/b/toolsbazaar-c1927.appspot.com/o/banners%2Fbanner4?alt=media'; // URL for the banner
+  const bannerImageUrl = 'https://firebasestorage.googleapis.com/v0/b/toolsbazaar-c1927.appspot.com/o/banners%2Fbanner10?alt=media'; // URL for the banner
 
   return (
     <div style={{ ...styles.banner, backgroundImage: `url(${bannerImageUrl})` }}>

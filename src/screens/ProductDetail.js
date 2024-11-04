@@ -84,6 +84,7 @@ const ProductDetail = () => {
       product.attribute2
     ]?.[selectedAttribute2]?.[selectedAttribute3] || {};
 
+
   return (
     <div>
       <ToastContainer/>
@@ -115,6 +116,9 @@ const ProductDetail = () => {
             mainId={mainId}
             categoryId={categoryId}
             productId={productId}
+            selectedAttribute1={selectedAttribute1}
+            selectedAttribute2={selectedAttribute2}
+            selectedAttribute3={selectedAttribute3}
           />
         </div>
       </div>

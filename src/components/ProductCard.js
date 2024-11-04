@@ -142,7 +142,7 @@ const styles = {
     WebkitBoxOrient: "vertical",
   },
   divider: {
-    borderTop: "1px dotted #ccc",
+    borderTop: "2px dotted #ccc",
     margin: "10px 0",
   },
   priceContainer: {

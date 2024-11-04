@@ -25,7 +25,7 @@ const styles = {
   },
   banner: {
     width: '100%',
-    backgroundImage: `url('https://firebasestorage.googleapis.com/v0/b/toolsbazaar-c1927.appspot.com/o/banners%2Fbanner4?alt=media')`,
+    backgroundImage: `url('https://firebasestorage.googleapis.com/v0/b/toolsbazaar-c1927.appspot.com/o/banners%2Fbanner9?alt=media')`,
     backgroundSize: 'contain', // Display the entire image without cropping
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
