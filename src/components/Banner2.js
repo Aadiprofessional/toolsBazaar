@@ -26,11 +26,11 @@ const styles = {
   },
   banner: {
     width: '100%',
-    height: '170px', // Set your desired height
     backgroundImage: `url('https://firebasestorage.googleapis.com/v0/b/toolsbazaar-c1927.appspot.com/o/banners%2Fbanner4?alt=media')`,
-    backgroundSize: 'cover', // Ensure the image covers the container
-    backgroundPosition: 'center', // Center the image
-    backgroundRepeat: 'no-repeat', // Avoid repeating the image
+    backgroundSize: 'contain', // Display the entire image without cropping
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    aspectRatio: '16/3', // Adjust aspect ratio as needed for your image
   },
   productsContainer: {
     marginTop: '20px', // Adjust margin as needed

@@ -22,20 +22,20 @@
   /* Media Query for Tablets */
   @media (max-width: 768px) {
     .product-card {
-      max-width: 80%;
+      max-width: 150px;
     }
   }
   
   /* Media Query for Phones */
-  @media (max-width: 768px) {
+  @media (max-width: 468px) {
     .product-card {
-      max-width: 41%;
+      max-width: 100px;
       padding: 10px;
     }
   
     /* Label adjustments for smaller screens */
     .label {
-      font-size: 12px;
+      font-size: 8px;
       height: auto;
       padding: 10px;
       word-break: break-word; /* Ensures label text wraps */
@@ -68,7 +68,7 @@
     color: #fff;
     padding: 5px 8px;
     border-radius: 15px 0 0 15px;
-    font-size: 10px;
+    font-size: 8px;
     font-weight: bold;
     display: flex;
     align-items: center;

@@ -108,68 +108,6 @@ const ProductCard = ({ product }) => {
 };
 
 const styles = {
-  card: {
-    width: "100%",
-    maxWidth: "200px",
-    border: "1px solid #ddd",
-    borderRadius: "8px",
-    padding: "20px",
-    position: "relative",
-    backgroundColor: "#fff",
-    boxSizing: "border-box",
-    margin: "15px",
-    cursor: "pointer",
-    overflow: "hidden",
-    display: "flex",
-    flexDirection: "column",
-    '@media (max-width: 768px)': {
-      maxWidth: "80%",
-    },
-    '@media (max-width: 480px)': {
-      maxWidth: "100%",
-      padding: "10px",
-    }
-  },
-  contentWrapper: {
-    height: "100%",
-    position: "relative",
-    width: "100%",
-    boxSizing: "border-box",
-  },
-  labelContainer: {
-    position: "absolute",
-    top: "0",
-    right: "0",
-    zIndex: 70,
-  },
-  label: {
-    backgroundColor: "#EA6021",
-    color: "#fff",
-    padding: "5px 8px",
-    borderRadius: "15px 0 0 15px",
-    fontSize: "10px",
-    fontWeight: "bold",
-    display: "flex",
-    alignItems: "center",
-  },
-  labelContent: {
-    display: "flex",
-    alignItems: "center",
-  },
-  circle: {
-    backgroundColor: "#fff",
-    borderRadius: "50%",
-    width: "16px",
-    height: "16px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    marginRight: "3px",
-  },
-  truckIcon: {
-    width: "12px",
-    height: "12px",
-  },
   imageContainer: {
     width: "100%",
     paddingTop: "80%",
