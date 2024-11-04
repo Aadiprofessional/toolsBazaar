@@ -60,6 +60,7 @@ function App() {
             element={<LoginPageWrapper onLogin={handleLogin} />}
           />
           <Route path="/Cart" element={<CartScreen />} />
+          <Route path="/product/:mainId/:categoryId/:productId/:attribute1D/:attribute2D/:attribute3D" element={<ProductDetail />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/Contact" element={<ContactScreen />} />
@@ -88,7 +89,7 @@ function App() {
               )
             }
           />
-        <Route path="/product/:mainId/:categoryId/:productId/:attribute1D/:attribute2D/:attribute3D" element={<ProductDetail />} />
+          
           <Route path="/AllCategories" element={<AllCategories />} />
         </Routes>
       </CartProvider>

@@ -5,6 +5,10 @@ import TaskBar from "../components/TaskBar";
 import { auth } from "../firebaseConfig";
 import { Flex, Rate } from 'antd'; // Import Flex and Rate from Ant Design
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
+import Lottie from "lottie-react";
+
+import loadingAnimation from "../assets/Animation - 1730717782675.json"; 
+
 
 const OrderHistory = () => {
   const [selectedFilter, setSelectedFilter] = useState("Orders");
@@ -90,7 +94,11 @@ const OrderHistory = () => {
     }
   };
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div style={styles.loadingContainer}>
+        <Lottie animationData={loadingAnimation} loop={true} />
+      </div>
+    );
   }
 
   return (
@@ -483,6 +491,13 @@ const styles = {
     padding: "20px",
     borderRadius: "8px",
     width: "180px",
+  },
+  loadingContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: "100vh",
+    backgroundColor: "#ffffff",
   },
   contactText: {
     margin: 0,

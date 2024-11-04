@@ -163,29 +163,29 @@ const TaskBar = ({ onSearch, onLogout }) => {
         </div>
       </div>
       <div className="right-section">
-        {dropdownVisible && (
-          <DropdownMenu
-            categories={categories}
-            onClose={() => setDropdownVisible(false)}
-          />
-        )}
+       
         {isAuthenticated || isMobileView ? (
-          <div
-            className="category-container"
-            onClick={() => {
-              if (isAuthenticated) {
-                setDropdownVisible(!dropdownVisible);
-              } else {
-                handleLoginClick();
-              }
-            }}
-          >
-            <img
-              src={profileImage}
-              alt="User"
-              className="nav-icon profile-image"
-            />
+        <div className="profile-dropdown-wrapper">
+        <div
+          className="category-container"
+          onClick={() => {
+            if (isAuthenticated) {
+              setDropdownVisible(!dropdownVisible);
+            } else {
+              handleLoginClick();
+            }
+          }}
+        >
+          <img src={profileImage} alt="User" className="nav-icon profile-image" />
+        </div>
+      
+        {dropdownVisible && (
+          <div className="dropdown-menu-container">
+            <DropdownMenu categories={categories} onClose={() => setDropdownVisible(false)} />
           </div>
+        )}
+      </div>
+      
         ) : (
           <button className="login-button" onClick={handleLoginClick}>
             Login / Register

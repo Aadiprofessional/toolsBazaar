@@ -8,6 +8,7 @@ import RightSection from "../components/prodectDetail/RightSection";
 import Lottie from "lottie-react";
 
 import loadingAnimation from "../assets/Animation - 1730717782675.json"; 
+import { ToastContainer } from "react-toastify";
 
 const ProductDetail = () => {
   const location = useLocation();
@@ -85,6 +86,7 @@ const ProductDetail = () => {
 
   return (
     <div>
+      <ToastContainer/>
       <div style={styles.pageContainer}>
         <TaskBar />
         <div style={styles.contentContainer}>

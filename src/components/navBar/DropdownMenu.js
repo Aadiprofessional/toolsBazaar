@@ -139,8 +139,8 @@ const DropdownMenu = ({ onClose }) => {
 const styles = {
   dropdownMenu: {
     position: "absolute",
-    top: "90px",
-    right: "20px",
+    top: "70px",
+   
     backgroundColor: "#ffffff",
     borderRadius: "4px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",

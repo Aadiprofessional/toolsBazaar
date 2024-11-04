@@ -84,18 +84,25 @@ const ProductCard = ({ product }) => {
           <div style={styles.priceContainer}>
           <div style={styles.leftColumn}>
             <div style={styles.rightColumn}>
-              <p style={styles.regularPrice}>₹{product.price}</p>
-              <p style={styles.cutPrice}>₹{discountedPrice.toFixed(2)}</p>
-            </div>
-            <div style={styles.rightColumn}>
-              <p style={styles.discountText}>{product.additionalDiscount}% off</p>
-              <p style={styles.saveText}>You save ₹{(product.price - discountedPrice).toFixed(2)}!</p>
+            {discountedPrice < product.price && (
+                  <>
+                    <p style={styles.regularPrice}>₹{product.price}</p>
+                  </>
+                )}
+                <p style={styles.cutPrice}>₹{discountedPrice.toFixed(2)}</p>
+              </div>
+              <div style={styles.rightColumn}>
+                {discountedPrice < product.price && (
+                  <>
+                    <p style={styles.discountText}>{product.additionalDiscount}% off</p>
+                    <p style={styles.saveText}>You save ₹{(product.price - discountedPrice).toFixed(2)}!</p>
+                  </>
+                )}
             </div>
             </div>
           </div>
         </div>
       </div>
-    
     </div>
   );
 };

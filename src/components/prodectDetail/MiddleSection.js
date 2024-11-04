@@ -159,6 +159,7 @@ const MiddleSection = ({
       }
     }
   };
+console.log(selectedData);
 
   return (
     <div className="middle-section">

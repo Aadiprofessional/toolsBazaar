@@ -26,7 +26,7 @@ const styles = {
   banner: {
     width: '100%',
     height: '170px', // Set your desired height
-    backgroundImage: `url('https://firebasestorage.googleapis.com/v0/b/toolsbazaar-c1927.appspot.com/o/banners%2Fbanner1?alt=media')`,
+    backgroundImage: `url('https://firebasestorage.googleapis.com/v0/b/toolsbazaar-c1927.appspot.com/o/banners%2Fbanner4?alt=media')`,
     backgroundSize: 'cover', // Ensure the image covers the container
     backgroundPosition: 'center', // Center the image
     backgroundRepeat: 'no-repeat', // Avoid repeating the image

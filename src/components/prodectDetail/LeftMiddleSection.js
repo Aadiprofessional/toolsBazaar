@@ -25,7 +25,7 @@ const LeftMiddleSection = ({
 }) => {
   const { mainId, categoryId, productId } = useParams();
   
-console.log(main);
+
 
   // Dynamically get the data based on selected attributes
   const selectedData = product?.data?.[product.attribute1]?.[selectedAttribute1]?.[product.attribute2]?.[selectedAttribute2]?.[selectedAttribute3] || {};
