@@ -1,0 +1,296 @@
+/* Global container styles */
+.containerProduct {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.breadcrumb {
+  padding: 10px 20px;
+  font-size: 17px;
+  color: #555;
+  margin-top: 40px;
+}
+.home-link {
+  color: #ff5733; /* Example color, change it to your preferred color */
+}
+
+.contentProduct {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.left-sectionProduct {
+  flex: 1 1 25%;
+  margin-right: 20px;
+  text-align: left;
+  flex-direction: column;
+}
+
+.product-image {
+  width: 100%;
+  height: 60vh;
+  margin-bottom: 10px;
+  object-fit: contain;
+}
+
+.image-optionsC {
+  display: flex;
+  flex-direction: row; /* Aligns images in a row */
+  justify-content: flex-start; /* Aligns items to the left */
+  margin-top: 10px;
+  gap: 10px; /* Adds space between image options */
+}
+
+.image-option-containerC {
+  width: 100px;
+  height: 100px;
+  margin: 0 5px; /* Adds space between images horizontally */
+  border-radius: 8px;
+  border: 2px solid #333;
+  cursor: pointer;
+}
+
+.image-option {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+/* Skeleton Loader */
+.skeleton {
+  width: 100%;
+  height: 300px; /* Adjust height as necessary */
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px; /* Optional: add some border radius */
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.banner-image {
+  width: 100%;
+  height: auto;
+  margin: 20px 0;
+}
+
+.description-wrapper {
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.description-box {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  min-height: 100px;
+}
+
+.specification-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.specification-label {
+  text-align: left;
+  padding: 8px;
+  font-weight: bold;
+  border: 1px solid #ddd;
+}
+
+.specification-value {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+.even-row {
+  background-color: #f2f2f2;
+}
+
+.odd-row {
+  background-color: #ffffff;
+}
+
+.frequently-bought {
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+/* Add this CSS for the button positioning */
+.mobile-add-to-cart-button {
+  position: fixed; /* Change from absolute to fixed */
+  bottom: 10px; /* Position from the bottom */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: #FF5733;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: none; /* Hidden by default */
+  z-index: 1000; /* Ensures it is above other content */
+}
+.mobile-price-info {
+  display: none; /* Hidden by default */
+}
+
+.discounted-price {
+  color: #ff5733; /* Highlight discounted price color */
+  font-weight: bold;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #999; /* Faded color for the original price */
+}
+/* Media Queries */
+
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .contentProduct {
+    flex-direction: column;
+  }
+ 
+  .mobile-price-info {
+    display: block; /* Show on mobile */
+    padding: 10px 20px;
+  }
+
+  .mobile-add-to-cart-button {
+    display: block; /* Show button on mobile */
+    width: 80%; /* Button width */
+    margin: 0 auto; /* Center the button */
+  }
+  .left-sectionProduct {
+    flex: 1 1 25%;
+    margin-right: 0px;
+    text-align: left;
+    flex-direction: column;
+  }
+
+  .product-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  .image-optionsC {
+    justify-content: flex-start; /* Keep image options in a row */
+    margin-top: 10px;
+    flex-wrap: wrap; /* Ensures images wrap if they exceed screen width */
+  }
+
+  .right-section {
+    width: 40%;
+    margin-left: 0;
+    margin-top: 0px;
+    gap: 0.6rem;
+  }
+
+  .white-box {
+    padding: 15px;
+  }
+
+  .buttons-container {
+    flex-direction: column;
+  }
+
+  .description-wrapper {
+    margin-top: 10px;
+    padding: 15px;
+  }
+
+  .description-box {
+    padding: 15px;
+    font-size: 14px; /* Reduced font size for mobile */
+  }
+
+  .specification-label,
+  .specification-value {
+    padding: 6px;
+    font-size: 14px; /* Reduced font size for mobile */
+  }
+
+  .specification-table {
+    width: 100%; /* Ensures table doesn't overflow */
+  }
+}
+
+@media (max-width: 480px) {
+  .product-image {
+    height: 50vh;
+  }
+
+  .tab-button {
+    font-size: 14px;
+  }
+
+  .frequently-bought {
+    font-size: 18px;
+  }
+
+  .image-optionsC {
+    flex-direction: row; /* Keep images in a row on small screens */
+    justify-content: flex-start;
+    flex-wrap: wrap; /* Allows image options to wrap on very small screens */
+    margin-top: 10px;
+    gap: 10px; /* Adds space between image options */
+  }
+
+  .image-option-containerC {
+    width: 80px; /* Adjust width for smaller screens */
+    height: 80px; /* Adjust height for smaller screens */
+    margin: 0 5px;
+    border-radius: 8px;
+    border: 2px solid #333;
+    cursor: pointer;
+  }
+
+  .description-box {
+    padding: 20px;
+    font-size: 12px; /* Further reduced font size for smaller screens */
+    line-height: 1.5; /* Increase line height for better readability */
+  }
+
+  .specification-label,
+  .specification-value {
+    padding: 5px;
+    font-size: 12px; /* Further reduced font size */
+  }
+
+  .description-box,
+  .specification-table {
+    width: 100%; /* Ensures full width usage */
+    word-wrap: break-word; /* Forces long text to break onto new lines */
+  }
+}

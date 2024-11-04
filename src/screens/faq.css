@@ -1,0 +1,106 @@
+/* General container styling for the whole screen */
+.faq-screen {
+    background-color: #f0f0f0; /* Gray background */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Styling the FAQ container */
+  .faq-container {
+    flex: 1;
+    padding: 16px;
+    width: 70%; /* Set the width to 70% of the total screen */
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 100px; /* Add space for TaskBar */
+  }
+  
+  /* FAQ cards */
+  .faq-card {
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+  }
+  .update-faq-text{
+    margin-left: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+  }
+  /* Header with FAQ question and icon */
+  .faq-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    cursor: pointer;
+    font-family: 'Outfit-Medium', sans-serif;
+    font-size: 16px;
+  }
+  
+  .faq-question {
+    flex: 1;
+    color: #333;
+  }
+  
+  .faq-icon {
+    font-size: 20px;
+    color: #333;
+  }
+  
+  /* FAQ answer body */
+  .faq-body {
+    padding: 16px;
+    font-family: 'Outfit-Medium', sans-serif;
+    font-size: 14px;
+    color: #666;
+    border-top: 1px solid #ddd;
+    word-wrap: break-word; /* Ensure long words wrap onto the next line */
+  }
+  
+  /* Responsive design */
+  @media (max-width: 600px) {
+    .faq-container {
+      width: 90%; /* Reduce width to 90% on smaller screens */
+      padding: 8px;
+    }
+  
+    .faq-header {
+      font-size: 14px;
+    }
+  
+    .faq-body {
+      font-size: 12px;
+    }
+  }
+  
+  /* Fixed TaskBar and Footer */
+  .taskbar{
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #333;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Outfit-Medium', sans-serif;
+    z-index: 1000;
+  }
+  
+  .taskbar {
+    top: 0;
+  }
+  
+ 
+  
+  @media (max-width: 600px) {
+    .taskbar {
+      height: 50px;
+      font-size: 12px;
+    }
+  }
+  

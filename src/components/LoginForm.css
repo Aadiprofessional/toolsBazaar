@@ -1,0 +1,178 @@
+.login-container {
+  width: 60%;
+  height: 80%;
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  margin: 0 auto;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1000px; /* Add a max-width to prevent overflow on large screens */
+}
+
+.login-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7f7f7; /* Ensures the image always takes 50% of the container */
+}
+
+.login-image {
+  max-width: 100%; /* Ensure image scales within its container */
+  height: auto;
+  object-fit: contain;
+}
+
+.login-right {
+  flex: 1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.login-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.login-top-image {
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 200px;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 300px;
+}
+
+.login-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.continue-button {
+  width: 50%;
+  padding: 10px;
+  background-color: #E9611E;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+.google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  color: #5f6368;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 15px;
+  margin-top: 15px;
+  border: 1px solid #dadce0;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.google-button:hover {
+  background-color: #f7f8fa;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    width: 90%;
+    flex-direction: column; /* Stack the elements on smaller screens */
+    height: auto; /* Adjust height to fit content */
+  }
+
+  .login-left {
+    display: none; /* Hide the image on smaller screens */
+  }
+  .login-right {
+    width: 90%; /* Ensure both take full width */
+  }
+
+  .login-title {
+    font-size: 20px; /* Adjust font size for smaller screens */
+  }
+
+  .login-input,
+  .continue-button {
+    font-size: 14px; /* Reduce font size for inputs and buttons */
+  }
+
+  .otp-block {
+    width: 30px; /* Reduce size of OTP blocks */
+    height: 30px;
+    font-size: 18px;
+  }
+
+  .resend-otp-button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: transparent; /* No background color */
+    color: #046699; /* Blue text color */
+    border: none; /* Remove border */
+    cursor: pointer;
+    font-size: 16px; /* Adjust font size as needed */
+    text-decoration: underline; /* Add underline to indicate it's clickable */
+  }
+
+  .resend-otp-button:hover {
+    color: #035a8a; /* Darker blue on hover */
+    text-decoration: none; /* Remove underline on hover */
+  }
+
+  .continue-button {
+    font-size: 14px; /* Adjust button text size */
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-left {
+    display: none; /* Hide the image on smaller screens */
+  }
+
+  .login-title {
+    font-size: 18px; /* Further reduce font size on very small screens */
+  }
+
+  .login-input,
+  .continue-button {
+    font-size: 12px;
+  }
+
+  .otp-block {
+    width: 25px; /* Adjust OTP block size */
+    height: 25px;
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

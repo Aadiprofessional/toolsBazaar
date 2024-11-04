@@ -1,0 +1,216 @@
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    flex-wrap: wrap;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.left-part {
+    flex-basis: 60%;
+    text-align: left;
+    min-width: 250px;
+}
+
+.left-part-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.item-name {
+    font-size: 18px;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+}
+
+.item-image {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    border: 1px solid #ddd;
+}
+
+.item-details {
+    margin-left: 20px;
+    flex: 1;
+}
+
+.detail-text2 {
+    margin-bottom: 5px;
+    font-size: 14px;
+    line-height: 20px;
+    max-width: 50ch;
+    overflow: hidden;
+    white-space: pre-wrap;
+}
+
+.detail-title {
+    color: #555;
+}
+
+.remove-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px 0;
+    margin-top: 10px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: #E9611E;
+}
+
+.remove-text {
+    display: block;
+}
+
+.remove-icon {
+    display: none;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+}
+
+/* Right Part Styles */
+.right-part {
+    flex-basis: 35%;
+    text-align: right; /* Ensure text is aligned to the right */
+    position: relative;
+    min-width: 250px;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Aligns the quantity control to the right */
+    gap: 5px;
+    margin-bottom: 10px; /* Add space between quantity control and price */
+}
+
+.price-text {
+    font-size: 16px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+}
+
+.right-part-calculations {
+    text-align: right;
+}
+
+.price-text {
+    font-size: 16px;
+    margin-bottom: 5px;
+    margin-top: 70px;
+    white-space: nowrap;
+}
+
+.details-button {
+    color: #E9611E;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px 0;
+    margin-left: 10px;
+}
+
+.right-part-text {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.final-price {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+
+.quantity-buttonCart {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.quantity {
+    font-size: 16px;
+}
+
+/* Media query for screens below 768px */
+@media (max-width: 768px) {
+    .cart-item {
+        flex-direction: column; /* Stack elements vertically */
+    }
+
+    .left-part {
+        text-align: left;
+    }
+
+    .item-image {
+        width: 100px; /* Smaller image size */
+        height: 100px;
+    }
+
+    .left-part-content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap; /* Stack image and details vertically */
+    }
+
+    .item-details {
+        margin-left: 10px; /* Remove left margin on small screens */
+    }
+
+    .remove-button {
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+    .remove-text {
+        display: none;
+    }
+
+    .remove-icon {
+        display: block;
+    }
+
+    .right-part {
+        width: 100%;
+        text-align: left;
+        margin-top: 10px; /* Space between sections */
+    }
+
+    .quantity-control {
+        position: static;
+        margin-top: 10px; /* Add spacing between elements */
+    }
+
+    .price-text {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .right-part-calculations {
+        margin-top: 10px; /* Add margin to separate from price text */
+        background-color: #f0f0f0; /* Gray background */
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .right-part-calculations.expanded {
+        display: block;
+    }
+
+    .right-part-calculations:not(.expanded) {
+        display: none;
+    }
+}

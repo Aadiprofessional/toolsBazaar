@@ -1,0 +1,171 @@
+/* General container styling */
+.register-container {
+  width: 80%;
+  max-width: 1000px; /* Ensure it doesn't get too wide */
+  min-width: 300px; /* Ensure it doesn't get too narrow */
+  height: auto;
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevent overflow */
+  flex-direction: row; /* Keep left and right sections side by side */
+}
+
+.register-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7f7f7;
+  margin: 0; /* Ensure there are no margins */
+  padding: 0; /* Ensure there is no padding */
+}
+
+.login-image {
+  width: 100%; /* Ensure the image takes the full width of its container */
+  height: 100%; /* Ensure the image takes the full height of its container */
+  object-fit: cover; /* Ensure the image covers the container without distortion */
+  /* Optional: Add rounded corners to the image */
+  border-radius: 8px; /* Adjust as necessary */
+}
+
+
+/* Right section styling for the form */
+.register-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.register-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Form styling */
+.register-form {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.register-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* OTP input container */
+.otp-input-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 10px 0;
+  flex-direction: row;
+}
+
+.otp-block {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.resend-otp-button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: transparent; /* No background color */
+  color: #046699; /* Blue text color */
+  border: none; /* Remove border */
+  cursor: pointer;
+  font-size: 16px; /* Adjust font size as needed */
+  text-decoration: underline; /* Add underline to indicate it's clickable */
+}
+
+.resend-otp-button:hover {
+  color: #035a8a; /* Darker blue on hover */
+  text-decoration: none; /* Remove underline on hover */
+}
+
+/* Button styling */
+.register-button {
+  background-color: #E9611E;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+.register-button:disabled, .resend-otp-button:disabled {
+  background-color: #cccccc;
+}
+
+/* Responsive Design: Adjust for smaller screens */
+@media (max-width: 768px) {
+  .register-container {
+    flex-direction: column; /* Stack image and form vertically */
+    padding: 10px;
+    overflow: scroll;
+    margin: 2rem auto;
+  }
+
+  .register-left, .register-right {
+    flex: none; /* Remove flex grow on small screens */
+    width: 95%; /* Take full width of the container */
+    padding: 10px; /* Adjust padding */
+  }
+
+  .register-left {
+    margin-bottom: 20px; /* Add space between image and form */
+  }
+
+  .login-image {
+    max-width: 80%; /* Ensure image doesn't take too much space */
+    height: auto;
+  }
+
+  .register-title {
+    font-size: 1.5rem;
+  }
+
+  .register-input {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .otp-block {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .register-button, .resend-otp-button {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}
+
+/* Larger screens */
+@media (min-width: 1200px) {
+  .register-container {
+    max-width: 1200px;
+  }
+}

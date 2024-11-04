@@ -1,0 +1,140 @@
+.middle-section {
+    flex: 2 1 30%;
+    margin-right: 20px;
+    text-align: left;
+  }
+  
+  .description {
+    color: #606060;
+    margin-bottom: 10px;
+  }
+  
+  .view-more-button {
+    background-color: transparent;
+    color: #E9611E;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: underline;
+  }
+  
+  .divider {
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+  }
+  
+  .ream-text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .ream-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .ream-option-button {
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #dddddd;
+    color: #000;
+  }
+  
+  .ream-option-button.selected {
+    background-color: #E9611E;
+    color: #fff;
+  }
+  
+  .price-textProductPage {
+    font-size: 28px;
+    font-weight: bold;
+    color: #e9611e;
+    margin-bottom: 10px;
+  }
+  
+  .gst-inclusive-textPage,
+  .gst-extra-textPage {
+    font-size: 16px;
+    color: #333;
+  }
+  .quantity-containerPage {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  .out-of-stock-textPage{
+    font-size: 16px;
+    color: #c71111;
+  }
+  .quantity-buttonPage {
+    background-color: #ddd;
+    border: none;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .quantity-displayPage {
+    margin: 0 15px;
+    font-size: 18px;
+  }
+  
+  .min-order-textPage {
+    margin-left: 15px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .buttons-containerPage {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .add-to-cart-buttonPage {
+    padding: 15px 0;
+    background-color: #ff5733;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  
+  
+  .add-to-cart-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .add-to-cart-buttonPage, 
+  .price-textProductPage, 
+  .gst-inclusive-textPage,
+  .gst-extra-textPage,
+  .out-of-stock-textPage,
+  .quantity-containerPage {
+    display: none;
+  }
+  
+  /* Only show them on mobile screens */
+  @media only screen and (max-width: 768px) {
+    .add-to-cart-buttonPage, 
+    .price-textProductPage, 
+    .gst-inclusive-textPage,
+    .gst-extra-textPage,
+    .quantity-containerPage {
+      display: block;
+    }
+  }
+  

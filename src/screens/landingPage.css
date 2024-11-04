@@ -1,0 +1,60 @@
+/* Base styles for the page */
+.pageContainer2 {
+    background-color: #f5f5f5;
+    margin-top: 90px;
+    display: flex;
+  }
+  
+  /* Content container */
+  .pageContainer {
+    background-color: #ffffff;
+    margin-left: 400px;
+    margin-right: 100px;
+    flex: 1;
+  }
+  
+  .bannerSidebarContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .bannerContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Product sections */
+  .productSectionsContainer {
+    margin-top: 40px;
+  }
+  
+  /* Responsive Design - Phone Screens */
+  @media (max-width: 768px) {
+    .pageContainer2 {
+      flex-direction: column;
+    }
+  
+    .pageContainer {
+      margin: 0 20px; /* Adjust margins for mobile view */
+    }
+  
+    .bannerSidebarContainer {
+      flex-direction: column; /* Stack banner and sidebar vertically */
+    }
+  
+    .bannerContainer {
+      justify-content: center;
+    }
+  
+    .pageContainer2 {
+      margin-left: 0; /* Remove the large left margin on mobile */
+    }
+  
+    /* Hide the LeftBox on smaller screens */
+    .leftBox {
+      display: none;
+    }
+  }
+  

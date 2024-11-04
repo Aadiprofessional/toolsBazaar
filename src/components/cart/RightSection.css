@@ -1,0 +1,16 @@
+/* Default styles for right section */
+.right-sectionCart {
+    width: 35%;
+    padding: 20px;
+    background-color: #F3F3F3;
+    border-radius: 8px;
+    margin-top: 50px;
+  }
+  
+  /* Media query to hide the right section on screens smaller than 768px */
+  @media (max-width: 768px) {
+    .right-sectionCart {
+      display: none;
+    }
+  }
+  

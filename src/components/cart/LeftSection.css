@@ -1,0 +1,132 @@
+/* Left Section Styles */
+.left-section-custom {
+    width: 60%;
+    padding: 20px;
+    background-color: #F3F3F3;
+    margin-top: 50px;
+    margin-right: 20px;
+  }
+  
+  /* Cart Summary Box */
+  .cart-summary-box-custom {
+    padding: 5px 10px;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    border: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 20px;
+  }
+  
+  .cart-summary-title-custom {
+    display: inline-block;
+  }
+  
+  .discount-text-custom {
+    color: #57B355;
+    padding: 5px;
+    display: inline-block;
+  }
+  
+  /* Cart Items Box */
+  .cart-items-box-custom {
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #FFFFFF;
+  }
+  
+  /* Button Container */
+  .button-container-custom {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .button-wrapper-custom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .continue-button-custom {
+    padding: 10px 20px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #fff;
+  }
+  
+  .place-order-button-custom {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #FB8339;
+    color: #fff;
+  }
+  
+  /* Media Query for Tablet (max-width: 768px) */
+  @media (max-width: 768px) {
+    .left-section-custom {
+      width: 100%;
+      margin-right: 0;
+      padding: 15px;
+    }
+  
+    .cart-summary-box-custom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .button-wrapper-custom {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .continue-button-custom,
+    .place-order-button-custom {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+  
+  /* Media Query for Phone (max-width: 480px) */
+  @media (max-width: 480px) {
+    .left-section-custom {
+      width: 100%;
+      padding: 10px;
+    }
+  
+    .cart-summary-title-custom {
+      font-size: 16px;
+    }
+  
+    .discount-text-custom {
+      font-size: 14px;
+      text-align: center;
+    }
+  
+    .cart-summary-box-custom {
+      padding: 5px;
+    }
+  
+    .continue-button-custom,
+    .place-order-button-custom {
+      width: 100%;
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    .button-wrapper-custom {
+      padding: 5px;
+    }
+  }
+  

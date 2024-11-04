@@ -1,0 +1,118 @@
+.left-slider-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.left-slider-container.open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.left-slider-content {
+    background: white;
+    width: 50%;
+    height: 100%;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 10px;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+
+.nav-text {
+    font-size: 20px;
+    font-family: 'Outfit-Regular', sans-serif;
+    margin-left: 10px;
+    margin-right: auto;
+    color: #000;
+    max-width: 70%;
+}
+
+.subcategory-container {
+    margin-top: 5px;
+    padding-left: 20px;
+}
+
+.subcategory-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+    flex-wrap: wrap;
+}
+
+.subcategory-text {
+    font-size: 18px;
+    font-family: 'Outfit-Regular', sans-serif;
+    color: #000;
+    max-width: 70%;
+}
+
+.categories-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.categories-header-text {
+    font-size: 32px;
+    font-family: 'Outfit-Medium', sans-serif;
+    color: #ff6600;
+}
+
+.footer-container {
+    margin-top: auto; /* Ensures footer stays at the bottom */
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.footer-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.footer-text {
+    font-size: 16px;
+    font-family: 'Outfit-Regular', sans-serif;
+    color: #888;
+    margin-left: 10px;
+}
+
+.chevron-icon {
+    font-size: 20px;
+    margin-left: 10px;
+    color: #ff0000;
+}
+
+.close-icon {
+    cursor: pointer;
+    font-size: 24px;
+    padding-left: 10px;
+}
