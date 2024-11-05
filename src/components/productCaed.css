@@ -1,65 +1,141 @@
 .product-card {
-    width: 100%;
-    max-width: 200px;
-    border: 1px solid #ddd;
-    padding: 20px;
-    position: relative;
-    background-color: #fff;
-    box-sizing: border-box;
+  width: 100%;
+  max-width: 220px;
+  height: 300px; /* Set fixed height for uniformity */
+  border: 1px solid #ddd;
+  padding: 20px;
+  position: relative;
+  background-color: #fff;
+  box-sizing: border-box;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures bottom alignment for the divider */
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
 
-    cursor: pointer;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+
+
+/* Image container adjustments to fit the new layout */
+.image-container {
+  width: 100%;
+  padding-top: 70%; /* Adjust ratio to fit card height */
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.text-container {
+  flex: 1;
+  text-align: left;
+  padding-top: 10px;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+  .label-container-large {
+    display: block;
   }
   
-  .product-card:hover {
-    transform: scale(1.05);
+  .label-container-small {
+    display: none;
   }
+
   
   /* Media Query for Tablets */
   @media (max-width: 768px) {
     .product-card {
       max-width: 150px;
     }
+    .label-container-large {
+      display: none;
+    }
+    .price-container{
+      margin-top: 50px;
+    }
+    /* Show the small container on small screens */
+    .label-container-small {
+      display: block;
+    }
   }
   
   /* Media Query for Phones */
   @media (max-width: 468px) {
     .product-card {
-      max-width: 140px;
+      max-width: 167px;
       padding: 10px;
     }
-  
+    .price-container{
+      margin-top: 30px;
+    }
     /* Label adjustments for smaller screens */
+    .label-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 70;
+    }
+    
     .label {
+      background-color: #ea6021;
+      color: #fff;
+      padding: 5px 8px;
+      border-radius: 15px 0 0 15px;
       font-size: 8px;
-      height: auto;
-      padding: 10px;
-      word-break: break-word; /* Ensures label text wraps */
-      white-space: normal; /* Text will go to next line */
+      font-weight: bold;
+      display: flex;
+      align-items: center;
     }
-  
-    /* Adjusting the label container */
+    
     .label-content {
-      flex-direction: column;
-      text-align: center;
+      display: flex;
+      align-items: center;
     }
+    
+    .circle {
+      background-color: #fff;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 5px; /* Increased margin for better spacing */
+    }
+    
+    .truck-icon {
+      width: 12px;
+      height: 12px;
+    }
+    
+    /* New styles for multiline text */
+    .label-text {
+      display: flex;
+      flex-direction: column; /* Stack text lines vertically */
+      line-height: 1; /* Adjust line height for spacing */
+    }
+    
   }
   
-  .content-wrapper {
-    height: 100%;
-    position: relative;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
+
   .label-container {
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 70;
+    z-index: 10;
   }
   
   .label {
@@ -94,13 +170,12 @@
     height: 12px;
   }
   
-  .image-container {
-    width: 100%;
-    padding-top: 80%;
-    position: relative;
-    margin-bottom: 10px;
+
+  .label-text {
+    display: flex;
+    flex-direction: column; /* Stack text lines vertically */
+    line-height: 1; /* Adjust line height for spacing */
   }
-  
   .image {
     position: absolute;
     top: 0;
@@ -110,49 +185,66 @@
     object-fit: contain;
   }
   
-  .text-container {
-    text-align: left;
-  }
+
   
   .product-name {
     font-weight: 600;
     font-size: 14px;
     margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limits text to 2 lines */
+    -webkit-box-orient: vertical;
+    height: 40px; /* Adjust height to ensure alignment */
   }
   
+  /* Fixed-position divider 20% from the bottom */
   .divider {
+    position: absolute;
+    bottom: 20%;
+    left: 0;
+    right: 0;
     border-top: 1px dotted #ccc;
     margin: 10px 0;
+    z-index: 5;
+    width: 100%;
   }
   
+  /* Positioning for the price and discount container */
   .price-container {
     display: flex;
     justify-content: space-between;
+    position: relative;
+    bottom: 10%;
   }
+  
+
+
   
   .regular-price {
     text-decoration: line-through;
     color: #666;
-    font-size: 14px;
+    font-size: 12px;
     margin-right: 10px;
   }
   
   .cut-price {
     color: #ea6021;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
   }
   
   .discount-text {
     color: #25881a;
-    font-size: 14px;
+    font-size: 8px;
     font-weight: bold;
     margin-right: 10px;
   }
   
   .save-text {
     color: #25881a;
-    font-size: 12px;
+    font-size: 8px;
     font-weight: bold;
   }
   
@@ -168,11 +260,11 @@
     width: 100%;
     background-color: #fff;
     opacity: 0;
-    z-index: -1;
+    z-index:-10;
     transition: opacity 0.3s ease;
   }
   
-  .product-card:hover .hover-content {
+  .hover-content {
     opacity: 1;
     z-index: 1;
   }

@@ -46,8 +46,8 @@ const ProductsGrid2 = () => {
   }, []);
 
   const renderSkeletonCard = () => (
-    <Card style={{ width: 240, margin: '10px' }}>
-      <Skeleton.Image style={{ width: 200, height: 150 }} />
+    <Card style={{ width: 215, margin: '1px' }}>
+      <Skeleton.Image style={{ width: 160, height: 150 }} />
       <Skeleton active title={{ width: '60%' }} paragraph={{ rows: 2 }} />
     </Card>
   );
@@ -55,7 +55,7 @@ const ProductsGrid2 = () => {
   return (
     <div style={styles.container}>
       {loading
-        ? Array(6).fill(null).map((_, index) => renderSkeletonCard()) // Show 6 skeleton cards while loading
+        ? Array(12).fill(null).map((_, index) => renderSkeletonCard()) // Show 6 skeleton cards while loading
         : products.map((product) => (
             <ProductCard product={product} key={product.id} />
           ))}
@@ -67,9 +67,9 @@ const styles = {
   container: {
     display: "flex",
     flexWrap: "wrap",
-    gap: "10px", // Space between the product cards
+   // Space between the product cards
     justifyContent: "flex-start", // Aligns items to start from the left
-    padding: "20px", // Padding around the container
+    // Padding around the container
   },
   productCard: {
     flex: "1 1 calc(33.33% - 10px)", // 3 cards per row by default

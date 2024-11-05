@@ -13,7 +13,7 @@ const ProductCard = ({ product }) => {
 
   const handleCardClick = () => {
     console.log('Product object:', product); // Log the product object
-  
+
     if (product) {
       console.log('Attribute 1:', product.attribute1);
       console.log('Attribute 2:', product.attribute2);
@@ -26,8 +26,8 @@ const ProductCard = ({ product }) => {
               ...product,
               image: product.image,
               main: product.main, // Pass `main` in the state object
-              product:product.product,
-              category:product.category,
+              product: product.product,
+              category: product.category,
               attribute1ID: product.attribute1,
               attribute2ID: product.attribute2,
               attribute3ID: product.attribute3,
@@ -35,15 +35,15 @@ const ProductCard = ({ product }) => {
           },
         }
       );
-      
+
     } else {
       console.error('Product object is undefined');
     }
   };
-  
-  
-  
-  
+
+
+
+
 
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
@@ -54,37 +54,49 @@ const ProductCard = ({ product }) => {
 
   return (
     <div
-  className="product-card"
-  onMouseEnter={() => setIsHovered(true)}
-  onMouseLeave={() => setIsHovered(false)}
-  onClick={handleCardClick}
->
-  <div className="label-container">
-    <div className="label">
-      <div className="label-content">
-        <div className="circle">
-          <img src={truckIcon} alt="Truck" className="truck-icon" />
+      className="product-card"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={handleCardClick}
+    >
+      <div className="label-container label-container-large">
+        <div className="label">
+          <div className="label-content">
+            <div className="circle">
+              <img src={truckIcon} alt="Truck" className="truck-icon" />
+            </div>
+            Ships within 24 hrs
+          </div>
         </div>
-        Ships within 24 hrs
       </div>
-    </div>
-  </div>
-  <div className="content-wrapper">
-        
-        <div style={styles.imageContainer}>
-          <img
-            src={product.image}
-            alt={product.name}
-            style={styles.image}
-          />
+
+      <div className="label-container label-container-small">
+        <div className="label">
+          <div className="label-content">
+            <div className="circle">
+              <img src={truckIcon} alt="Truck" className="truck-icon" />
+            </div>
+            <div className="label-text">
+              <span>Ships</span>
+              <span>within</span>
+              <span>24 hrs</span>
+            </div>
+          </div>
         </div>
-        <div style={styles.textContainer}>
-          <h5 style={styles.productName}>{product.name}</h5>
-          <hr style={styles.divider} />
-          <div style={styles.priceContainer}>
-          <div style={styles.leftColumn}>
-            <div style={styles.rightColumn}>
-            {discountedPrice < product.price && (
+      </div>
+
+
+      <div className="content-wrapper">
+  <div className="image-container">
+    <img src={product.image} alt={product.name} className="image" />
+  </div>
+  <div className="text-container">
+    <h5 className="product-name">{product.name}</h5>
+    <hr className="divider" />
+    <div className="price-container">
+            <div style={styles.leftColumn}>
+              <div style={styles.rightColumn}>
+                {discountedPrice < product.price && (
                   <>
                     <p style={styles.regularPrice}>₹{product.price}</p>
                   </>
@@ -94,11 +106,11 @@ const ProductCard = ({ product }) => {
               <div style={styles.rightColumn}>
                 {discountedPrice < product.price && (
                   <>
-                    <p style={styles.discountText}>{product.additionalDiscount}% off</p>
+                    <p style={styles.discountText}>{product.additionalDiscount}% off!</p>
                     <p style={styles.saveText}>You save ₹{(product.price - discountedPrice).toFixed(2)}!</p>
                   </>
                 )}
-            </div>
+              </div>
             </div>
           </div>
         </div>
@@ -168,8 +180,8 @@ const styles = {
     textDecoration: "line-through",
     color: "#666",
     fontSize: "14px",
-   
-    marginRight:"10px"
+
+    marginRight: "10px"
   },
   cutPrice: {
     color: "#EA6021",
@@ -178,15 +190,16 @@ const styles = {
   },
   discountText: {
     color: "#25881A",
-    fontSize: "14px",
-    fontWeight: "bold",
-    marginRight:"10px",
-  
+    fontSize: "10px",
+    fontWeight: "Regular",
+    marginRight: "10px",
+    
+
   },
   saveText: {
     color: "#25881A",
     fontSize: "12px",
-    fontWeight: "bold",
+    fontWeight: "Regular",
   },
   hoverContent: {
     display: "flex",

@@ -20,6 +20,9 @@ const MiddleSection = ({
   attribute1D,
   attribute2D,
   attribute3D,
+  attribute1Id ,
+  attribute2Id  ,
+  attribute3Id
 }) => {
   const [expanded, setExpanded] = useState(false);
   const descriptionRef = useRef(null);
@@ -139,20 +142,45 @@ const MiddleSection = ({
       return;
     }
 
-    if (product === product1) {
+    if (product) {
       setIsLoading(true);
       try {
         await addToCart(
-          product,
-          quantity,
+          product=product1,
+          Number(quantity),
           productName,
           attribute1,
           attribute2,
           attribute3,
           mainId,
           categoryId,
-          productId
+          productId,
+          attribute1Id = selectedData.attribute1Id,
+          attribute2Id  = selectedData.attribute2Id,
+          attribute3Id  = selectedData.attribute3Id,
+          selectedAttribute1 = selectedAttribute1,
+          selectedAttribute2 = selectedAttribute2,
+          selectedAttribute3 = selectedAttribute3,
+
+
         );
+        console.log(  'Add to cart',product,
+         'Add to cart2', Number(quantity),
+         'Add to cart3', productName,
+         'Add to cart4', attribute1,
+         'Add to cart5', attribute2,
+         'Add to cart6', attribute3,
+         'Add to cart7', mainId,
+        'Add to cart8',  categoryId,
+        'Add to cart9',  productId,
+         'Add to cart10', attribute1Id = selectedData.attribute1Id,
+        'Add to cart11',  attribute2Id  = selectedData.attribute2Id,
+          'Add to cart12',attribute3Id  = selectedData.attribute3Id,
+        'Add to cart13',  selectedAttribute1 = selectedAttribute1,
+         'Add to cart14', selectedAttribute2 = selectedAttribute2,
+         'Add to cart15', selectedAttribute3 = selectedAttribute3,
+);
+        
         toast.success("Product added to cart successfully!");
       } finally {
         setIsLoading(false);

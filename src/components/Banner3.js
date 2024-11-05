@@ -22,6 +22,7 @@ const styles = {
   container: {
     flexBasis: '100%',
     marginRight: 'auto',
+    marginBottom: 50,
   },
   banner: {
     width: '100%',
