@@ -20,7 +20,7 @@ const LeftSection = () => {
     0
   );
   console.log(totalAmount);
-  
+
   const handleUpdateQuantity = (id, quantity) => {
     updateCartItemQuantity(id, quantity);
   };
@@ -42,6 +42,13 @@ const LeftSection = () => {
     try {
       const userId = auth.currentUser.uid;
 
+      console.log('Amount', totalAmount,
+        'Data', data,
+        'Reward', useRewardPoints,
+        'Coupon', appliedCoupon,
+        'CartItems', cartItems,
+        'UserId', userId,
+      );
       const response = await axios.post(
         `https://toolsbazaar-server-1036279390366.asia-south1.run.app/checkout`,
         {
@@ -51,8 +58,9 @@ const LeftSection = () => {
           appliedCoupon,
           cartItems,
           uid: userId,
-        
+
         }
+
       );
 
       console.log("Checkout response:", response.data);
@@ -94,7 +102,7 @@ const LeftSection = () => {
         <h2 className="cart-summary-title-custom">
           My Cart ({itemCount} item{itemCount > 1 ? "s" : ""})
         </h2>
-      
+
       </div>
 
       <div className="cart-items-box-custom">
@@ -112,9 +120,9 @@ const LeftSection = () => {
                 attribute2: item.attribute2,
                 attribute3: item.attribute3,
                 product: item.product,
-                selectedAttribute1 : item.selectedAttribute1,
-                selectedAttribute2 : item.selectedAttribute2,
-                selectedAttribute3 : item.selectedAttribute3,
+                selectedAttribute1: item.selectedAttribute1,
+                selectedAttribute2: item.selectedAttribute2,
+                selectedAttribute3: item.selectedAttribute3,
               }}
             />
           ))}
@@ -136,7 +144,7 @@ const LeftSection = () => {
         </div>
       </div>
       <ProductsGrid2 />
-      
+
     </div>
   );
 };

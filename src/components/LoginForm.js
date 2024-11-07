@@ -149,7 +149,7 @@ const LoginForm = ({ onLogin }) => {
 
   return (
     <div className="login-container">
-      <ToastContainer />
+   
       <div className="login-left">
         <img src={loginImage} alt="Login" className="login-image" />
       </div>

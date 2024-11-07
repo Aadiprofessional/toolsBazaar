@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ProductsGrid2 from './ProductsGrid';
+import ProductsGrid3 from './ProductsGrid copy';
 
 const Banner2 = () => {
 
@@ -12,7 +13,7 @@ const Banner2 = () => {
         <span style={styles.text}>NEW ARRIVALS</span>
       </div>
       <div style={styles.productsContainer}>
-        <ProductsGrid2 /> {/* ProductsGrid placed below Banner */}
+        <ProductsGrid3 /> {/* ProductsGrid placed below Banner */}
       </div>
     </div>
   );

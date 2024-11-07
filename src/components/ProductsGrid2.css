@@ -1,23 +1,59 @@
-.products-container {
+.products-containerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusts dynamically */
+  gap: 0px; /* No space between cards */
+  padding: 10px; /* Padding around container */
+}
+.products-containerGrid2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusts dynamically */
+  gap: 0px; /* No space between cards */
+  padding: 10px; /* Padding around container */
+}
+.skeleton-cardGrid{
+  width: 100%;
+  max-width: 220px;
+  height: 300px; /* Set fixed height for uniformity */
+  border: 1px solid #ddd;
+  padding: 20px;
+  position: relative;
+  background-color: #fff;
+  box-sizing: border-box;
+  cursor: pointer;
+  overflow: hidden;
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px; /* Space between product cards */
-  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures bottom alignment for the divider */
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  
 }
 
-.product-card {
-  flex: 1 1 calc(33.33% - 16px); /* 3 cards per row */
-  box-sizing: border-box;
+/* Responsive media queries */
+@media (min-width: 1024px) {
+  .products-containerGrid {
+    grid-template-columns: repeat(4, 1fr); /* 4 cards per row on laptops */
+  }
+  .products-containerGrid2 {
+    grid-template-columns: repeat(5, 1fr); /* 4 cards per row on laptops */
+  }
 }
 
 @media (max-width: 768px) {
-  .product-card {
-    flex: 1 1 calc(50% - 16px); /* Two cards per row */
+  .products-containerGrid {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row on tablets */
+  }
+  .products-containerGrid2 {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row on tablets */
   }
 }
 
 @media (max-width: 480px) {
-  .product-card {
-    flex: 1 1 100%; /* One card per row on smaller devices */
+  .products-containerGrid {
+    grid-template-columns: repeat(2, 1fr); /* 1 card per row on mobile */
+  }
+  .products-containerGrid2 {
+    grid-template-columns: repeat(2, 1fr); /* 1 card per row on mobile */
   }
 }
+
+

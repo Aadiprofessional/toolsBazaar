@@ -1,15 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import TaskBar from "../components/TaskBar";
 import BrowseCategories from "../components/BrowseCategories";
 import Lottie from 'lottie-react';
 import animationData from "../assets/Animation - 1724952662598.json";
+import { FaEnvelope } from "react-icons/fa";
 
+import axios from "axios";
+import { auth } from "../firebaseConfig";
 const OrderPlacedScreen = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { state } = location;
   const orderId = state?.orderId;
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -19,8 +23,15 @@ const OrderPlacedScreen = () => {
     navigate("/");
   };
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
   const categories = [
-  "Abrasives",
+    "Abrasives",
     "Adhesives Sealants and Tape",
     "Agriculture Garden & Landscaping",
     "Automotive Maintenance and Lubricants",
@@ -49,6 +60,36 @@ const OrderPlacedScreen = () => {
     "Welding",
   ];
 
+  const handleGetQuotation = async (companyId, cartItems) => {
+    try {
+      if (!currentUser) {
+        console.error('User not authenticated');
+        return;
+      }
+  
+      const response = await axios.post(
+        'https://crossbee-server-1036279390366.asia-south1.run.app/quotationCheckout',
+        {
+          cartItems,
+          uid: currentUser.uid,
+          companyId,
+        }
+      );
+  
+      if (response.data.text) {
+        console.log('Quotation generated successfully');
+        navigate.push('/invoice', {
+          invoiceData: response.data.data,
+          url: response.data.invoice,
+          quotationId: response.data.quotationId,
+        });
+      } else {
+        console.error('Failed to generate quotation');
+      }
+    } catch (error) {
+      console.error('Error generating quotation: ', error);
+    }
+  };
   return (
     <div className="order-placed-screen" style={styles.orderPlacedScreen}>
       <TaskBar />
@@ -76,6 +117,9 @@ const OrderPlacedScreen = () => {
                   Your Order ID: <strong>{orderId}</strong>
                 </p>
               )}
+              <button style={styles.contactButton} onClick={handleGetQuotation}>
+                <FaEnvelope style={styles.icon} /> Get Quotation
+              </button>
               <button
                 style={styles.continueBrowsingButton}
                 onClick={handleLogoClick}

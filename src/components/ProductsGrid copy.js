@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 import { Skeleton, Card } from 'antd';
 import './ProductsGrid2.css'; // Import the CSS file for styling
 
-const ProductsGrid2 = () => {
+const ProductsGrid3 = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -12,7 +12,7 @@ const ProductsGrid2 = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "https://toolsbazaar-server-1036279390366.asia-south1.run.app/bestDeals"
+          "https://toolsbazaar-server-1036279390366.asia-south1.run.app/latestProducts"
         );
         const data = await response.json();
         setProducts(
@@ -54,7 +54,7 @@ const ProductsGrid2 = () => {
     </Card>
   );
   return (
-    <div className="products-containerGrid">
+    <div className="products-containerGrid2">
       {loading
         ? Array(8).fill(null).map((_, index) => renderSkeletonCard()) // Show skeletons while loading
         : products.map((product) => (
@@ -64,4 +64,4 @@ const ProductsGrid2 = () => {
   );
 };
 
-export default ProductsGrid2;
+export default ProductsGrid3;

@@ -57,7 +57,7 @@ const CartItem = ({ item, onRemoveItem, onUpdateQuantity }) => {
 
   return (
     <div className="cart-item">
-      <ToastContainer />
+  
       <div className="left-part">
         <h3 className="item-name">{item.productName || "Product Name"}</h3>
         <div className="left-part-content">

@@ -105,7 +105,7 @@ const RightSection = ({
         <h2 className="price-textProduct">₹{discountedPrice.toFixed(2)}</h2>
         <span className="gst-inclusive-text">(GST inclusive price)</span>
         <p className="gst-extra-text">₹{price.toFixed(2)}</p>
-        <hr className="divider" />
+        <hr className="dividerRight" />
         <p className="update-quantity-text">Update Quantity</p>
         <div className="quantity-container">
           <button

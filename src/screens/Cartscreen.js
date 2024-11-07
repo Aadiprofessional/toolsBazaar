@@ -5,7 +5,7 @@ import RightSection from "../components/cart/RightSection";
 import EmptyCartScreen from "../components/cart/EmptyCartScreen"; // Import the new component
 import TaskBar from "../components/TaskBar";
 import Footer from "../components/Footer";
-import { ToastContainer } from "react-toastify";
+
 
 const CartScreen = () => {
   const { cart } = useCart(); // Get cart from context
@@ -28,7 +28,7 @@ const CartScreen = () => {
 
   return (
     <div>
-      <ToastContainer />
+
       <div style={styles.container}>
         <TaskBar />
         <LeftSection cart={cart} />

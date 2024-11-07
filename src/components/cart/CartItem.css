@@ -41,12 +41,18 @@
 }
 
 .detail-text2 {
-    margin-bottom: 5px;
+    margin-bottom: 2px; /* Reduced margin between lines */
     font-size: 14px;
-    line-height: 20px;
+    line-height: 18px; /* Adjust line height to reduce vertical space */
     max-width: 50ch;
     overflow: hidden;
     white-space: pre-wrap;
+}
+
+.detail-text {
+    margin-bottom: 2px; /* Reduced margin */
+    font-size: 14px;
+    line-height: 18px; /* Reduced line height */
 }
 
 .detail-title {

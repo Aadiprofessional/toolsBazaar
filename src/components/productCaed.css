@@ -1,4 +1,4 @@
-.product-card {
+.product-cardGrid {
   width: 100%;
   max-width: 220px;
   height: 300px; /* Set fixed height for uniformity */
@@ -13,8 +13,8 @@
   flex-direction: column;
   justify-content: space-between; /* Ensures bottom alignment for the divider */
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  
 }
-
 .content-wrapper {
   flex: 1;
   display: flex;
@@ -40,7 +40,7 @@
   padding-top: 10px;
 }
 
-.product-card:hover {
+.product-cardGrid:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   z-index: 10;
@@ -138,7 +138,7 @@
     z-index: 10;
   }
   
-  .label {
+  .labelCard {
     background-color: #ea6021;
     color: #fff;
     padding: 5px 8px;
@@ -149,12 +149,12 @@
     align-items: center;
   }
   
-  .label-content {
+  .label-contentCard {
     display: flex;
     align-items: center;
   }
   
-  .circle {
+  .circleCard {
     background-color: #fff;
     border-radius: 50%;
     width: 16px;
@@ -200,13 +200,13 @@
   }
   
   /* Fixed-position divider 20% from the bottom */
-  .divider {
+  .dividerCard {
     position: absolute;
     bottom: 20%;
     left: 0;
     right: 0;
     border-top: 1px dotted #ccc;
-    margin: 10px 0;
+
     z-index: 5;
     width: 100%;
   }

@@ -54,15 +54,15 @@ const ProductCard = ({ product }) => {
 
   return (
     <div
-      className="product-card"
+      className="product-cardGrid"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleCardClick}
     >
       <div className="label-container label-container-large">
-        <div className="label">
-          <div className="label-content">
-            <div className="circle">
+        <div className="labelCard">
+          <div className="label-contentCard">
+            <div className="circleCard">
               <img src={truckIcon} alt="Truck" className="truck-icon" />
             </div>
             Ships within 24 hrs
@@ -71,9 +71,9 @@ const ProductCard = ({ product }) => {
       </div>
 
       <div className="label-container label-container-small">
-        <div className="label">
-          <div className="label-content">
-            <div className="circle">
+        <div className="labelCard">
+          <div className="label-contentCard">
+            <div className="circleCard">
               <img src={truckIcon} alt="Truck" className="truck-icon" />
             </div>
             <div className="label-text">
@@ -92,16 +92,24 @@ const ProductCard = ({ product }) => {
   </div>
   <div className="text-container">
     <h5 className="product-name">{product.name}</h5>
-    <hr className="divider" />
+    <hr className="dividerCard" />
     <div className="price-container">
             <div style={styles.leftColumn}>
               <div style={styles.rightColumn}>
                 {discountedPrice < product.price && (
                   <>
-                    <p style={styles.regularPrice}>₹{product.price}</p>
+                    <p style={styles.regularPrice}> {Number(product.price).toLocaleString('en-IN', {
+                maximumFractionDigits: 0,
+                style: 'currency',
+                currency: 'INR',
+              })}</p>
                   </>
                 )}
-                <p style={styles.cutPrice}>₹{discountedPrice.toFixed(2)}</p>
+                <p style={styles.cutPrice}> {Number(discountedPrice).toLocaleString('en-IN', {
+                maximumFractionDigits: 0,
+                style: 'currency',
+                currency: 'INR',
+              })}</p>
               </div>
               <div style={styles.rightColumn}>
                 {discountedPrice < product.price && (
@@ -120,47 +128,7 @@ const ProductCard = ({ product }) => {
 };
 
 const styles = {
-  imageContainer: {
-    width: "100%",
-    paddingTop: "80%",
-    position: "relative",
-    marginBottom: "10px",
-  },
-  image: {
-    position: "absolute",
-    top: "0",
-    left: "0",
-    width: "100%",
-    height: "100%",
-    objectFit: "contain",
-  },
-  textContainer: {
-    textAlign: "left",
-  },
-  productName: {
-    fontWeight: "600",
-    fontSize: "14px",
-    marginBottom: "5px",
-  },
-  hoverDescription: {
-    fontSize: "14px",
-    color: "#333",
-    textAlign: "center",
-    marginBottom: "10px",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    display: "-webkit-box",
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: "vertical",
-  },
-  divider: {
-    borderTop: "2px dotted #ccc",
-    margin: "10px 0",
-  },
-  priceContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
+
   hoverPriceContainer: {
     display: "flex",
     justifyContent: "space-between",
@@ -181,12 +149,14 @@ const styles = {
     color: "#666",
     fontSize: "14px",
 
-    marginRight: "10px"
+    marginRight: "10px",
+    marginBottom: -10,
   },
   cutPrice: {
     color: "#EA6021",
     fontSize: "16px",
     fontWeight: "bold",
+    marginBottom: -10,
   },
   discountText: {
     color: "#25881A",

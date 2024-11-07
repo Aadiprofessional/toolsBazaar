@@ -27,6 +27,7 @@ import BlogsInfo from "./components/Blogs/BlogsInfo";
 import SubCategory from "./screens/SubCategory";
 import SubCategory2 from "./screens/SubCategory copy";
 import FAQScreen from "./screens/faq";
+import InvoiceScreen from "./screens/InvoiceScreen";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
@@ -67,7 +68,7 @@ function App() {
           <Route path="/OrderPlaced" element={<OrderPlacedScreen />} />
           <Route path="/orders" element={<OrderHistory />} />
           <Route path="/faqs" element={<FAQScreen />} />
-          
+          <Route path="/invoice" element={<InvoiceScreen />} />
           <Route path="/Address" element={<AddressScreen/>}/>
           <Route path="/subcategories" element={<SubCategory />}/>
           <Route path="/subcategory2" element={<SubCategory2 />} />
