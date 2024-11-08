@@ -53,12 +53,13 @@ const PartnersOffers = ({ onAddressSelect }) => {
     setNewAddress({ ...newAddress, [name]: value });
   };
 
-  const handleSelectCompany = (companyId) => {
-    setSelectedCompanyId(companyId);
+  const handleSelectCompany = (company) => {
+    setSelectedCompanyId(company.id);
     if (typeof onAddressSelect === 'function') {
-      onAddressSelect(companyId); // Notify parent about the selected company
+      onAddressSelect(company); // Pass the full company object instead of just the ID
     }
   };
+  
 
   const handleAddAddress = async () => {
     try {

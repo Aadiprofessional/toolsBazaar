@@ -155,7 +155,7 @@ const TaskBar = ({ onSearch, onLogout }) => {
             }
             options={suggestions.map((product) => ({
               value: product.productId,
-              label: product.searchName,
+              label: product.product,
               product,
             }))}
             onSelect={(value, option) => handleSuggestionClick(option.product)}

@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { Skeleton, Card } from 'antd';
-import './ProductsGrid2.css'; // Import the CSS file for styling
+import './ProductsGrid2.css';
 
 const ProductsGrid2 = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(
-          "https://toolsbazaar-server-1036279390366.asia-south1.run.app/bestDeals"
-        );
-        const data = await response.json();
-        setProducts(
-          data.map((product) => ({
+    const cachedProducts = localStorage.getItem("cachedProducts");
+
+    if (cachedProducts) {
+      // Load products from cache
+      setProducts(JSON.parse(cachedProducts));
+      setLoading(false);
+    } else {
+      // Fetch products if not in cache
+      const fetchProducts = async () => {
+        try {
+          const response = await fetch(
+            "https://toolsbazaar-server-1036279390366.asia-south1.run.app/bestDeals"
+          );
+          const data = await response.json();
+          const formattedProducts = data.map((product) => ({
             id: product.productId,
             name: product.displayName,
             description: `This is ${product.displayName} description.`,
@@ -35,16 +41,19 @@ const ProductsGrid2 = () => {
             main: product.main,
             product: product.product,
             additionalDiscount: product.additionalDiscount,
-          }))
-        );
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false); // Set loading to false after fetching
-      }
-    };
+          }));
+          setProducts(formattedProducts);
+          // Save the fetched products to local storage
+          localStorage.setItem("cachedProducts", JSON.stringify(formattedProducts));
+        } catch (error) {
+          console.error("Error fetching products:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
 
-    fetchProducts();
+      fetchProducts();
+    }
   }, []);
 
   const renderSkeletonCard = () => (
@@ -53,6 +62,7 @@ const ProductsGrid2 = () => {
       <Skeleton active title={{ width: '60%' }} paragraph={{ rows: 2 }} />
     </Card>
   );
+
   return (
     <div className="products-containerGrid">
       {loading

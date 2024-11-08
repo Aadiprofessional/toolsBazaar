@@ -147,14 +147,14 @@ const styles = {
   regularPrice: {
     textDecoration: "line-through",
     color: "#666",
-    fontSize: "14px",
+    fontSize: "12px",
 
     marginRight: "10px",
     marginBottom: -10,
   },
   cutPrice: {
     color: "#EA6021",
-    fontSize: "16px",
+    fontSize: "12px",
     fontWeight: "bold",
     marginBottom: -10,
   },

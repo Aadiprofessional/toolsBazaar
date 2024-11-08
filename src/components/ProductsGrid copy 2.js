@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 import { Skeleton, Card } from 'antd';
 import './ProductsGrid2.css';
 
-const ProductsGrid3 = () => {
+const ProductsGrid4 = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -19,7 +19,7 @@ const ProductsGrid3 = () => {
       const fetchProducts = async () => {
         try {
           const response = await fetch(
-            "https://toolsbazaar-server-1036279390366.asia-south1.run.app/latestProducts"
+            "https://toolsbazaar-server-1036279390366.asia-south1.run.app/upcomingProducts"
           );
           const data = await response.json();
           const formattedProducts = data.map((product) => ({
@@ -74,4 +74,4 @@ const ProductsGrid3 = () => {
   );
 };
 
-export default ProductsGrid3;
+export default ProductsGrid4;

@@ -1,25 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCart } from "../CartContext";
 import CartItem from "./CartItem";
 import { useNavigate } from "react-router-dom";
 import ProductsGrid2 from "../ProductsGrid";
 import axios from "axios";
-import { useState } from "react";
 import { auth } from "../../firebaseConfig";
 import { toast } from "react-toastify";
+import PartnersOffers from "./PartnersOffers"; // Import the PartnersOffers component
 import "./LeftSection.css"; // Import the CSS file
 
 const LeftSection = () => {
   const { cart, updateCartItemQuantity, removeCartItem } = useCart();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false); // Track loading state
+  const [selectedAddress, setSelectedAddress] = useState(null); // New state to store selected address
 
   const itemCount = cart.length;
   const totalAmount = cart.reduce(
     (acc, item) => acc + item.product.price * item.quantity,
     0
   );
-  console.log(totalAmount);
 
   const handleUpdateQuantity = (id, quantity) => {
     updateCartItemQuantity(id, quantity);
@@ -29,26 +29,23 @@ const LeftSection = () => {
     removeCartItem(id);
   };
 
-  console.log(cart);
-
   const handleCheckout = async () => {
     const data = {};
     const useRewardPoints = false;
     const appliedCoupon = false;
     const cartItems = cart;
 
+    // Check if address is selected
+    if (!selectedAddress) {
+      toast.error("Please select an address before proceeding to checkout.");
+      return;
+    }
+
     setIsLoading(true);
 
     try {
       const userId = auth.currentUser.uid;
 
-      console.log('Amount', totalAmount,
-        'Data', data,
-        'Reward', useRewardPoints,
-        'Coupon', appliedCoupon,
-        'CartItems', cartItems,
-        'UserId', userId,
-      );
       const response = await axios.post(
         `https://toolsbazaar-server-1036279390366.asia-south1.run.app/checkout`,
         {
@@ -58,9 +55,8 @@ const LeftSection = () => {
           appliedCoupon,
           cartItems,
           uid: userId,
-
+          address: selectedAddress, // Pass selected address here
         }
-
       );
 
       console.log("Checkout response:", response.data);
@@ -71,7 +67,6 @@ const LeftSection = () => {
         console.log("Order placed successfully");
         toast.success("Order Placed Successfully");
 
-        // Navigate to PlaceOrder screen
         navigate("/OrderPlaced", {
           state: {
             invoiceData: response.data.data,
@@ -85,7 +80,6 @@ const LeftSection = () => {
     } catch (error) {
       console.error("Error during checkout:", error);
 
-      // Check if the error response contains cartError
       if (error.response && error.response.data && error.response.data.cartError) {
         toast.error("Some items in your cart are out of stock. Please review your cart.");
       } else {
@@ -102,8 +96,10 @@ const LeftSection = () => {
         <h2 className="cart-summary-title-custom">
           My Cart ({itemCount} item{itemCount > 1 ? "s" : ""})
         </h2>
-
       </div>
+
+      {/* Integrate PartnersOffers component to select address */}
+      <PartnersOffers onAddressSelect={(address) => setSelectedAddress(address)} />
 
       <div className="cart-items-box-custom">
         <div className="cart-items">
@@ -144,7 +140,6 @@ const LeftSection = () => {
         </div>
       </div>
       <ProductsGrid2 />
-
     </div>
   );
 };

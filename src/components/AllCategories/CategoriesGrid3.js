@@ -49,7 +49,7 @@ console.log(mainId , categoryId);
   }
 
   return (
-    <div className="products-container">
+    <div className="products-containerGrid3">
       {products.length > 0 ? (
         products.map((product) => (
           <ProductCard product={product} key={product.id} />

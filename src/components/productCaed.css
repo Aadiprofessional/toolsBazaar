@@ -135,7 +135,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 10;
+    z-index: 1;
   }
   
   .labelCard {
@@ -201,10 +201,7 @@
   
   /* Fixed-position divider 20% from the bottom */
   .dividerCard {
-    position: absolute;
-    bottom: 20%;
-    left: 0;
-    right: 0;
+  
     border-top: 1px dotted #ccc;
 
     z-index: 5;
@@ -225,13 +222,13 @@
   .regular-price {
     text-decoration: line-through;
     color: #666;
-    font-size: 12px;
+    font-size: 4px;
     margin-right: 10px;
   }
   
   .cut-price {
     color: #ea6021;
-    font-size: 14px;
+    font-size: 4px;
     font-weight: bold;
   }
   

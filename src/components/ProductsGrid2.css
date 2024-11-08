@@ -10,6 +10,12 @@
   gap: 0px; /* No space between cards */
   padding: 10px; /* Padding around container */
 }
+.products-containerGrid3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusts dynamically */
+  gap: 0px; /* No space between cards */
+  padding: 10px; /* Padding around container */
+}
 .skeleton-cardGrid{
   width: 100%;
   max-width: 220px;
@@ -36,6 +42,9 @@
   .products-containerGrid2 {
     grid-template-columns: repeat(5, 1fr); /* 4 cards per row on laptops */
   }
+  .products-containerGrid3 {
+    grid-template-columns: repeat(8, 1fr); /* 4 cards per row on laptops */
+  }
 }
 
 @media (max-width: 768px) {
@@ -45,6 +54,9 @@
   .products-containerGrid2 {
     grid-template-columns: repeat(2, 1fr); /* 2 cards per row on tablets */
   }
+  .products-containerGrid3 {
+    grid-template-columns: repeat(2, 1fr); /* 4 cards per row on laptops */
+  }
 }
 
 @media (max-width: 480px) {
@@ -53,6 +65,9 @@
   }
   .products-containerGrid2 {
     grid-template-columns: repeat(2, 1fr); /* 1 card per row on mobile */
+  }
+  .products-containerGrid2 {
+    grid-template-columns: repeat(2, 1fr); /* 4 cards per row on laptops */
   }
 }
 
