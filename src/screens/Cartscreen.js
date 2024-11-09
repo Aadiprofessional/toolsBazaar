@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCart } from "../components/CartContext"; // Import the custom hook
 import LeftSection from "../components/cart/LeftSection";
 import RightSection from "../components/cart/RightSection";
@@ -6,33 +6,41 @@ import EmptyCartScreen from "../components/cart/EmptyCartScreen"; // Import the 
 import TaskBar from "../components/TaskBar";
 import Footer from "../components/Footer";
 
-
+// CartScreen.js
 const CartScreen = () => {
-  const { cart } = useCart(); // Get cart from context
-  const gstRate = 0.12; // Assuming 12% GST
+  const { cart } = useCart();
+  const [selectedAddress, setSelectedAddress] = useState(null); // Manage selected address in CartScreen
 
-  // Calculate the total amount including discounted price and GST for all items in the cart
+  const handleAddressSelect = (address) => {
+    setSelectedAddress(address); // Update address when selected
+    console.log(address); // You can log or use it further
+  };
+
+  const gstRate = 0.12;
+
   const totalAmount = cart.reduce((acc, item) => {
-    const discountedPrice = item.product.price - (item.product.price * (item.product.additionalDiscount / 100)); // Discounted price
-    const totalPrice = discountedPrice * item.quantity; // Total price for the quantity
-    const gstAmount = totalPrice * gstRate; // GST amount
-    const finalPrice = totalPrice + gstAmount; // Final price including GST
-
-    return acc + finalPrice; // Add to the accumulated total
+    const discountedPrice = item.product.price - (item.product.price * (item.product.additionalDiscount / 100));
+    const totalPrice = discountedPrice * item.quantity;
+    const gstAmount = totalPrice * gstRate;
+    const finalPrice = totalPrice + gstAmount;
+    return acc + finalPrice;
   }, 0);
 
-  // If the cart is empty, use the EmptyCartScreen component
   if (cart.length === 0) {
     return <EmptyCartScreen />;
   }
 
   return (
     <div>
-
       <div style={styles.container}>
         <TaskBar />
-        <LeftSection cart={cart} />
-        <RightSection totalAmount={totalAmount} />
+        <LeftSection cart={cart}
+         address={selectedAddress}/>
+        <RightSection
+          totalAmount={totalAmount}
+          selectedAddress={selectedAddress} // Pass the selected address here
+          onAddressSelect={handleAddressSelect} // Pass the callback to update selected address
+        />
       </div>
       <Footer />
     </div>

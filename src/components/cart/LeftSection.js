@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useCart } from "../CartContext";
 import CartItem from "./CartItem";
-import { useNavigate } from "react-router-dom";
+import { Route, useNavigate } from "react-router-dom";
 import ProductsGrid2 from "../ProductsGrid";
 import axios from "axios";
 import { auth } from "../../firebaseConfig";
@@ -13,13 +13,14 @@ const LeftSection = () => {
   const { cart, updateCartItemQuantity, removeCartItem } = useCart();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false); // Track loading state
-  const [selectedAddress, setSelectedAddress] = useState(null); // New state to store selected address
+
 
   const itemCount = cart.length;
   const totalAmount = cart.reduce(
     (acc, item) => acc + item.product.price * item.quantity,
     0
   );
+
 
   const handleUpdateQuantity = (id, quantity) => {
     updateCartItemQuantity(id, quantity);
@@ -34,9 +35,10 @@ const LeftSection = () => {
     const useRewardPoints = false;
     const appliedCoupon = false;
     const cartItems = cart;
+    const address = {};
 
     // Check if address is selected
-    if (!selectedAddress) {
+    if (!address) {
       toast.error("Please select an address before proceeding to checkout.");
       return;
     }
@@ -55,9 +57,10 @@ const LeftSection = () => {
           appliedCoupon,
           cartItems,
           uid: userId,
-          address: selectedAddress, // Pass selected address here
+          address: address, // Pass selected address here
         }
       );
+      console.log(address);
 
       console.log("Checkout response:", response.data);
 
@@ -97,9 +100,6 @@ const LeftSection = () => {
           My Cart ({itemCount} item{itemCount > 1 ? "s" : ""})
         </h2>
       </div>
-
-      {/* Integrate PartnersOffers component to select address */}
-      <PartnersOffers onAddressSelect={(address) => setSelectedAddress(address)} />
 
       <div className="cart-items-box-custom">
         <div className="cart-items">

@@ -30,15 +30,18 @@
     align-items: center;
     background-color: #fff;
     border-radius: 4px;
-    width: 500px; /* Increased width for normal screen */
-    margin-left: 20px; /* Left-align with the logo */
+    width: 500px;
+    /* Increased width for normal screen */
+    margin-left: 20px;
+    /* Left-align with the logo */
 }
 
 .search-inputTask {
     padding: 10px;
     border: none;
     flex: 1;
-    font-size: 14px; /* Adjust font size */
+    font-size: 14px;
+    /* Adjust font size */
 }
 
 .search-buttonTask {
@@ -49,8 +52,9 @@
 }
 
 .search-iconTask {
-   
-    width: 20px; /* Ensure smaller width for the search icon */
+
+    width: 20px;
+    /* Ensure smaller width for the search icon */
 }
 
 .right-section {
@@ -78,94 +82,138 @@
     height: 50px;
     border-radius: 6px;
 }
+
 .storeContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+}
+.storeContainer3 {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-right: 20px;
+}
+
+.storeContainer2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 20px;
 }
 
 .storeIcons {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .storeIcon {
-  height: 30px;
-  margin: 0 10px;
-  cursor: pointer;
+    height: 25px;
+    margin: 0 10px;
+    cursor: pointer;
 }
-
+.storeIcon2 {
+    height: 30px;
+    margin: 0 10px;
+    cursor: pointer;
+}
 .storeSeparator {
-  border-left: 1px solid #fff;
-  height: 20px;
+    border-left: 1px solid #fff;
+    height: 20px;
 }
 
 .downloadText {
-  color: #fff;
-  margin-top: 10px;
-  text-align: center;
+    color: #fff;
+    margin-top: 6px;
+    font-size: 12px;
+    text-align: center;
 }
-.cart-text{
-     color: #fff;
 
-  text-align: center;
+.downloadText3 {
+    color: #fff;
+    margin-top: -3px;
+    font-weight: 500;
+    font-size: 15px;
+    text-align: left;
 }
+
+.downloadText2 {
+    color: #fff;
+    margin-top: 1px;
+    font-weight: 300;
+    font-size: 15px;
+    text-align: left;
+}
+
+.cart-text {
+    color: #fff;
+
+    text-align: center;
+}
+
 .icon {
     height: 20px;
 }
 
 .cart-item-count {
     position: absolute;
-    top: -8px; /* Position above the icon */
-    right: -10px; /* Adjust as needed */
+    top: -8px;
+    /* Position above the icon */
+    right: -10px;
+    /* Adjust as needed */
     background-color: red;
     color: white;
     border-radius: 50%;
     padding: 3px 6px;
     font-size: 12px;
     font-weight: bold;
-    
-  }
+
+}
+
 .profile-image {
     border-radius: 50%;
     width: 40px;
     height: 40px;
     object-fit: cover;
-  }
+}
 
-  
-  .profile-dropdown-wrapper {
+
+.profile-dropdown-wrapper {
     position: relative;
-  }
-  
-  .dropdown-menu-container {
+}
+
+.dropdown-menu-container {
     position: absolute;
-    top: 0%; /* Positions dropdown directly below the icon */
+    top: 0%;
+    /* Positions dropdown directly below the icon */
     left: 50%;
-    transform: translateX(-50%); /* Centers dropdown horizontally */
-    z-index: 1000; /* Ensures dropdown appears above other elements */
+    transform: translateX(-50%);
+    /* Centers dropdown horizontally */
+    z-index: 1000;
+    /* Ensures dropdown appears above other elements */
     background-color: #fff;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
-    width: 200px; /* Adjust based on dropdown width */
-  }
-  
-  .dropdown-menu-container ul {
+    width: 200px;
+    /* Adjust based on dropdown width */
+}
+
+.dropdown-menu-container ul {
     list-style: none;
     padding: 0;
     margin: 0;
-  }
-  
-  .dropdown-menu-container li {
+}
+
+.dropdown-menu-container li {
     padding: 10px;
     cursor: pointer;
-  }
-  
-  .dropdown-menu-container li:hover {
+}
+
+.dropdown-menu-container li:hover {
     background-color: #f0f0f0;
-  }
-  
+}
+
 .login-button {
     background-color: #e9611e;
     color: #ffffff;
@@ -193,16 +241,19 @@
 /* Mobile view adjustments */
 @media (max-width: 750px) {
     .task-bar {
-        flex-direction: row; /* Change back to row layout for mobile */
+        flex-direction: row;
+        /* Change back to row layout for mobile */
         align-items: center;
         padding: 10px;
     }
+
     .logoTask {
         height: 20px;
         margin-right: 10px;
         margin-left: 10px;
         cursor: pointer;
     }
+
     .left-section {
         display: flex;
         align-items: center;
@@ -212,16 +263,20 @@
 
     .logo {
         height: 30px;
-        margin-right: 10px; /* Adjust margin */
+        margin-right: 10px;
+        /* Adjust margin */
     }
 
     .search-containerTask {
-        width: 200px; /* Reduced width for smaller screens */
-        margin: 0 auto; /* Center the search container */
+        width: 200px;
+        /* Reduced width for smaller screens */
+        margin: 0 auto;
+        /* Center the search container */
     }
 
     .search-input {
-        font-size: 14px; /* Adjust font size */
+        font-size: 14px;
+        /* Adjust font size */
     }
 
     .search-button {
@@ -234,7 +289,8 @@
     .right-section {
         display: flex;
         align-items: center;
-        justify-content: flex-end; /* Align items to the right */
+        justify-content: flex-end;
+        /* Align items to the right */
         width: auto;
         gap: 0;
     }
@@ -269,18 +325,22 @@
 @media (max-width: 600px) {
     .logo {
         height: 25px;
-   
+
     }
-    .cart-text{
+
+    .cart-text {
         display: none;
     }
+
     .left-section {
         display: flex;
         align-items: center;
         width: 50%;
         justify-content: flex-start;
-        gap: 0; /* Removes any gap between icons */
+        gap: 0;
+        /* Removes any gap between icons */
     }
+
     .search-input {
         font-size: 12px;
         width: 100%;
@@ -295,12 +355,16 @@
     .category-container {
         margin-right: 0;
     }
-    .storeContainer{
+
+    .storeContainer {
         display: none;
     }
+    .storeContainer2 {
+        display: none;
+    }
+
     .search-containerTask {
-        width: 60px; /* Reduced width for smaller screens */
+        width: 60px;
+        /* Reduced width for smaller screens */
     }
 }
-
-

@@ -8,7 +8,7 @@ const ProductsGrid4 = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const cachedProducts = localStorage.getItem("cachedProducts");
+    const cachedProducts = localStorage.getItem("cachedProductslatest");
 
     if (cachedProducts) {
       // Load products from cache
@@ -44,7 +44,7 @@ const ProductsGrid4 = () => {
           }));
           setProducts(formattedProducts);
           // Save the fetched products to local storage
-          localStorage.setItem("cachedProducts", JSON.stringify(formattedProducts));
+          localStorage.setItem("cachedProductslatest", JSON.stringify(formattedProducts));
         } catch (error) {
           console.error("Error fetching products:", error);
         } finally {

@@ -42,6 +42,28 @@
     font-size: 16px;
     color: #c71111;
   }
+  .call{
+    font-size: 16px;
+    color: #606060;
+
+  }
+  .help-section {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .call-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+  }
+  
+  .call-text {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
   .quantity-container {
     display: flex;
     align-items: center;

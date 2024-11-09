@@ -56,9 +56,10 @@ const PartnersOffers = ({ onAddressSelect }) => {
   const handleSelectCompany = (company) => {
     setSelectedCompanyId(company.id);
     if (typeof onAddressSelect === 'function') {
-      onAddressSelect(company); // Pass the full company object instead of just the ID
+      onAddressSelect(company); // Pass the full company object
     }
   };
+  
   
 
   const handleAddAddress = async () => {
@@ -83,6 +84,11 @@ const PartnersOffers = ({ onAddressSelect }) => {
         if (currentUser) {
           const response = await axios.post(`${API_BASE_URL}/getAddress`, { uid: currentUser.uid });
           setCompanies(response.data);
+          if (response.data.length > 0) {
+            // Set the first address as default
+            setSelectedCompanyId(response.data[0].id);
+            onAddressSelect(response.data[0]); // Notify parent about the default selected address
+          }
         } else {
           console.error('User is not authenticated');
         }

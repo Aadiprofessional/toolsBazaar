@@ -78,7 +78,7 @@ const OrderPlacedScreen = () => {
   
       if (response.data.text) {
         console.log('Quotation generated successfully');
-        navigate.push('/invoice', {
+        navigate('/invoice', {
           invoiceData: response.data.data,
           url: response.data.invoice,
           quotationId: response.data.quotationId,

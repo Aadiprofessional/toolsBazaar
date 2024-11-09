@@ -4,6 +4,7 @@ import { useCart } from "../CartContext";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebaseConfig";
 import "./RightSection.css"; // Import the CSS file
+import CallIcon from "../../assets/Call.png"; // Import Call.png image
 
 const RightSection = ({
   product,
@@ -140,6 +141,12 @@ const RightSection = ({
             </button>
           )}
         </div>
+      </div>
+      <div className="help-section">
+        <img src={CallIcon} alt="Call Icon" className="call-icon" />
+        <p className="call-text">
+          <strong>Need help? Call on +91 9924686611</strong>
+        </p>
       </div>
     </div>
   );

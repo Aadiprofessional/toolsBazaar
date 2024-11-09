@@ -25,6 +25,7 @@ const RightSection = ({ totalAmount }) => {
 
   const handleAddressSelect = (address) => {
     setSelectedAddress(address); // Set the selected address from PartnersOffers
+    console.log(address);
   };
 
   return (

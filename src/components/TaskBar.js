@@ -11,7 +11,9 @@ import LeftSlider from "./LeftSlider";
 import { auth, firestore } from "../firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import playstoreIcon from "../assets/Playstore.png";
-import appstoreIcon from "../assets/Appstore.png"; 
+import appstoreIcon from "../assets/Appstore.png";
+import Track from '../assets/t.png' 
+import support from '../assets/supp.png'
 import "./TaskBar.css";
 import axios from "axios";
 import { Select } from "antd";
@@ -191,6 +193,22 @@ const TaskBar = ({ onSearch, onLogout }) => {
             Login / Register
           </button>
         )}
+        <div className="storeContainer2">
+          <div className="storeIcons">
+            <img src={Track} alt="My Orders" className="storeIcon2" />
+          </div>
+          <div className="storeContainer3">
+          <div className="downloadText2">Track</div>
+          <div className="downloadText3">Orders</div>
+          
+          </div>    
+        </div>
+        <div className="storeContainer">
+          <div className="storeIcons">
+            <img src={support} alt="My Orders" className="storeIcon2" />
+          </div>
+          <div className="downloadText2">Need Help?</div>
+        </div>
         <div className="cart-container">
           <button className="cart-button" onClick={handleCart}>
             <img src={cartIcon} alt="Cart" className="icon" />
