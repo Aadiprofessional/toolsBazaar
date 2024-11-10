@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Skeleton from 'react-loading-skeleton'; // Import skeleton loader
+import { Card, Skeleton } from 'antd'; // Import Skeleton from Ant Design
+import { matchScreen } from "antd/es/_util/responsiveObserver";
 
 const LeftBox = () => {
   const [categories, setCategories] = useState([]);
@@ -35,9 +36,9 @@ const LeftBox = () => {
     navigate("/AllCategories");
   };
 
-  const handleSubcategoryClick = (categoryId, mainId) => {
+  const handleSubcategoryClick = (categoryId, mainId,mainName,categoryName) => {
     navigate('/subcategory2', {
-      state: { categoryId, mainId }
+      state: { categoryId, mainId ,mainName,categoryName}
     });
   };
 
@@ -45,11 +46,11 @@ const LeftBox = () => {
     <div style={styles.leftBox}>
       <ul style={styles.categoryList}>
         {loading ? (
-          // Show skeleton loaders while data is loading
-          Array.from({ length: 5 }).map((_, index) => (
-            <li key={index} style={styles.categoryItem}>
-              <Skeleton height={20} width="70%" style={{ marginBottom: "10px" }} />
-            </li>
+          // Display Ant Design Skeletons while loading
+          Array.from({ length: 2 }).map((_, index) => (
+            
+              <Skeleton active title={{ width: '80%'}} paragraph={{ rows: 1 }} />
+
           ))
         ) : categories.length > 0 ? (
           categories.map((category, index) => (
@@ -82,7 +83,7 @@ const LeftBox = () => {
                         }}
                         onMouseEnter={() => setHoveredSubcategory(subIndex)}
                         onMouseLeave={() => setHoveredSubcategory(null)}
-                        onClick={() => handleSubcategoryClick(company.id, category.id)}
+                        onClick={() => handleSubcategoryClick(company.id, category.id,category.name,company.name)}
                       >
                         {company.name}
 
@@ -90,6 +91,16 @@ const LeftBox = () => {
                           <div style={styles.filterBox}>
                             <div style={styles.filterItem}>Shop by Brand</div>
                             <div style={styles.filterItem}>Shop by Price</div>
+                            <div style={styles.filterData}>0-10000</div>
+                            <div style={styles.filterData}>10000-20000</div>
+                            <div style={styles.filterData}>20000-30000</div>
+                            <div style={styles.filterData}>30000-40000</div>
+                            <div style={styles.filterData}>40000-50000</div>
+                            <div style={styles.filterData}>50000-60000</div>
+                            <div style={styles.filterData}>60000-70000</div>
+                            <div style={styles.filterData}>70000-80000</div>
+                            <div style={styles.filterData}>80000-90000</div>
+                            <div style={styles.filterData}>90000-100000</div>
                           </div>
                         )}
                       </li>
@@ -107,10 +118,10 @@ const LeftBox = () => {
       <div style={styles.seeAllCategories} onClick={navigateToAllCategories}>
         See All Categories
       </div>
-
     </div>
   );
 };
+
 const styles = {
   leftBox: {
     width: "260px",
@@ -130,26 +141,24 @@ const styles = {
     flexGrow: 1,
   },
   categoryItem: {
-    padding: "10px", // Remove padding on the left and right
+    padding: "10px",
     borderBottom: "1px solid #eee",
     position: "relative",
     cursor: "pointer",
     display: "flex",
-    marginLeft : "-40px",
-    
+    marginLeft: "-40px",
   },
   categoryName: {
     fontSize: "14px",
     fontWeight: "bold",
     display: "flex",
     alignItems: "center",
-    
   },
   subcategoryBox: {
     position: "absolute",
     top: 0,
     left: "100%",
-    width: "250px", // Match width to the category container
+    width: "250px",
     boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
     zIndex: 101,
   },
@@ -159,12 +168,11 @@ const styles = {
     margin: 0,
   },
   subcategoryItem: {
-    padding: "10px", // Same padding as category item
+    padding: "10px",
     borderBottom: "1px solid #eee",
     cursor: "pointer",
     position: "relative",
     display: "flex",
-
   },
   filterBox: {
     position: "absolute",
@@ -182,6 +190,12 @@ const styles = {
     cursor: "pointer",
     color: "#E9611E",
     fontWeight: "medium",
+  },
+  filterData :{
+    padding: "5px 0",
+    cursor: "pointer",
+    color: "#535353FF",
+    fontWeight: "regular",
   },
   seeAllCategories: {
     textAlign: "center",

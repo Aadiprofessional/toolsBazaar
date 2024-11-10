@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Skeleton } from 'antd'; // Import the Skeleton component
+import { Skeleton } from 'antd';
 import MiddleSection from "./MiddleSection";
 import bannerImage from "../../assets/bottom2.png";
 import './LeftMiddle.css';
@@ -25,38 +25,46 @@ const LeftMiddleSection = ({
 }) => {
   const { mainId, categoryId, productId } = useParams();
   
-
-
-  // Dynamically get the data based on selected attributes
   const selectedData = product?.data?.[product.attribute1]?.[selectedAttribute1]?.[product.attribute2]?.[selectedAttribute2]?.[selectedAttribute3] || {};
   const price = selectedData?.price || 'Not available';
   const description = selectedData?.description || 'No description available';
   const specifications = selectedData?.specifications || [{ label: 'No specifications available', value: '' }];
   const images = selectedData?.images || [];
 
-  // Manage state for the selected image and active tab
   const [selectedImage, setSelectedImage] = useState(images.length > 0 ? images[0] : null);
   const [activeTab, setActiveTab] = useState("description");
-  const [loading, setLoading] = useState(true); // Loading state for images
+  const [loading, setLoading] = useState(true);
+  const [visibleImages, setVisibleImages] = useState(0); // Starting index of visible images
 
+  // Reset to first image on attribute change
+  useEffect(() => {
+    setSelectedImage(images[0]);
+    setVisibleImages(0);
+  }, [selectedAttribute1, selectedAttribute2, selectedAttribute3, images]);
+
+  // Simulate loading time for images (Remove this in production)
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Handle navigation for thumbnail carousel
+  const handleNextImages = () => {
+    if (visibleImages + 4 < images.length) {
+      setVisibleImages((prev) => prev + 4);
+    }
+  };
+
+  const handlePrevImages = () => {
+    if (visibleImages > 0) {
+      setVisibleImages((prev) => prev - 4);
+    }
+  };
 
   // Handle image selection when clicking on a thumbnail
   const handleImageClick = (image) => {
     setSelectedImage(image);
   };
-
-  // Handle tab switching for Description and Specification views
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
-
-  // Simulate loading time for images (Remove this in production)
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false); // Stop loading after 2 seconds (or set based on your image loading)
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <div className="containerProduct">
@@ -67,30 +75,34 @@ const LeftMiddleSection = ({
       </div>
       <div className="contentProduct">
         <div className="left-sectionProduct">
-          {/* Main product image with Skeleton loading */}
           {loading ? (
-            <Skeleton.Image
-              active
-              style={{ width: '400px', height: '500px' }} // Set skeleton size same as the image container
-            />
+            <Skeleton.Image active style={{ width: '400px', height: '500px' }} />
           ) : selectedImage ? (
             <img src={selectedImage} alt={product.productName} className="product-image" />
           ) : (
             <p>No image available</p>
           )}
-          
-          {/* Image thumbnail options */}
-          <div className="image-optionsC">
-            {images.map((image, index) => (
-              <div
-                key={index}
-                className="image-option-containerC"
-                style={{ borderColor: selectedImage === image ? "#DB3F1F" : "#68686847" }}
-                onClick={() => handleImageClick(image)}
-              >
-                <img src={image} alt={`Option ${index + 1}`} className="image-option" />
-              </div>
-            ))}
+
+          {/* Image thumbnail carousel */}
+          <div className="image-options-carousel">
+            {visibleImages > 0 && (
+              <button className="carousel-arrow.left" onClick={handlePrevImages}>{"<"}</button>
+            )}
+            <div className="image-optionsC">
+              {images.slice(visibleImages, visibleImages + 4).map((image, index) => (
+                <div
+                  key={index}
+                  className="image-option-containerC"
+                  style={{ borderColor: selectedImage === image ? "#DB3F1F" : "#68686847" }}
+                  onClick={() => handleImageClick(image)}
+                >
+                  <img src={image} alt={`Option ${index + 1}`} className="image-option" />
+                </div>
+              ))}
+            </div>
+            {visibleImages + 4 < images.length && (
+              <button className="carousel-arrow.right" onClick={handleNextImages}>{">"}</button>
+            )}
           </div>
         </div>
 
@@ -107,7 +119,7 @@ const LeftMiddleSection = ({
           categoryId={categoryId}
           productId={productId}
           productName={product.productName}
-          attribute1D={attribute1D} // Pass attribute IDs
+          attribute1D={attribute1D}
           attribute2D={attribute2D}
           attribute3D={attribute3D}
           product1={product1}
@@ -126,14 +138,14 @@ const LeftMiddleSection = ({
           <button
             className="tab-button"
             style={{ backgroundColor: activeTab === "description" ? "#FF5733" : "#ddd", color: activeTab === "description" ? "#fff" : "#046699" }}
-            onClick={() => handleTabChange("description")}
+            onClick={() => setActiveTab("description")}
           >
             DESCRIPTION
           </button>
           <button
             className="tab-button"
             style={{ backgroundColor: activeTab === "specification" ? "#FF5733" : "#ddd", color: activeTab === "specification" ? "#fff" : "#046699" }}
-            onClick={() => handleTabChange("specification")}
+            onClick={() => setActiveTab("specification")}
           >
             SPECIFICATION
           </button>

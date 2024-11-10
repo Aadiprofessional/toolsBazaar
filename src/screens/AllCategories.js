@@ -19,7 +19,11 @@ function AllCategories() {
       <TaskBar />
       <div className="contentAll">
         <Banner />
-
+        <div className="breadcrumb">
+        <p>
+          <span className="home-link">Home</span> &gt; All Categories
+        </p>
+      </div>
         <CategoriesGrid navigateToSubCategory={handleNavigateToSubCategory} />
       </div>
       <Footer />

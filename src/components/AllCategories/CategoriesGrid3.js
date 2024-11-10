@@ -19,8 +19,13 @@ console.log(mainId , categoryId);
           }
         );
         console.log('Fetched products:', response.data);
+        
+        // Filter out null values from the response data
+        const validProducts = response.data.filter(product => product !== null);
+        
+        // Map through the valid products
         setProducts(
-          response.data.map((product) => ({
+          validProducts.map((product) => ({
             id: product.productId,
             name: product.displayName,
             description: `This is ${product.displayName} description.`,
@@ -38,6 +43,7 @@ console.log(mainId , categoryId);
         setLoading(false);
       }
     };
+    
 
     if (mainId && categoryId) {
       fetchProducts(); // Fetch products only if mainId and categoryId are available

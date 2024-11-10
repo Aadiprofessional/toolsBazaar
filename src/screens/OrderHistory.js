@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from "react";
-
 import axios from "axios";
 import TaskBar from "../components/TaskBar";
 import { auth } from "../firebaseConfig";
-import { Flex, Rate } from 'antd'; // Import Flex and Rate from Ant Design
+import { Flex, Rate } from 'antd';
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import Lottie from "lottie-react";
-
-import loadingAnimation from "../assets/Animation - 1730717782675.json"; 
-
+import loadingAnimation from "../assets/Animation - 1730717782675.json";
 
 const OrderHistory = () => {
   const [selectedFilter, setSelectedFilter] = useState("Orders");
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [expandedOrderId, setExpandedOrderId] = useState(null);
+
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedTimeFrame, setSelectedTimeFrame] = useState("Past 3 Months");
-  const [orders, setOrders] = useState([]);
-  const [expandedOrderId, setExpandedOrderId] = useState(null);
+
   const [isMobileView, setIsMobileView] = useState(false);
-  const [loading, setLoading] = useState(true);
+
   const [ratings, setRatings] = useState({}); // To store ratings for each product
   const [value, setValue] = useState(3);
   const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+
   useEffect(() => {
     const fetchOrders = async (user) => {
       try {
@@ -36,13 +37,6 @@ const OrderHistory = () => {
       }
     };
 
-    const handleResize = () => {
-      setIsMobileView(window.innerWidth <= 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         fetchOrders(user);
@@ -51,15 +45,14 @@ const OrderHistory = () => {
       }
     });
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      unsubscribe();
-    };
+    return () => unsubscribe();
   }, []);
 
-  const handleFilterChange = (filter) => {
-    setSelectedFilter(filter);
-  };
+  const filteredOrders = orders.filter((order) => {
+    if (selectedFilter === "Not Shipped") return order.status === "In Review";
+    if (selectedFilter === "Cancelled Orders") return order.status === "Cancelled";
+    return true; // "Orders" shows all orders
+  });
 
   const handleToggleDetails = (orderId) => {
     setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
@@ -100,68 +93,84 @@ const OrderHistory = () => {
       </div>
     );
   }
-
+  const handleDownloadInvoice = async (orderId) => {
+    try {
+      // Replace this URL with your actual endpoint to download the invoice
+      const response = await axios.get(
+        `https://toolsbazaar-server-1036279390366.asia-south1.run.app/downloadInvoice?orderId=${orderId}`,
+        { responseType: "blob" }
+      );
+      // Create a link to trigger download
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `Invoice_${orderId}.pdf`;
+      link.click();
+    } catch (error) {
+      console.error('Error downloading invoice:', error);
+    }
+  };
   return (
     <div style={styles.container}>
       <TaskBar />
       <div style={styles.header}>
         <div style={styles.orderCountBox}>
-          <h1>Your Orders: <strong>{orders.length}</strong></h1>
+          <h1>Your Orders: <strong>{filteredOrders.length}</strong></h1>
         </div>
       </div>
       <div style={styles.filterContainer2}>
-        <div style={styles.filterContainer}>
-          <div style={styles.filterButtons}>
-            <button
-              style={selectedFilter === "Orders" ? { ...styles.filterButton, ...styles.activeFilterButton } : styles.filterButton}
-              onClick={() => handleFilterChange("Orders")}
-            >
-              Orders
-            </button>
-            <button
-              style={selectedFilter === "Not Shipped" ? { ...styles.filterButton, ...styles.activeFilterButton } : styles.filterButton}
-              onClick={() => handleFilterChange("Not Shipped")}
-            >
-              Not Shipped
-            </button>
-            <button
-              style={selectedFilter === "Cancelled Orders" ? { ...styles.filterButton, ...styles.activeFilterButton } : styles.filterButton}
-              onClick={() => handleFilterChange("Cancelled Orders")}
-            >
-              Cancelled Orders
-            </button>
-          </div>
+        <div style={styles.filterButtons}>
+          <button
+            style={selectedFilter === "Orders" ? { ...styles.filterButton, ...styles.activeFilterButton } : styles.filterButton}
+            onClick={() => setSelectedFilter("Orders")}
+          >
+            All Orders
+          </button>
+          <button
+            style={selectedFilter === "Not Shipped" ? { ...styles.filterButton, ...styles.activeFilterButton } : styles.filterButton}
+            onClick={() => setSelectedFilter("Not Shipped")}
+          >
+            Not Shipped
+          </button>
+          <button
+            style={selectedFilter === "Cancelled Orders" ? { ...styles.filterButton, ...styles.activeFilterButton } : styles.filterButton}
+            onClick={() => setSelectedFilter("Cancelled Orders")}
+          >
+            Cancelled Orders
+          </button>
         </div>
       </div>
       <div>
-        {orders.map((order) => (
+        {filteredOrders.map((order) => (
           <div key={order.id} style={styles.orderCard} onClick={() => handleToggleDetails(order.id)}>
             <div style={styles.orderDetailsHeader}>
-              <div style={styles.orderDetailsHeaderItem}>
-                <div>Order Placed</div>
+              <div style={{ ...styles.orderDetailsHeaderItem }}>
+                <div style={{ color: '#DB3F1F', marginBottom: '10px' }}>Order Placed</div>
                 <div>{new Date(order.timestamp).toLocaleDateString()}</div>
               </div>
-              <div style={styles.orderDetailsHeaderItem}>
-                <div>Total</div>
+              <div style={{ ...styles.orderDetailsHeaderItem }}>
+                <div style={{ color: '#DB3F1F', marginBottom: '10px' }}>Total</div>
                 <div>₹{order.totalAmount}</div>
               </div>
-              <div style={styles.orderDetailsHeaderItem}>
-                <div>Ship To</div>
+
+              <div style={{ ...styles.orderDetailsHeaderItem }}>
+                <div style={{ color: '#DB3F1F', marginBottom: '10px' }}> Ship To</div>
                 <div>Address here</div>
               </div>
-              <div style={styles.orderDetailsHeaderItem}>
-                <div>Delivered</div>
+              <div style={{ ...styles.orderDetailsHeaderItem }}>
+                <div style={{ color: '#DB3F1F', marginBottom: '10px' }}>Delivered</div>
                 <div>N/A</div>
               </div>
               <div style={styles.orderDetailsHeaderItem}>
                 <div>Order #{order.id}</div>
                 {expandedOrderId === order.id ? (
-                  <div style={{ color: '#E9611E', marginTop: 10, }}>View Less <FaChevronUp /></div>
+                  <div style={{ color: '#E9611E', marginTop: 10 }}>View Less <FaChevronUp /></div>
                 ) : (
-                  <div style={{ color: '#E9611E', marginTop: 10, }}>View More <FaChevronDown /></div>
+                  <div style={{ color: '#E9611E', marginTop: 10 }}>View More <FaChevronDown /></div>
                 )}
               </div>
             </div>
+
 
             {expandedOrderId === order.id && (
               <div style={styles.orderDetailsDropdown} onClick={(event) => event.stopPropagation()}>
@@ -200,7 +209,21 @@ const OrderHistory = () => {
                 ))}
 
                 {/* Submit button for all ratings at the bottom of the order */}
-                <button onClick={() => handleSubmitRatings(order.id)} style={styles.contactButton}>Submit All Ratings</button>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <button
+                    onClick={() => handleSubmitRatings(order.id)}
+                    style={{ ...styles.contactButton, width: '48%' }}
+                  >
+                    Submit All Ratings
+                  </button>
+                  <button
+                    onClick={() => handleDownloadInvoice(order.id)}
+                    style={{ ...styles.contactButton2, width: '48%' }}
+                  >
+                    Download Invoice
+                  </button>
+                </div>
+
               </div>
             )}
           </div>
@@ -210,12 +233,33 @@ const OrderHistory = () => {
   );
 };
 
-
 const styles = {
+  // ...your existing styles with updated color and spacing
+  orderDetailsHeaderItem: {
+    flex: 1,
+    textAlign: "center",
+    color: "#DB3F1F", // Updated color for headers
+  },
+  dropdownContent: {
+    display: "flex",
+    alignItems: "center",
+    padding: "10px 0",
+    borderBottom: "1px solid #ddd",
+    gap: "10px", // Added gap for spacing
+  },
   container: {
     padding: "20px",
     backgroundColor: "#f0f0f0",
     minHeight: "100vh",
+  },
+  contactButton: {
+    padding: "10px",
+    borderRadius: "8px",
+    border: "none",
+    backgroundColor: "#F59F13", // You can change this color
+    cursor: "pointer",
+    color: "white",
+    marginTop: "10px", // Adds spacing from the submit button
   },
   header: {
     marginBottom: "20px",
@@ -394,11 +438,11 @@ const styles = {
   },
 
 
-  contactButton: {
+  contactButton2: {
     padding: "10px",
     borderRadius: "8px",
     border: "none",
-    backgroundColor: "#F59F13",
+    backgroundColor: "#DB3F1F",
     cursor: "pointer",
     color: "white",
   },
@@ -542,7 +586,7 @@ const styles = {
     contactBox: {
       contactBox: {
 
-        
+
         borderRadius: "8px",
         textAlign: "center",
         marginTop: "20px", // Align below buttons on mobile

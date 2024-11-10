@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import TaskBar from "../components/TaskBar";
 import userProfileImage from "../assets/human.png"; 
 import { firestore, auth, storage } from "../firebaseConfig"; 
-import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Modal from "react-modal"; 
-import { ToastContainer, toast } from 'react-toastify'; // Importing Toast components
-import 'react-toastify/dist/ReactToastify.css'; // Import Toast styles
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProfileScreen = () => {
   const [userData, setUserData] = useState(null);
@@ -28,10 +28,20 @@ const ProfileScreen = () => {
           const userDoc = await getDoc(userDocRef);
 
           if (userDoc.exists()) {
-            setUserData(userDoc.data());
-            setNewName(userDoc.data().name);
+            const data = userDoc.data();
+            if (!data.name) {
+              const randomName = `User${Math.floor(Math.random() * 10000)}`;
+              await updateDoc(userDocRef, { name: randomName });
+              setNewName(randomName);
+            } else {
+              setNewName(data.name);
+            }
+            setUserData(data);
           } else {
-            setError("No such user!");
+            const randomName = `User${Math.floor(Math.random() * 10000)}`;
+            await setDoc(userDocRef, { name: randomName, profileImage: "" });
+            setUserData({ name: randomName, profileImage: "" });
+            setNewName(randomName);
           }
         } catch (error) {
           setError(`Error fetching user data: ${error.message}`);
@@ -169,7 +179,7 @@ const ProfileScreen = () => {
         </div>
       </Modal>
 
-      <ToastContainer /> {/* Add ToastContainer for notifications */}
+      <ToastContainer />
     </div>
   );
 };

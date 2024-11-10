@@ -2,26 +2,29 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import TaskBar from "../components/TaskBar";
 import BrowseCategories from "../components/BrowseCategories";
-import Lottie from 'lottie-react';
+import Lottie from "lottie-react";
 import animationData from "../assets/Animation - 1724952662598.json";
 import { FaEnvelope } from "react-icons/fa";
-
+import { auth, storage } from "../firebaseConfig";
 import axios from "axios";
-import { auth } from "../firebaseConfig";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+import jsPDF from "jspdf";
+import { toast } from "react-toastify";
+
 const OrderPlacedScreen = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { state } = location;
   const orderId = state?.orderId;
+  const cartItems = state?.cartItems || [];
+  const totalAmount = state?.totalAmount || 0;
   const [currentUser, setCurrentUser] = useState(null);
+  const [pdfPath, setPdfPath] = useState("");
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const handleLogoClick = () => {
-    navigate("/");
-  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -29,6 +32,207 @@ const OrderPlacedScreen = () => {
     });
     return () => unsubscribe();
   }, []);
+
+  // Fetch current user's phone number
+  useEffect(() => {
+    if (currentUser) {
+      // Generate the PDF once the user is authenticated
+      generatePdf();
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    if (pdfPath) {
+      sendInvoice();
+    }
+  }, [pdfPath]);
+console.log(cartItems);
+
+  const generatePdf = async () => {
+    const invoiceData = {
+      owner: currentUser?.displayName || "N/A",
+      address: "User's Address",
+      email: currentUser?.email || "N/A",
+      phoneNumber: currentUser?.phoneNumber || "N/A",
+      totalAmount: totalAmount,
+      shippingCharges: 50,
+      cartItems: cartItems,
+      timestamp: new Date().toISOString(),
+    };
+
+    const invoiceDate = invoiceData.timestamp ? invoiceData.timestamp.split('T')[0] : new Date().toISOString().split('T')[0];
+    
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Invoice</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+          }
+          .text-center {
+            text-align: center;
+          }
+          .text-primary {
+            color: #FA832A;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          th, td {
+            padding: 6px 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-size: 12px;
+          }
+          th {
+            background-color: #f4f4f4;
+          }
+          tr:nth-child(even) {
+            background-color: #f9f9f9;
+          }
+          .logo {
+            max-width: 150px;
+            margin-bottom: 20px;
+          }
+          .invoice-header {
+            margin-bottom: 20px;
+          }
+          .invoice-footer {
+            margin-top: 30px;
+            text-align: center;
+          }
+          .line {
+            border-bottom: 2px solid #ddd;
+            margin: 15px 0;
+          }
+        </style>
+      </head>
+      <body>
+        <section id="invoice">
+          <div class="text-center pb-5">
+            <img src="assets/logo.png" alt="Company Logo" class="logo">
+          </div>
+          <div class="invoice-header">
+            <h2>Invoice</h2>
+            <p>Invoice No: ${invoiceData.uid || 'N/A'}</p>
+            <p>Invoice Date: ${invoiceDate}</p>
+            <p>Due Date: ${invoiceDate}</p>
+          </div>
+          <div class="invoice-section" style="display: flex; justify-content: space-between;">
+            <div class="invoice-to">
+              <p class="text-primary">Invoice To</p>
+              <h4>${invoiceData.owner || 'N/A'}</h4>
+              <ul style="list-style-type: none; padding-left: 0;">
+                <li>${invoiceData.address || 'N/A'}</li>
+                <li>${invoiceData.email || 'N/A'}</li>
+                <li>${invoiceData.phoneNumber || 'N/A'}</li>
+              </ul>
+            </div>
+            <div class="invoice-from">
+              <p class="text-primary">Invoice From</p>
+              <h4>Your Company Name</h4>
+              <ul style="list-style-type: none; padding-left: 0;">
+                <li>Your Company Address</li>
+                <li>Your Company Email</li>
+                <li>Your Company Phone</li>
+              </ul>
+            </div>
+          </div>
+          <div class="line"></div>
+          <table>
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Discount</th>
+                <th>Quantity</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${invoiceData.cartItems.map((item, index) => `
+                <tr>
+                  <td>${index + 1}</td>
+                  <td>${item.productName || 'N/A'}</td>
+                  <td>${item.product.price || '0.00'}</td>
+                  <td>${item.product.additionalDiscount || '0.00'}</td>
+                  <td>${item.quantity || 0}</td>
+                  <td>${(item.product.price * item.quantity).toFixed(2)}</td>
+                </tr>`).join('')}
+              <tr>
+                <td colspan="4">Sub-Total</td>
+                <td colspan="2">${invoiceData.totalAmount.toFixed(2)}</td>
+              </tr>
+              <tr>
+                <td colspan="4">Shipping Charges</td>
+                <td colspan="2">${invoiceData.shippingCharges.toFixed(2)}</td>
+              </tr>
+              <tr>
+                <td colspan="4" class="text-primary">Grand Total</td>
+                <td colspan="2" class="text-primary">${(invoiceData.totalAmount + invoiceData.shippingCharges).toFixed(2)}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="invoice-footer">
+            <p>Thank you for your purchase!</p>
+          </div>
+        </section>
+      </body>
+      </html>
+    `;
+    
+    const doc = new jsPDF();
+    doc.html(htmlContent, {
+      callback: async (doc) => {
+        // Use addPage for setting the page size
+        doc.addPage([210, 297]); // A4 size
+        doc.setFontSize(10);  // Adjust font size
+        
+        // Output the PDF
+        const pdfOutput = doc.output("blob");
+        const storageRef = ref(storage, `invoices/${currentUser.uid}/${orderId}`);
+        uploadBytes(storageRef, pdfOutput).then((snapshot) => {
+          getDownloadURL(snapshot.ref).then((url) => {
+            setPdfPath(url);
+            toast.success("PDF uploaded and saved successfully.");
+          });
+        });
+      },
+      x: 10,
+      y: 10,
+      width: 180,
+      windowWidth: 800,
+    });
+};
+  
+  const sendInvoice = async () => {
+    const body = {
+      url: pdfPath,
+      phone: currentUser?.phoneNumber,
+    };
+
+    try {
+      const response = await axios.post("https://toolsbazaar-server-1036279390366.asia-south1.run.app/sendInvoice", body, {
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response.status === 200) {
+        toast.success("Invoice sent successfully!");
+      } else {
+        toast.error("Failed to send invoice.");
+      }
+    } catch (error) {
+      console.error("Error sending invoice:", error);
+      toast.error("Network error while sending invoice.");
+    }
+  };
 
   const categories = [
     "Abrasives",
@@ -60,36 +264,6 @@ const OrderPlacedScreen = () => {
     "Welding",
   ];
 
-  const handleGetQuotation = async (companyId, cartItems) => {
-    try {
-      if (!currentUser) {
-        console.error('User not authenticated');
-        return;
-      }
-  
-      const response = await axios.post(
-        'https://crossbee-server-1036279390366.asia-south1.run.app/quotationCheckout',
-        {
-          cartItems,
-          uid: currentUser.uid,
-          companyId,
-        }
-      );
-  
-      if (response.data.text) {
-        console.log('Quotation generated successfully');
-        navigate('/invoice', {
-          invoiceData: response.data.data,
-          url: response.data.invoice,
-          quotationId: response.data.quotationId,
-        });
-      } else {
-        console.error('Failed to generate quotation');
-      }
-    } catch (error) {
-      console.error('Error generating quotation: ', error);
-    }
-  };
   return (
     <div className="order-placed-screen" style={styles.orderPlacedScreen}>
       <TaskBar />
@@ -97,37 +271,21 @@ const OrderPlacedScreen = () => {
         <div style={styles.grayBox}>
           <div style={styles.orderPlacedContainer}>
             <div style={styles.animationBox}>
-              <Lottie
-                animationData={animationData}
-                loop
-                autoplay
-                style={{ height: 200, width: 200 }}
-              />
+              <Lottie animationData={animationData} loop autoplay style={{ height: 200, width: 200 }} />
             </div>
             <div style={styles.messageBox}>
               <p style={styles.orderPlacedText}>Order Placed Successfully!</p>
               <p style={styles.welcomeText}>
-                Welcome to the Toolbazar Family!
-                <br />
-                You will receive a copy of your invoice and <br />
-                further instructions via email shortly.
+                Welcome to the Toolbazar! Your order has been placed successfully. We will notify you via email when it is shipped.
               </p>
-              {orderId && (
-                <p style={styles.orderIdText}>
-                  Your Order ID: <strong>{orderId}</strong>
-                </p>
-              )}
-              <button style={styles.contactButton} onClick={handleGetQuotation}>
-                <FaEnvelope style={styles.icon} /> Get Quotation
-              </button>
-              <button
-                style={styles.continueBrowsingButton}
-                onClick={handleLogoClick}
-              >
-                Continue Browsing
-              </button>
+            </div>
+            <div style={styles.iconBox}>
+              <FaEnvelope size={32} />
+              <p style={styles.mailText}>A copy of the invoice has been sent to your WhatsApp</p>
             </div>
           </div>
+        </div>
+        <div style={styles.browseCategoriesBox}>
           <BrowseCategories categories={categories} />
         </div>
       </div>
@@ -137,65 +295,54 @@ const OrderPlacedScreen = () => {
 
 const styles = {
   orderPlacedScreen: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    textAlign: "center",
-    padding: "20px",
+    minHeight: "100vh",
+    backgroundColor: "#F8F9F9",
   },
   whiteBox: {
-    backgroundColor: "#FFFFFF",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    padding: "20px",
-    borderRadius: "10px",
-    marginTop: "70px",
-    width: "100%",
-    maxWidth: "1500px",
+    width: "90%",
+    backgroundColor: "#ffffff",
+    borderRadius: "20px",
+    margin: "50px auto",
+    boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)",
   },
   grayBox: {
-    backgroundColor: "#EEEEEE",
-    padding: "20px",
-    borderRadius: "10px",
+    backgroundColor: "#FAFAFA",
+    borderRadius: "15px",
+    padding: "40px",
   },
   orderPlacedContainer: {
     display: "flex",
+    justifyContent: "center",
     flexDirection: "column",
     alignItems: "center",
   },
   animationBox: {
-    border: "2px solid black",
-    borderRadius: "10px",
-    padding: "10px",
-    marginBottom: "20px",
+    marginBottom: "30px",
   },
   messageBox: {
     textAlign: "center",
+    paddingBottom: "20px",
   },
   orderPlacedText: {
     fontSize: "24px",
     fontWeight: "bold",
-    color: "#333333",
     marginBottom: "10px",
   },
   welcomeText: {
     fontSize: "16px",
-    color: "#666666",
-    marginBottom: "20px",
+    color: "#555",
   },
-  orderIdText: {
-    fontSize: "18px",
-    color: "#333333",
-    marginTop: "10px",
+  iconBox: {
+    display: "flex",
+    alignItems: "center",
   },
-  continueBrowsingButton: {
-    marginTop: "10px",
-    padding: "10px 20px",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-    backgroundColor: "#FA832A",
-    color: "#fff",
-    width: "70%",
+  mailText: {
+    marginLeft: "10px",
+    fontSize: "14px",
+    color: "#555",
+  },
+  browseCategoriesBox: {
+    padding: "20px",
   },
 };
 

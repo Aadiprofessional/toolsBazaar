@@ -1,7 +1,7 @@
 .product-cardGrid {
   width: 100%;
-  max-width: 220px;
-  height: 300px; /* Set fixed height for uniformity */
+  max-width: 220px; /* Keep max-width fixed */
+  height: 300px; /* Set fixed height */
   border: 1px solid #ddd;
   padding: 20px;
   position: relative;
@@ -11,28 +11,26 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Ensures bottom alignment for the divider */
+  justify-content: space-between; /* Align content to bottom */
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-  
 }
 .content-wrapper {
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   box-sizing: border-box;
+  height: 100%; /* Make the content fill the card */
 }
 
-
-
-/* Image container adjustments to fit the new layout */
 .image-container {
   width: 100%;
-  padding-top: 70%; /* Adjust ratio to fit card height */
+  padding-top: 70%; /* Maintain aspect ratio of 100:70 for image */
   position: relative;
   margin-bottom: 10px;
 }
+
+
 
 .text-container {
   flex: 1;
@@ -40,6 +38,22 @@
   padding-top: 10px;
 }
 
+.product-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limits text to 2 lines */
+  -webkit-box-orient: vertical;
+  height: 40px; /* Ensure space for 2 lines */
+}
+
+.dividerCard {
+  border-top: 1px dotted #ccc;
+  width: 100%;
+}
 .product-cardGrid:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -186,28 +200,6 @@
   }
   
 
-  
-  .product-name {
-    font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 5px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limits text to 2 lines */
-    -webkit-box-orient: vertical;
-    height: 40px; /* Adjust height to ensure alignment */
-  }
-  
-  /* Fixed-position divider 20% from the bottom */
-  .dividerCard {
-  
-    border-top: 1px dotted #ccc;
-
-  
-    width: 100%;
-  }
-  
   /* Positioning for the price and discount container */
   .price-container {
     display: flex;

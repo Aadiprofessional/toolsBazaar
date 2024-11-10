@@ -53,24 +53,24 @@ const LeftSlider = ({ isOpen, onClose }) => {
     setExpandedCategory((prev) => (prev === categoryId ? null : categoryId));
   };
 
-  const navigateToSubCategory = (categoryId, mainId) => {
+  const navigateToSubCategory = (categoryId, mainId, mainName, categoryName) => {
     navigate('/subcategory2', {
-      state: { categoryId, mainId }, // Pass categoryId and mainId to SubCategory2 screen
+      state: { categoryId, mainId, mainName, categoryName }, // Pass categoryId, mainId, mainName, and categoryName
     });
   };
-  
+
   const handleAllCategoriesPress = () => {
     navigate("/AllCategories");
     onClose();
   };
 
-  const renderSubCategoryItem = (companies, mainId) => (
+  const renderSubCategoryItem = (companies, mainId, mainName, categoryName) => (
     <div className="subcategory-container">
       {companies.map(({ id, name }) => (
         <div
           key={id}
           className="subcategory-item"
-          onClick={() => navigateToSubCategory(id, mainId)} // Correct argument order (categoryId, mainId)
+          onClick={() => navigateToSubCategory(id, mainId, mainName, categoryName)} // Pass additional names
         >
           <span className="subcategory-text">{name}</span>
           <span className="chevron-icon">›</span>
@@ -78,7 +78,7 @@ const LeftSlider = ({ isOpen, onClose }) => {
       ))}
     </div>
   );
-  
+
   const renderCategoryItem = (category) => {
     const isExpanded = expandedCategory === category.id;
     return (
@@ -91,7 +91,7 @@ const LeftSlider = ({ isOpen, onClose }) => {
             </span>
           )}
         </div>
-        {isExpanded && category.companies && renderSubCategoryItem(category.companies, category.id)}
+        {isExpanded && category.companies && renderSubCategoryItem(category.companies, category.id, category.mainName, category.name)}
       </div>
     );
   };

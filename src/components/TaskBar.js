@@ -207,7 +207,7 @@ const TaskBar = ({ onSearch, onLogout }) => {
           <div className="storeIcons">
             <img src={support} alt="My Orders" className="storeIcon2" />
           </div>
-          <div className="downloadText2">Need Help?</div>
+          <div className="downloadText4">Need Help?</div>
         </div>
         <div className="cart-container">
           <button className="cart-button" onClick={handleCart}>

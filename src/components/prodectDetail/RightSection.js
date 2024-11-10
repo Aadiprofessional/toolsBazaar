@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebaseConfig";
 import "./RightSection.css"; // Import the CSS file
 import CallIcon from "../../assets/Call.png"; // Import Call.png image
+import MailIcon from "../../assets/email.png";
+import WhatsAppIcon from "../../assets/social.png"
 
 const RightSection = ({
   product,
@@ -65,9 +67,10 @@ const RightSection = ({
   const handleAddToCart = async () => {
     if (!currentUser) {
       toast.error("Please log in to add items to the cart.");
+      navigate("/login"); // Navigate to /login if the user is not logged in
       return;
     }
-
+  
     if (product) {
       setIsLoading(true);
       try {
@@ -82,12 +85,11 @@ const RightSection = ({
           categoryId,
           productId,
           attribute1Id = product.attribute1Id,
-          attribute2Id  = product.attribute2Id,
-          attribute3Id  = product.attribute3Id,
+          attribute2Id = product.attribute2Id,
+          attribute3Id = product.attribute3Id,
           selectedAttribute1 = selectedAttribute1,
           selectedAttribute2 = selectedAttribute2,
           selectedAttribute3 = selectedAttribute3,
-
         );
         toast.success("Product added to cart successfully!");
       } finally {
@@ -95,7 +97,18 @@ const RightSection = ({
       }
     }
   };
+  const handlePhoneCall = () => {
+    window.open('tel:+919924686611');
+  };
 
+  const handleWhatsApp = () => {
+    window.open('https://wa.me/919924686611');
+  };
+
+  const handleEmail = () => {
+    window.open('mailto:ecomrtepl@gmail.com');
+  };
+  
   if (!productName) {
     return <div></div>;
   }
@@ -142,12 +155,25 @@ const RightSection = ({
           )}
         </div>
       </div>
-      <div className="help-section">
+      <div className="white-boxProduct contact-section">
+      <p className="contact-heading"><strong>Connect with Us</strong></p>
+      <p className="contact-subtext">
+        Have a question or want to place an order? Reach out through any of the following options:
+      </p>
+      <div className="help-section" onClick={handlePhoneCall}>
         <img src={CallIcon} alt="Call Icon" className="call-icon" />
-        <p className="call-text">
-          <strong>Need help? Call on +91 9924686611</strong>
-        </p>
+        <p className="call-text"><strong>Helpline Number:</strong> +91 9924686611</p>
       </div>
+      <div className="help-section" onClick={handleWhatsApp}>
+        <img src={WhatsAppIcon} alt="WhatsApp Icon" className="call-icon" />
+        <p className="call-text"><strong>WhatsApp:</strong> +91 9924686611</p>
+      </div>
+      <div className="help-section" onClick={handleEmail}>
+        <img src={MailIcon} alt="Mail Icon" className="call-icon" />
+        <p className="call-text"><strong>Email:</strong> ecomrtepl@gmail.com</p>
+      </div>
+      <p className="contact-hours">(Mon-Sun: 9am-6pm)</p>
+    </div>
     </div>
   );
 };

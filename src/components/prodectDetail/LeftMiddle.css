@@ -6,7 +6,7 @@
 
 .breadcrumb {
   padding: 10px 20px;
-  font-size: 17px;
+  font-size: 14px;
   color: #555;
   margin-top: 40px;
 }
@@ -41,6 +41,39 @@
   justify-content: flex-start; /* Aligns items to the left */
   margin-top: 10px;
   gap: 10px; /* Adds space between image options */
+}
+/* Arrow button styles */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+  border: none;
+  color: #333;
+  font-size: 24px;
+  padding: 5px 10px;
+  cursor: pointer;
+  z-index: 1;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.0);
+}
+
+.carousel-arrow.left {
+  left: 0;
+  margin-left: -20px; /* Adjust to position the arrow precisely */
+}
+
+.carousel-arrow.right {
+  right: 0;
+  margin-right: -20px; /* Adjust to position the arrow precisely */
+}
+
+.image-options-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
 }
 
 .image-option-containerC {

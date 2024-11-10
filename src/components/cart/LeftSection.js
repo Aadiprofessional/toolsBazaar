@@ -74,6 +74,7 @@ const LeftSection = () => {
           state: {
             invoiceData: response.data.data,
             orderId: response.data.orderId,
+            cartItems, totalAmount
           },
         });
       } else {
@@ -99,6 +100,13 @@ const LeftSection = () => {
         <h2 className="cart-summary-title-custom">
           My Cart ({itemCount} item{itemCount > 1 ? "s" : ""})
         </h2>
+        <button
+            className="place-order-button-custom"
+            onClick={handleCheckout}
+            disabled={isLoading} // Disable the button while loading
+          >
+            Place Order
+          </button>
       </div>
 
       <div className="cart-items-box-custom">
@@ -124,21 +132,7 @@ const LeftSection = () => {
           ))}
         </div>
       </div>
-
-      <div className="button-container-custom">
-        <div className="button-wrapper-custom">
-          <button className="continue-button-custom" onClick={() => navigate("/")}>
-            Continue Shopping
-          </button>
-          <button
-            className="place-order-button-custom"
-            onClick={handleCheckout}
-            disabled={isLoading} // Disable the button while loading
-          >
-            Place Order
-          </button>
-        </div>
-      </div>
+      <p className="frequently-bought">Featured Products</p>
       <ProductsGrid2 />
     </div>
   );

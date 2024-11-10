@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
-import './CategoriesGrid.css'; // Ensure this file is linked for additional styles
+import { useNavigate } from 'react-router-dom';
+import './CategoriesGrid.css';
 
 function CategoriesGrid() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const fetchCategories = useCallback(async () => {
     try {
@@ -24,9 +24,9 @@ function CategoriesGrid() {
     fetchCategories();
   }, [fetchCategories]);
 
-  const handleCardClick = (id) => {
-    // Navigate to SubCategoryScreen2 with mainId
-    navigate(`/subcategories`, { state: { mainId: id } });
+  const handleCardClick = (id, name) => {
+    // Navigate to SubCategoryScreen2 with mainId and mainName
+    navigate(`/subcategories`, { state: { mainId: id, mainName: name } });
   };
 
   return (
@@ -39,7 +39,7 @@ function CategoriesGrid() {
         <div className="grid">
           {categories.length > 0 ? (
             categories.map(({ id, name, image }) => (
-              <div key={id} className="card" onClick={() => handleCardClick(id)}>
+              <div key={id} className="card" onClick={() => handleCardClick(id, name)}>
                 <div className="cardImageContainer">
                   <img src={image} alt={name} className="cardImage" />
                 </div>
