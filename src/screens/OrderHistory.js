@@ -93,23 +93,19 @@ const OrderHistory = () => {
       </div>
     );
   }
-  const handleDownloadInvoice = async (orderId) => {
-    try {
-      // Replace this URL with your actual endpoint to download the invoice
-      const response = await axios.get(
-        `https://toolsbazaar-server-1036279390366.asia-south1.run.app/downloadInvoice?orderId=${orderId}`,
-        { responseType: "blob" }
-      );
-      // Create a link to trigger download
-      const blob = new Blob([response.data], { type: "application/pdf" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = `Invoice_${orderId}.pdf`;
-      link.click();
-    } catch (error) {
-      console.error('Error downloading invoice:', error);
+  const handleDownloadInvoice = (orderId) => {
+    const order = orders.find(order => order.id === orderId);
+    const invoiceUrl = order.invoice; // Invoice URL from the order data
+  
+    if (invoiceUrl) {
+      // Open the invoice URL in a new tab
+      window.open(invoiceUrl, '_blank');
+    } else {
+      console.error('Invoice URL not found');
     }
   };
+  
+
   return (
     <div style={styles.container}>
       <TaskBar />
@@ -158,8 +154,8 @@ const OrderHistory = () => {
                 <div>Address here</div>
               </div>
               <div style={{ ...styles.orderDetailsHeaderItem }}>
-                <div style={{ color: '#DB3F1F', marginBottom: '10px' }}>Delivered</div>
-                <div>N/A</div>
+                <div style={{ color: '#DB3F1F', marginBottom: '10px' }}>Order Status</div>
+                <div>{order.status}</div>
               </div>
               <div style={styles.orderDetailsHeaderItem}>
                 <div>Order #{order.id}</div>
@@ -217,11 +213,12 @@ const OrderHistory = () => {
                     Submit All Ratings
                   </button>
                   <button
-                    onClick={() => handleDownloadInvoice(order.id)}
+                    onClick={() => handleDownloadInvoice(order.id, order.invoice)}
                     style={{ ...styles.contactButton2, width: '48%' }}
                   >
                     Download Invoice
                   </button>
+
                 </div>
 
               </div>

@@ -8,7 +8,7 @@ const ProductsGrid2 = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const cachedProducts = localStorage.getItem("cachedProducts");
+    const cachedProducts = localStorage.getItem("cachedProductsBest");
 
     if (cachedProducts) {
       // Load products from cache
@@ -44,7 +44,7 @@ const ProductsGrid2 = () => {
           }));
           setProducts(formattedProducts);
           // Save the fetched products to local storage
-          localStorage.setItem("cachedProducts", JSON.stringify(formattedProducts));
+          localStorage.setItem("cachedProductslatest", JSON.stringify(formattedProducts));
         } catch (error) {
           console.error("Error fetching products:", error);
         } finally {
@@ -54,6 +54,17 @@ const ProductsGrid2 = () => {
 
       fetchProducts();
     }
+
+    // Add event listener to clear cache on page reload or close
+    const clearCacheOnReload = () => {
+      localStorage.removeItem("cachedProductslatest");
+    };
+    window.addEventListener("beforeunload", clearCacheOnReload);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("beforeunload", clearCacheOnReload);
+    };
   }, []);
 
   const renderSkeletonCard = () => (

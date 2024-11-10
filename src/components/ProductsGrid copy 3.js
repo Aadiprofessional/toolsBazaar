@@ -3,12 +3,12 @@ import ProductCard from "./ProductCard";
 import { Skeleton, Card } from 'antd';
 import './ProductsGrid2.css';
 
-const ProductsGrid3 = () => {
+const ProductsGrid5 = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const cachedProducts = localStorage.getItem("cachedProductslatest");
+    const cachedProducts = localStorage.getItem("cachedFre");
 
     if (cachedProducts) {
       // Load products from cache
@@ -19,7 +19,7 @@ const ProductsGrid3 = () => {
       const fetchProducts = async () => {
         try {
           const response = await fetch(
-            "https://toolsbazaar-server-1036279390366.asia-south1.run.app/latestProducts"
+            "https://toolsbazaar-server-1036279390366.asia-south1.run.app/bestDeals"
           );
           const data = await response.json();
           const formattedProducts = data.map((product) => ({
@@ -68,16 +68,17 @@ const ProductsGrid3 = () => {
   }, []);
 
   const renderSkeletonCard = () => (
-    <Card style={{ width: 240, margin: '1px' }}>
-      <Skeleton.Image style={{ width: 200, height: 150 }} />
+    <Card style={{ width: 210, margin: '1px' }}>
+      <Skeleton.Image style={{ width: 170, height: 150 }} />
       <Skeleton active title={{ width: '60%' }} paragraph={{ rows: 2 }} />
     </Card>
   );
 
+
   return (
-    <div className="products-containerGrid2">
+    <div className="products-containerGrid5">
       {loading
-        ? Array(10).fill(null).map((_, index) => renderSkeletonCard()) // Show skeletons while loading
+        ? Array(5).fill(null).map((_, index) => renderSkeletonCard()) // Show skeletons while loading
         : products.map((product) => (
             <ProductCard product={product} key={product.id} />
           ))}
@@ -85,4 +86,4 @@ const ProductsGrid3 = () => {
   );
 };
 
-export default ProductsGrid3;
+export default ProductsGrid5;

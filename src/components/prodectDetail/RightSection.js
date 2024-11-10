@@ -63,6 +63,7 @@ const RightSection = ({
       toast.info(`Minimum quantity is ${product?.minCartValue}. Cannot decrease further.`);
     }
   };
+console.log('asd',product);
 
   const handleAddToCart = async () => {
     if (!currentUser) {
@@ -90,6 +91,7 @@ const RightSection = ({
           selectedAttribute1 = selectedAttribute1,
           selectedAttribute2 = selectedAttribute2,
           selectedAttribute3 = selectedAttribute3,
+          
         );
         toast.success("Product added to cart successfully!");
       } finally {
