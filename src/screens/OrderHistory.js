@@ -146,12 +146,12 @@ const OrderHistory = () => {
               </div>
               <div style={{ ...styles.orderDetailsHeaderItem }}>
                 <div style={{ color: '#DB3F1F', marginBottom: '10px' }}>Total</div>
-                <div>₹{order.totalAmount}</div>
+                <div>₹{order.totalAmount.toFixed(2)}</div>
               </div>
 
               <div style={{ ...styles.orderDetailsHeaderItem }}>
                 <div style={{ color: '#DB3F1F', marginBottom: '10px' }}> Ship To</div>
-                <div>Address here</div>
+                <div>{order.address.address}</div>
               </div>
               <div style={{ ...styles.orderDetailsHeaderItem }}>
                 <div style={{ color: '#DB3F1F', marginBottom: '10px' }}>Order Status</div>
@@ -183,7 +183,7 @@ const OrderHistory = () => {
                           tooltips={desc}
                           onChange={(value) => handleRatingChange(item.cartId, value)} // Update rating per item
                           style={{ marginBottom: 30 }} // Proper inline style syntax
-                          value={ratings[item.cartId] || 0} // Use stored rating or default to 0
+                          value={item.rating ?? (ratings[item.cartId] || 0)} // Use stored rating or default to 0
                         />
                       </Flex>
 

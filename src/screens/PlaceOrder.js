@@ -8,7 +8,7 @@ import { FaEnvelope } from "react-icons/fa";
 import { auth, storage } from "../firebaseConfig";
 import axios from "axios";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
+import html2pdf from "html2pdf.js";
 import jsPDF from "jspdf";
 import { toast } from "react-toastify";
 
@@ -17,6 +17,7 @@ const OrderPlacedScreen = () => {
   const location = useLocation();
   const { state } = location;
   const orderId = state?.orderId;
+  const address = state?.address;
   const cartItems = state?.cartItems || [];
   const totalAmount = state?.totalAmount || 0;
   const [currentUser, setCurrentUser] = useState(null);
@@ -25,6 +26,7 @@ const OrderPlacedScreen = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  console.log('Add', address);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -46,22 +48,22 @@ const OrderPlacedScreen = () => {
       sendInvoice();
     }
   }, [pdfPath]);
-console.log(cartItems);
+  console.log(cartItems);
+
+
 
   const generatePdf = async () => {
     const invoiceData = {
-      owner: currentUser?.displayName || "N/A",
-      address: "User's Address",
-      email: currentUser?.email || "N/A",
-      phoneNumber: currentUser?.phoneNumber || "N/A",
+      owner: address.owner || "N/A",
+      address: address.address || "N/A",
+      phoneNumber: address?.phoneNumber || "N/A",
       totalAmount: totalAmount,
-      shippingCharges: 50,
+      shippingCharges: 0,
       cartItems: cartItems,
       timestamp: new Date().toISOString(),
+      orderId: orderId
     };
 
-    const invoiceDate = invoiceData.timestamp ? invoiceData.timestamp.split('T')[0] : new Date().toISOString().split('T')[0];
-    
     const htmlContent = `
       <!DOCTYPE html>
       <html lang="en">
@@ -70,89 +72,65 @@ console.log(cartItems);
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Invoice</title>
         <style>
-          body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-          }
-          .text-center {
-            text-align: center;
-          }
-          .text-primary {
-            color: #FA832A;
-          }
-          table {
-            width: 100%;
-            border-collapse: collapse;
-          }
-          th, td {
-            padding: 6px 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-            font-size: 12px;
-          }
-          th {
-            background-color: #f4f4f4;
-          }
-          tr:nth-child(even) {
-            background-color: #f9f9f9;
-          }
-          .logo {
-            max-width: 150px;
-            margin-bottom: 20px;
-          }
-          .invoice-header {
-            margin-bottom: 20px;
-          }
-          .invoice-footer {
-            margin-top: 30px;
-            text-align: center;
-          }
-          .line {
-            border-bottom: 2px solid #ddd;
-            margin: 15px 0;
-          }
+          body { font-family: 'Roboto', sans-serif; }
+          .logo { width: 150px; height: auto; }
+          .invoice-section { display: flex; justify-content: space-between; margin-top: 20px; }
+          .invoice-to, .invoice-from { width: 50%; }
+          .invoice-to { text-align: left; }
+          .invoice-from { text-align: right; }
+          .invoice-header { border-top: 3px solid #FCCC51; border-bottom: 3px solid #FCCC51; margin: 30px 0; padding: 10px 0; }
+          .invoice-header h2 { font-size: 2rem; font-weight: bold; color: #000; }
+          .text-primary { color: #FCCC51; }
+          table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+          th, td { padding: 8px 12px; text-align: left; }
+          th { background-color: #f2f2f2; }
+          td { background-color: #ffffff; }
+          tr:nth-child(odd) td { background-color: #f2f2f2; }
+          .quantity-title { color: #000; font-weight: bold; }
         </style>
       </head>
       <body>
         <section id="invoice">
           <div class="text-center pb-5">
-            <img src="assets/logo.png" alt="Company Logo" class="logo">
+            <img src="https://firebasestorage.googleapis.com/v0/b/crossbee.appspot.com/o/logo.png?alt=media&token=b7622c61-0fff-4083-ac26-a202a0cd970d" alt="Company Logo" class="logo">
           </div>
-          <div class="invoice-header">
-            <h2>Invoice</h2>
-            <p>Invoice No: ${invoiceData.uid || 'N/A'}</p>
-            <p>Invoice Date: ${invoiceDate}</p>
-            <p>Due Date: ${invoiceDate}</p>
-          </div>
-          <div class="invoice-section" style="display: flex; justify-content: space-between;">
+
+          <div class="invoice-section">
             <div class="invoice-to">
               <p class="text-primary">Invoice To</p>
               <h4>${invoiceData.owner || 'N/A'}</h4>
-              <ul style="list-style-type: none; padding-left: 0;">
+              <ul>
                 <li>${invoiceData.address || 'N/A'}</li>
-                <li>${invoiceData.email || 'N/A'}</li>
                 <li>${invoiceData.phoneNumber || 'N/A'}</li>
               </ul>
             </div>
             <div class="invoice-from">
               <p class="text-primary">Invoice From</p>
               <h4>Your Company Name</h4>
-              <ul style="list-style-type: none; padding-left: 0;">
+              <ul>
                 <li>Your Company Address</li>
                 <li>Your Company Email</li>
                 <li>Your Company Phone</li>
               </ul>
             </div>
           </div>
-          <div class="line"></div>
+
+          <div class="invoice-header">
+            <h2>Invoice</h2>
+            <div>
+              <p>Invoice No: ${invoiceData.orderId || 'N/A'}</p>
+              <p>Invoice Date: ${invoiceData.timestamp.split('T')[0]}</p>
+              <p>Due Date: ${invoiceData.timestamp.split('T')[0]}</p>
+            </div>
+          </div>
+
           <table>
             <thead>
               <tr>
                 <th>No.</th>
                 <th>Description</th>
                 <th>Price</th>
-                <th>Discount</th>
+                <th>Discounted Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
               </tr>
@@ -163,7 +141,7 @@ console.log(cartItems);
                   <td>${index + 1}</td>
                   <td>${item.productName || 'N/A'}</td>
                   <td>${item.product.price || '0.00'}</td>
-                  <td>${item.product.additionalDiscount || '0.00'}</td>
+                  <td>${item.discountedPrice || '0.00'}</td>
                   <td>${item.quantity || 0}</td>
                   <td>${(item.product.price * item.quantity).toFixed(2)}</td>
                 </tr>`).join('')}
@@ -181,38 +159,31 @@ console.log(cartItems);
               </tr>
             </tbody>
           </table>
-          <div class="invoice-footer">
-            <p>Thank you for your purchase!</p>
-          </div>
         </section>
       </body>
       </html>
     `;
-    
-    const doc = new jsPDF();
-    doc.html(htmlContent, {
-      callback: async (doc) => {
-        // Use addPage for setting the page size
-        doc.addPage([210, 297]); // A4 size
-        doc.setFontSize(10);  // Adjust font size
-        
-        // Output the PDF
-        const pdfOutput = doc.output("blob");
-        const storageRef = ref(storage, `invoices/${currentUser.uid}/${orderId}`);
-        uploadBytes(storageRef, pdfOutput).then((snapshot) => {
-          getDownloadURL(snapshot.ref).then((url) => {
-            setPdfPath(url);
-            toast.success("PDF uploaded and saved successfully.");
-          });
-        });
-      },
-      x: 10,
-      y: 10,
-      width: 180,
-      windowWidth: 800,
-    });
-};
-  
+
+    const pdfBlob = await html2pdf()
+      .set({
+        margin: 1,
+        filename: `${orderId}_invoice.pdf`,
+        html2canvas: { scale: 4 }, // Increase resolution
+        jsPDF: { unit: "in", format: "a4", orientation: "portrait" }
+      })
+      .from(htmlContent)
+      .toPdf()
+      .outputPdf("blob");
+
+    // Upload the PDF blob to Firebase
+    const storageRef = ref(storage, `invoices/${currentUser.uid}/${orderId}`);
+    await uploadBytes(storageRef, pdfBlob);
+    const pdfUrl = await getDownloadURL(storageRef);
+    setPdfPath(pdfUrl);
+    toast.success("Invoice PDF created and saved.");
+  };
+
+
   const sendInvoice = async () => {
     const body = {
       url: pdfPath,

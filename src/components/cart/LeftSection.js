@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCart } from "../CartContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -11,16 +11,14 @@ import './CartItem.css'
 import ProductsGrid2 from "../ProductsGrid";
 import ProductsGrid3 from "../ProductsGrid copy";
 
-const LeftSection = () => {
-  const { cart, updateCartItemQuantity, removeCartItem } = useCart();
+const LeftSection = ({ cart, totalAmount, address,finalAmount }) => {
+  const { updateCartItemQuantity, removeCartItem } = useCart();
+  const [calculatedTotalAmount, setCalculatedTotalAmount] = useState(0);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+console.log('Final pRice',finalAmount);
 
   const itemCount = cart.length;
-  const totalAmount = cart.reduce(
-    (acc, item) => acc + item.product.price * item.quantity,
-    0
-  );
 
   const handleUpdateQuantity = (id, quantity) => {
     updateCartItemQuantity(id, quantity);
@@ -29,14 +27,28 @@ const LeftSection = () => {
   const handleRemoveItem = (id) => {
     removeCartItem(id);
   };
+  useEffect(() => {
+    // Calculate total amount whenever cart changes
+    const total = cart.reduce((sum, item) => {
+      const gstRate = item.product.gst ? item.product.gst / 100 : 0;
+      const discountedPrice = item.product.price
+        ? item.product.price - (item.product.price * (item.product.additionalDiscount / 100))
+        : 0;
+      const totalPrice = discountedPrice * item.quantity;
+      const gstAmount = totalPrice * gstRate;
+      const finalPrice = totalPrice + gstAmount;
+      return sum + finalPrice;
+    }, 0);
+    setCalculatedTotalAmount(total);
+  }, [cart]);
+
+  useEffect(() => {
+    if (totalAmount !== calculatedTotalAmount) {
+      totalAmount(calculatedTotalAmount);
+    }
+  }, [calculatedTotalAmount, totalAmount]);
 
   const handleCheckout = async () => {
-    const data = {};
-    const useRewardPoints = false;
-    const appliedCoupon = false;
-    const cartItems = cart;
-    const address = {};
-
     if (!address) {
       toast.error("Please select an address before proceeding to checkout.");
       return;
@@ -46,12 +58,15 @@ const LeftSection = () => {
 
     try {
       const userId = auth.currentUser.uid;
-
+      const cartItems = cart;
+      const useRewardPoints = false;
+      const appliedCoupon = false;
+      
       const response = await axios.post(
         `https://toolsbazaar-server-1036279390366.asia-south1.run.app/checkout`,
         {
-          totalAmount,
-          data,
+          totalAmount: finalAmount || calculatedTotalAmount, // Use finalAmount if provided
+          data: {},
           useRewardPoints,
           appliedCoupon,
           cartItems,
@@ -68,7 +83,9 @@ const LeftSection = () => {
           state: {
             invoiceData: response.data.data,
             orderId: response.data.orderId,
-            cartItems, totalAmount
+            cartItems,
+            totalAmount: finalAmount || calculatedTotalAmount, // Include the final amount in the navigation state
+            address
           },
         });
       } else {
@@ -81,6 +98,8 @@ const LeftSection = () => {
     }
   };
 
+
+
   return (
     <div className="left-section-custom">
       <div className="cart-summary-box-custom">
@@ -88,11 +107,11 @@ const LeftSection = () => {
           My Cart ({itemCount} item{itemCount > 1 ? "s" : ""})
         </h2>
         <button
-            className="place-order-button-custom"
-            onClick={handleCheckout}
-            disabled={isLoading}
-          >
-            Place Order
+          className="place-order-button-custom"
+          onClick={handleCheckout}
+          disabled={isLoading}
+        >
+          Place Order
         </button>
       </div>
 
@@ -100,8 +119,8 @@ const LeftSection = () => {
         <div className="cart-items">
           {cart.map((item, index) => {
             const gstRate = item.product.gst ? item.product.gst / 100 : 0;
-            const discountedPrice = item.product.price 
-              ? item.product.price - (item.product.price * (item.product.additionalDiscount / 100)) 
+            const discountedPrice = item.product.price
+              ? item.product.price - (item.product.price * (item.product.additionalDiscount / 100))
               : 0;
             const totalPrice = discountedPrice * item.quantity;
             const gstAmount = totalPrice * gstRate;
@@ -168,30 +187,30 @@ const LeftSection = () => {
                 <div className="right-part">
                   <div className="quantity-control">
                     <button
-                        className="quantity-buttonCart"
-                        onClick={handleDecreaseQuantity}
-                        disabled={item.quantity <= item.product.minCartValue}
+                      className="quantity-buttonCart"
+                      onClick={handleDecreaseQuantity}
+                      disabled={item.quantity <= item.product.minCartValue}
                     >
-                        -
+                      -
                     </button>
                     <span className="quantity">{item.quantity}</span>
                     <button className="quantity-buttonCart" onClick={handleIncreaseQuantity}>
-                        +
+                      +
                     </button>
                   </div>
 
                   <div className="right-part-calculations">
                     <p className="right-part-text">
-                      <strong className="detail-title">Price:</strong> 
+                      <strong className="detail-title">Price:</strong>
                       {totalPrice.toLocaleString("en-IN", {
                         maximumFractionDigits: 0,
                         style: 'currency',
                         currency: 'INR',
                       })}
-                       <button className="details-button">Details</button>
+                      <button className="details-button">Details</button>
                     </p>
                     <p className="right-part-text">
-                      <strong className="detail-title">GST @ {item.product.gst}%:</strong> 
+                      <strong className="detail-title">GST @ {item.product.gst}%:</strong>
                       {gstAmount.toLocaleString("en-IN", {
                         maximumFractionDigits: 0,
                         style: 'currency',
@@ -199,7 +218,7 @@ const LeftSection = () => {
                       })}
                     </p>
                     <p className="final-price">
-                      <strong className="detail-title">Final Price:</strong> 
+                      <strong className="detail-title">Final Price:</strong>
                       {finalPrice.toLocaleString("en-IN", {
                         maximumFractionDigits: 0,
                         style: 'currency',
@@ -215,7 +234,7 @@ const LeftSection = () => {
       </div>
 
       <p className="frequently-bought">Featured Products</p>
-      <ProductsGrid3 />
+      <ProductsGrid5 />
     </div>
   );
 };

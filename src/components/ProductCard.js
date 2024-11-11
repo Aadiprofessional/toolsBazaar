@@ -154,13 +154,13 @@ const styles = {
   },
   cutPrice: {
     color: "#EA6021",
-    fontSize: "12px",
+    fontSize: "15px",
     fontWeight: "bold",
     marginBottom: -10,
   },
   discountText: {
     color: "#25881A",
-    fontSize: "10px",
+    fontSize: "14px",
     fontWeight: "Regular",
     marginRight: "10px",
     

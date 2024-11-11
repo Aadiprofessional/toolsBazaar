@@ -18,7 +18,10 @@
     display: flex;
     justify-content: space-between;
   }
-  
+  .category-name {
+    font-weight: bold;
+    color: black;
+  }
   .bannerContainer {
     width: 100%;
     display: flex;

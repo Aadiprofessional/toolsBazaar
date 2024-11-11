@@ -25,21 +25,22 @@
 }
 
 .image-container {
-  width: 100%;
-  aspect-ratio: 4 / 2;
+  width: 125%;
+  align-self: center;
+  aspect-ratio: 2 / 1;
   position: relative;
-  margin-bottom: 5%;
+ 
 }
 
 .text-container {
   flex: 1;
   text-align: left;
-  padding-top: 5%;
+margin-bottom: 1%;
 }
 
 .product-name {
   font-weight: 600;
-  font-size: 1em;
+  font-size: 0.86em;
   margin-bottom: 2%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -213,7 +214,7 @@
 
 .cut-price {
   color: #ea6021;
-  font-size: 0.4em;
+  font-size: 1em;
   font-weight: bold;
 }
 

@@ -10,7 +10,8 @@ import CategoriesGrid3 from '../components/AllCategories/CategoriesGrid3';
 
 function SubCategory2() {
   const location = useLocation(); // Get the state from the route
-  const { mainId, categoryId,mainName , categoryName} = location.state || {}; // Extract mainId and categoryId
+  const { mainId, categoryId, mainName, categoryName,selectedBrand,selectedPriceRange } = location.state || {}; // Extract mainId and categoryId
+console.log(mainName,selectedBrand,selectedPriceRange);
 
   return (
     <div className="page-container">
@@ -18,12 +19,13 @@ function SubCategory2() {
       <div className="contentAll">
         <Banner />
         <div className="breadcrumb">
-        <p>
-          <span className="home-link">Home</span> &gt; All Categories &gt; {mainName} &gt; {categoryName}
-        </p>
-      </div>
+          <p>
+            <span className="home-link">Home</span> &gt; All Categories &gt; {mainName} &gt; <span className="category-name">{categoryName}</span>
+          </p>
+        </div>
+
         {/* Pass mainId and categoryId as props to CategoriesGrid3 */}
-        <CategoriesGrid3 mainId={mainId} categoryId={categoryId} />
+        <CategoriesGrid3 mainId={mainId} categoryId={categoryId}  mainName={mainName} selectedBrand ={selectedBrand} selectedPriceRange={selectedPriceRange} />
       </div>
       <Footer />
     </div>

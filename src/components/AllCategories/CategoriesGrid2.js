@@ -40,7 +40,7 @@ function CategoriesGrid2() {
     <div className="container2">
       <div className="breadcrumb">
         <p>
-          <span className="home-link">Home</span> &gt; All Categories &gt; {mainName}
+          <span className="home-link">Home</span> &gt; All Categories &gt; <span className="category-name">{mainName}</span>
         </p>
       </div>
       <div className="container">

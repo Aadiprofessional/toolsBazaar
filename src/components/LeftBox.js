@@ -15,9 +15,7 @@ const LeftBox = () => {
   useEffect(() => {
     const fetchAndCacheData = async () => {
       try {
-        const response = await axios.get(
-          'https://toolsbazaar-server-1036279390366.asia-south1.run.app/drawer',
-        );
+        const response = await axios.get('https://toolsbazaar-server-1036279390366.asia-south1.run.app/drawer');
         if (response.data && Array.isArray(response.data)) {
           setCategories(response.data);
         } else {
@@ -43,16 +41,14 @@ const LeftBox = () => {
     });
   };
 
-  const handleBrandSelect = (brand) => {
+  const handleBrandSelect = (brand , categoryId, mainId, mainName, categoryName) => {
     setSelectedBrand(brand);
-    // Navigate to the same screen with brand filter applied
-    navigate('/subcategory2', { state: { selectedBrand: brand, selectedPriceRange } });
+    navigate('/subcategory2', { state: { selectedBrand: brand,categoryId, mainId, mainName, categoryName, } });
   };
 
-  const handlePriceSelect = (priceRange) => {
+  const handlePriceSelect = (priceRange,categoryId, mainId, mainName, categoryName,) => {
     setSelectedPriceRange(priceRange);
-    // Navigate to the same screen with price range filter applied
-    navigate('/subcategory2', { state: { selectedBrand, selectedPriceRange: priceRange } });
+    navigate('/subcategory2', { state: {selectedPriceRange: priceRange ,categoryId, mainId, mainName, categoryName,} });
   };
 
   return (
@@ -60,7 +56,7 @@ const LeftBox = () => {
       <ul style={styles.categoryList}>
         {loading ? (
           Array.from({ length: 2 }).map((_, index) => (
-            <Skeleton active title={{ width: '80%' }} paragraph={{ rows: 1 }} />
+            <Skeleton active title={{ width: '80%' }} paragraph={{ rows: 1 }} key={index} />
           ))
         ) : categories.length > 0 ? (
           categories.map((category, index) => (
@@ -77,7 +73,10 @@ const LeftBox = () => {
                 setHoveredSubcategory(null);
               }}
             >
-              <div style={styles.categoryName}>
+              <div
+                style={styles.categoryName}
+                onClick={() => handleSubcategoryClick(category.id, category.id, category.name, category.name)}
+              >
                 {category.name}
               </div>
               {hoveredCategory === index && category.companies && category.companies.length > 0 && (
@@ -93,99 +92,43 @@ const LeftBox = () => {
                         }}
                         onMouseEnter={() => setHoveredSubcategory(subIndex)}
                         onMouseLeave={() => setHoveredSubcategory(null)}
-                        onClick={() => handleSubcategoryClick(company.id, category.id, category.name, company.name)}
                       >
-                        {company.name}
+                        <span onClick={() => handleSubcategoryClick(company.id, category.id, category.name, company.name)}>
+                          {company.name}
+                        </span>
 
                         {hoveredSubcategory === subIndex && (
                           <div style={styles.filterBox}>
                             <div style={styles.filterRow}>
                               <div style={styles.filterColumn}>
-                                <div
-                                  style={styles.filterItem}
-
-                                >
+                                <div style={styles.filterItem}>
                                   Shop by Brand:
                                 </div>
 
-                                <div
-                                  style={styles.filterData}
-                                  onClick={() => handleBrandSelect(company.brands[0])}
-                                >
-                                  {company.brands.join(", ")}
-                                </div>
+                                {company.brands.map((brand, brandIndex) => (
+                                  <div
+                                    key={brandIndex}
+                                    style={styles.filterData}
+                                    onClick={() => handleBrandSelect(brand ,company.id, category.id, category.name, company.name)}
+                                  >
+                                    {brand}
+                                  </div>
+                                ))}
                               </div>
                               <div style={styles.filterColumn}>
-                                <div
-                                  style={styles.filterItem}
-
-                                >
+                                <div style={styles.filterItem}>
                                   Shop by Price:
                                 </div>
 
-                                <div
-                                  style={styles.filterData}
-                                  onClick={() => handlePriceSelect('0-10000')}
-                                >
-                                  0-10000
-                                </div>
-
-                                <div
-                                  style={styles.filterData}
-                                  onClick={() => handlePriceSelect('10000-20000')}
-                                >
-                                  10000-20000
-                                </div>
-                                <div
-                                  style={styles.filterData}
-                                  onClick={() => handlePriceSelect('20000-30000')}
-                                >
-                                  20000-30000
-                                </div>
-
-
-                                <div
-                                  style={styles.filterData}
-                                  onClick={() => handlePriceSelect('30000-40000')}
-                                >
-                                  30000-40000
-                                </div>
-                                <div
-                                  style={styles.filterData}
-                                  onClick={() => handlePriceSelect('40000-50000')}
-                                >
-                                  40000-50000
-                                </div>
-
-
-                                <div
-                                  style={styles.filterData}
-                                  onClick={() => handlePriceSelect('50000-60000')}
-                                >
-                                  50000-60000
-                                </div>
-                                <div
-                                  style={styles.filterData}
-                                  onClick={() => handlePriceSelect('60000-70000')}
-                                >
-                                  60000-70000
-                                </div>
-                                <div
-                                  style={styles.filterData}
-                                  onClick={() => handlePriceSelect('70000-80000')}
-                                >
-                                  70000-80000
-                                </div><div
-                                  style={styles.filterData}
-                                  onClick={() => handlePriceSelect('80000-90000')}
-                                >
-                                  80000-90000
-                                </div><div
-                                  style={styles.filterData}
-                                  onClick={() => handlePriceSelect('90000-100000')}
-                                >
-                                  90000-100000
-                                </div>
+                                {["0-10000", "10000-20000", "20000-30000", "30000-40000", "40000-50000", "50000-60000", "60000-70000", "70000-80000", "80000-90000", "90000-100000"].map((range, rangeIndex) => (
+                                  <div
+                                    key={rangeIndex}
+                                    style={styles.filterData}
+                                    onClick={() => handlePriceSelect(range,company.id, category.id, category.name, company.name)}
+                                  >
+                                    {range}
+                                  </div>
+                                ))}
                               </div>
                             </div>
                           </div>

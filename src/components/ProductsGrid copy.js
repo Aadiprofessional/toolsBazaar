@@ -8,7 +8,7 @@ const ProductsGrid3 = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const cachedProducts = localStorage.getItem("cachedProductslatest");
+    const cachedProducts = localStorage.getItem("cachedProductslatestwe");
 
     if (cachedProducts) {
       // Load products from cache
@@ -19,7 +19,7 @@ const ProductsGrid3 = () => {
       const fetchProducts = async () => {
         try {
           const response = await fetch(
-            "https://toolsbazaar-server-1036279390366.asia-south1.run.app/latestProducts"
+            "https://toolsbazaar-server-1036279390366.asia-south1.run.app/bestDeals"
           );
           const data = await response.json();
           const formattedProducts = data.map((product) => ({

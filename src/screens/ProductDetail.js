@@ -47,7 +47,7 @@ const ProductDetail = () => {
         );
         const data = response.data;
         setProduct(data);
-        console.log('Data',data);
+        console.log(data);
         
         // Extract initial selected attributes
         const attribute1 = data.attribute1;

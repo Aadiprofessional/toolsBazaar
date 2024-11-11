@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import PaymentSummary from './PaymentSummary';
-import PartnersOffers from './PartnersOffers';
-import OfferAvailable from './OfferAvailable';
-import './RightSection.css'; // Import the CSS file
+import React, { useState, useCallback } from 'react';
+import OfferAndPaymentSummary from './OfferAndPaymentSummary';
+import './RightSection.css';
 
-const RightSection = ({ totalAmount }) => {
+const RightSection = ({ totalAmount, onPriceChange, onAddressChange }) => {
   const [pincode, setPincode] = useState('');
   const [coupon, setCoupon] = useState('');
   const [location, setLocation] = useState({ city: '', state: '' });
-  const [selectedAddress, setSelectedAddress] = useState(null); // New state for the selected address
+  const [selectedAddress, setSelectedAddress] = useState(null);
 
   const handlePincodeChange = (e) => {
     const newPincode = e.target.value;
@@ -23,28 +21,21 @@ const RightSection = ({ totalAmount }) => {
 
   const handleCouponChange = (e) => setCoupon(e.target.value);
 
-  const handleAddressSelect = (address) => {
-    setSelectedAddress(address); // Set the selected address from PartnersOffers
-    console.log(address);
-  };
+  // Define handleParentChange to pass price and address to CartScreen
+  const handleParentChange = useCallback(({ finalPrice, selectedAddress }) => {
+    if (onPriceChange) {
+      onPriceChange(finalPrice); // Update the price in CartScreen
+    }
+    if (onAddressChange) {
+      onAddressChange(selectedAddress); // Update the address in CartScreen
+    }
+  }, [onPriceChange, onAddressChange]);
 
   return (
     <div className="right-sectionCart">
-      <PaymentSummary
+      <OfferAndPaymentSummary
         totalAmount={totalAmount}
-        location={location}
-        pincode={pincode}
-        handlePincodeChange={handlePincodeChange}
-        selectedAddress={selectedAddress} // Pass the selected address to PaymentSummary
-      />
-      <PartnersOffers
-        totalAmount={totalAmount}
-        onAddressSelect={handleAddressSelect} // Pass the callback to get the selected address
-      />
-      <OfferAvailable
-        totalAmount={totalAmount}
-        coupon={coupon}
-        handleCouponChange={handleCouponChange}
+        onUpdateParent={handleParentChange} // Pass the handler to OfferAndPaymentSummary
       />
     </div>
   );

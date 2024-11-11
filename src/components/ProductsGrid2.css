@@ -31,7 +31,7 @@
     grid-template-columns: repeat(4, 1fr); /* 4 cards per row on laptops */
   }
   .products-containerGrid2 {
-    grid-template-columns: repeat(5, 1fr); /* 5 cards per row on laptops */
+    grid-template-columns: repeat(6, 1fr); /* 5 cards per row on laptops */
   }
   .products-containerGrid3 {
     grid-template-columns: repeat(8, 1fr); /* 8 cards per row on laptops */

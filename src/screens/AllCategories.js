@@ -21,7 +21,7 @@ function AllCategories() {
         <Banner />
         <div className="breadcrumb">
         <p>
-          <span className="home-link">Home</span> &gt; All Categories
+          <span className="home-link">Home</span> &gt;<span className="category-name"> All Categories </span>
         </p>
       </div>
         <CategoriesGrid navigateToSubCategory={handleNavigateToSubCategory} />
