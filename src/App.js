@@ -28,6 +28,7 @@ import SubCategory from "./screens/SubCategory";
 import SubCategory2 from "./screens/SubCategory copy";
 import FAQScreen from "./screens/faq";
 import InvoiceScreen from "./screens/InvoiceScreen";
+import RegisterPage2 from "./screens/RegisterPage copy";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
@@ -63,6 +64,7 @@ function App() {
           <Route path="/Cart" element={<CartScreen />} />
           <Route path="/product/:mainId/:categoryId/:productId/:attribute1D/:attribute2D/:attribute3D" element={<ProductDetail />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/registerGoogle" element={<RegisterPage2 />} />
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/Contact" element={<ContactScreen />} />
           <Route path="/OrderPlaced" element={<OrderPlacedScreen />} />

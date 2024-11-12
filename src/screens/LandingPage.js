@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore"; // Firestore methods
+import { auth, firestore } from "../firebaseConfig"; // Your Firebase config
 import TaskBar from "../components/TaskBar";
 import ImageSlider from "../components/ImageSlider";
 import Banner from "../components/Banner";
@@ -15,6 +18,7 @@ const LandingPage = ({ onSearch }) => {
   const [isLeftBoxVisible, setIsLeftBoxVisible] = useState(true);
   const leftBoxRef = useRef(null);
   const footerRef = useRef(null);
+  const navigate = useNavigate(); // Initialize navigate function to redirect
 
   // Function to check the screen size and hide LeftBox if on mobile
   const checkScreenSize = () => {
@@ -27,6 +31,23 @@ const LandingPage = ({ onSearch }) => {
   };
 
   useEffect(() => {
+    const checkUserData = async () => {
+      if (!auth.currentUser) {
+        navigate("/login"); // Redirect to login if user is not authenticated
+        return;
+      }
+
+      const userDocRef = doc(firestore, "users", auth.currentUser.uid); // Reference to user data in Firestore
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        navigate("/registerGoogle"); // Redirect to registerGoogle if user data is missing
+      }
+    };
+
+    // Check user data on page load
+    checkUserData();
+
     const handleScroll = () => {
       if (leftBoxRef.current && footerRef.current) {
         const leftBoxBottom = leftBoxRef.current.getBoundingClientRect().bottom;
@@ -50,7 +71,7 @@ const LandingPage = ({ onSearch }) => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", checkScreenSize);
     };
-  }, []);
+  }, [navigate]);
 
   return (
     <div>

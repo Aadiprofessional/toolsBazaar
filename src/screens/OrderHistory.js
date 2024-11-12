@@ -6,13 +6,15 @@ import { Flex, Rate } from 'antd';
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import Lottie from "lottie-react";
 import loadingAnimation from "../assets/Animation - 1730717782675.json";
+import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom"; // Import at the top
 
 const OrderHistory = () => {
   const [selectedFilter, setSelectedFilter] = useState("Orders");
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expandedOrderId, setExpandedOrderId] = useState(null);
-
+  const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedTimeFrame, setSelectedTimeFrame] = useState("Past 3 Months");
 
@@ -62,30 +64,28 @@ const OrderHistory = () => {
     setRatings((prev) => ({ ...prev, [itemId]: value }));
   };
 
-
   const handleSubmitRatings = async (orderId) => {
-
     const order = orders.find(order => order.id === orderId);
     const updatedCartItems = order.cartItems.map(item => ({
       ...item,
-      rating: ratings[item.cartId] || 0 // Update cartItem with the corresponding rating
+      rating: ratings[item.cartId] || 0
     }));
 
     try {
-      console.log(updatedCartItems); // Log updated cart items with ratings
-      console.log(orderId);
-      console.log(auth.currentUser.uid);
-
       await axios.post('https://toolsbazaar-server-1036279390366.asia-south1.run.app/rateOrder', {
-        ratings: updatedCartItems, // Send updated cartItems as ratings
-        id: orderId, // Send order ID
+        ratings: updatedCartItems,
+        id: orderId,
         uid: auth.currentUser.uid,
       });
-      console.log("Ratings submitted successfully");
+      toast.success("Ratings submitted successfully");
     } catch (error) {
-      console.error('Error submitting ratings:', error);
+      toast.error('Error submitting ratings:', error);
     }
   };
+
+  const allItemsRated = (order) => order.cartItems.every(item => item.rating !== undefined);
+
+
   if (loading) {
     return (
       <div style={styles.loadingContainer}>
@@ -96,7 +96,7 @@ const OrderHistory = () => {
   const handleDownloadInvoice = (orderId) => {
     const order = orders.find(order => order.id === orderId);
     const invoiceUrl = order.invoice; // Invoice URL from the order data
-  
+
     if (invoiceUrl) {
       // Open the invoice URL in a new tab
       window.open(invoiceUrl, '_blank');
@@ -104,11 +104,58 @@ const OrderHistory = () => {
       console.error('Invoice URL not found');
     }
   };
-  
+
+  const handleCancelOrder = async (orderId) => {
+    try {
+      await axios.post('/cancel', { id: orderId });
+      toast.success("Order cancelled successfully");
+      // Update order status in state if needed
+      setOrders(orders.map(order => order.id === orderId ? { ...order, status: 'Cancelled' } : order));
+    } catch (error) {
+      toast.error("Failed to cancel order");
+    }
+  };
+  const handleCardClick = (item) => {
+    const product = item.product;
+    console.log(item);
+    
+    if (product) {
+      // Use navigate function for navigation
+      navigate(
+        `/product/${item.mainId}/${item.categoryId}/${item.productId}/${item.attribute1}/${item.attribute2}/${item.attribute3}`,
+        {
+          state: {
+            product: {
+              ...product,
+            
+              main: product.main,
+              product: product,
+              category: product.category,
+              attribute1ID: product.attribute1Name,
+              attribute2ID: product.attribute2Name,
+              attribute3ID: product.attribute3Name,
+            },
+          },
+        }
+      );
+    } else {
+      console.error("Product object is undefined");
+    }
+  };
+
+
+
+  const truncateAddress = (address) => {
+    if (!address) return ""; // Return an empty string if address is undefined
+    const maxLength = 60; // Approximate max characters for two lines
+    return address.length > maxLength ? address.slice(0, maxLength) + "..." : address;
+  };
+
 
   return (
     <div style={styles.container}>
       <TaskBar />
+      <ToastContainer />
       <div style={styles.header}>
         <div style={styles.orderCountBox}>
           <h1>Your Orders: <strong>{filteredOrders.length}</strong></h1>
@@ -138,6 +185,7 @@ const OrderHistory = () => {
       </div>
       <div>
         {filteredOrders.map((order) => (
+          // Inside the map of filteredOrders in the return
           <div key={order.id} style={styles.orderCard} onClick={() => handleToggleDetails(order.id)}>
             <div style={styles.orderDetailsHeader}>
               <div style={{ ...styles.orderDetailsHeaderItem }}>
@@ -148,17 +196,16 @@ const OrderHistory = () => {
                 <div style={{ color: '#DB3F1F', marginBottom: '10px' }}>Total</div>
                 <div>₹{order.totalAmount.toFixed(2)}</div>
               </div>
-
               <div style={{ ...styles.orderDetailsHeaderItem }}>
                 <div style={{ color: '#DB3F1F', marginBottom: '10px' }}> Ship To</div>
-                <div>{order.address.address}</div>
+                <div>{truncateAddress(order.address.address)}</div>
               </div>
               <div style={{ ...styles.orderDetailsHeaderItem }}>
                 <div style={{ color: '#DB3F1F', marginBottom: '10px' }}>Order Status</div>
                 <div>{order.status}</div>
               </div>
               <div style={styles.orderDetailsHeaderItem}>
-                <div>Order #{order.id}</div>
+                <span style={{ whiteSpace: 'nowrap' }}>Order #{order.id}</span>
                 {expandedOrderId === order.id ? (
                   <div style={{ color: '#E9611E', marginTop: 10 }}>View Less <FaChevronUp /></div>
                 ) : (
@@ -166,7 +213,6 @@ const OrderHistory = () => {
                 )}
               </div>
             </div>
-
 
             {expandedOrderId === order.id && (
               <div style={styles.orderDetailsDropdown} onClick={(event) => event.stopPropagation()}>
@@ -181,52 +227,42 @@ const OrderHistory = () => {
                       <Flex gap="middle" direction="vertical">
                         <Rate
                           tooltips={desc}
-                          onChange={(value) => handleRatingChange(item.cartId, value)} // Update rating per item
-                          style={{ marginBottom: 30 }} // Proper inline style syntax
-                          value={item.rating ?? (ratings[item.cartId] || 0)} // Use stored rating or default to 0
+                          onChange={(value) => handleRatingChange(item.cartId, value)}
+                          value={item.rating ?? (ratings[item.cartId] || 0)}
                         />
                       </Flex>
+                      {/* <div style={styles.buttonContainer}>
+                        <button onClick={() => handleCardClick(item)} style={styles.viewButton}>View Item</button>
 
-
-
-                      <div style={styles.buttonContainer}>
-                        <button style={styles.buyButton}>Buy It Again</button>
-                        <button style={styles.viewButton}>View Your Item</button>
-                      </div>
+                      </div> */}
                     </div>
                     <div style={styles.contactBox}>
                       <p style={styles.contactText}>Send Us A Message</p>
-                      <p style={styles.contactText}>
-                        If you are not able to find your answer, please contact Us.
-                      </p>
+                      <p style={styles.contactText}>If you are not able to find your answer, please contact Us.</p>
                       <button style={styles.contactButton}>Contact Us</button>
                     </div>
                   </div>
                 ))}
 
-                {/* Submit button for all ratings at the bottom of the order */}
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <button
-                    onClick={() => handleSubmitRatings(order.id)}
-                    style={{ ...styles.contactButton, width: '48%' }}
-                  >
-                    Submit All Ratings
-                  </button>
-                  <button
-                    onClick={() => handleDownloadInvoice(order.id, order.invoice)}
-                    style={{ ...styles.contactButton2, width: '48%' }}
-                  >
+                  {!allItemsRated(order) && (
+                    <button onClick={() => handleSubmitRatings(order.id)} style={{ ...styles.contactButton, flex: 1 }}>
+                      Submit All Ratings
+                    </button>
+                  )}
+                  {order.status === "In Review" && (
+                    <button onClick={() => handleCancelOrder(order.id)} style={{ ...styles.contactButton2, flex: 1 }}>
+                      Cancel
+                    </button>
+                  )}
+                  <button onClick={() => handleDownloadInvoice(order.id)} style={{ ...styles.contactButton2, flex: 1 }}>
                     Download Invoice
                   </button>
-
                 </div>
-
               </div>
             )}
           </div>
-        ))}
-      </div>
-    </div>
+        ))}</div></div>
   );
 };
 
@@ -361,7 +397,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     fontWeight: "semi-bold",
-    marginBottom: "10px",
+
   },
   orderDetailsHeaderItem: {
     flex: 1,
@@ -442,6 +478,7 @@ const styles = {
     backgroundColor: "#DB3F1F",
     cursor: "pointer",
     color: "white",
+    margin: 10,
   },
   orderCard: {
     border: "1px solid #ddd",

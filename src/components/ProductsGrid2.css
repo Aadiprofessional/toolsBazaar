@@ -1,58 +1,93 @@
+/* Default grid settings for all screen sizes */
 .products-containerGrid,
 .products-containerGrid2,
 .products-containerGrid5,
 .products-containerGrid3 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusts dynamically */
-  gap: 0px; /* No space between cards */
-  padding: 0; /* No padding around the container */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Flexible columns */
+  gap: 0px;
+  padding: 0;
 }
 
+/* Product card settings */
 .skeleton-cardGrid {
   width: 100%;
   max-width: 220px;
-  height: 300px; /* Set fixed height for uniformity */
+  height: 300px;
   border: 1px solid #ddd;
   padding: 20px;
-  position: relative;
   background-color: #fff;
   box-sizing: border-box;
   cursor: pointer;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Ensures bottom alignment for the divider */
+  justify-content: space-between;
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Responsive media queries */
-@media (min-width: 1024px) {
+/* Large screen (laptops and desktops) */
+@media (min-width: 1424px) {
   .products-containerGrid {
-    grid-template-columns: repeat(4, 1fr); /* 4 cards per row on laptops */
+    grid-template-columns: repeat(4, 1fr);
   }
   .products-containerGrid2 {
-    grid-template-columns: repeat(6, 1fr); /* 5 cards per row on laptops */
+    grid-template-columns: repeat(5, 1fr);
   }
-  .products-containerGrid3 {
-    grid-template-columns: repeat(8, 1fr); /* 8 cards per row on laptops */
-  }
-  .products-containerGrid5 {
-    grid-template-columns: repeat(6, 1fr); /* 8 cards per row on laptops */
+ 
+  .products-containerGrid5 .products-containerGrid3 {
+    grid-template-columns: repeat(6, 1fr);
   }
 }
 
+/* Medium-large screens (smaller laptops and large tablets) */
+@media (max-width: 1424px) {
+  .products-containerGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .products-containerGrid2 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .products-containerGrid3 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .products-containerGrid5 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* Medium screens (tablets) */
+@media (max-width: 1254px) {
+  .products-containerGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .products-containerGrid2 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .products-containerGrid3 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .products-containerGrid5 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Small screens (small tablets and large mobile devices) */
 @media (max-width: 768px) {
   .products-containerGrid,
   .products-containerGrid2,
-  .products-containerGrid3 {
-    grid-template-columns: repeat(2, 1fr); /* 2 cards per row on tablets */
+  .products-containerGrid3,
+  .products-containerGrid5 {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
   }
 }
 
+/* Extra small screens (mobile devices) */
 @media (max-width: 480px) {
   .products-containerGrid,
   .products-containerGrid2,
-  .products-containerGrid3 {
-    grid-template-columns: repeat(2, 1fr); /* 2 cards per row on mobile */
+  .products-containerGrid3,
+  .products-containerGrid5 {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
   }
 }

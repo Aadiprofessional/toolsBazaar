@@ -56,9 +56,11 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding-left: 50px; /* Adjusted left padding for loading container */
 }
 
 .spinner {
   font-size: 24px;
   color: #000;
+  margin-left: 20px; /* Adjusted left margin for the spinner text */
 }

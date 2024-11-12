@@ -22,6 +22,7 @@ const OrderPlacedScreen = () => {
   const totalAmount = state?.totalAmount || 0;
   const [currentUser, setCurrentUser] = useState(null);
   const [pdfPath, setPdfPath] = useState("");
+  const phoneNumber = address?.phoneNumber?.replace(/^(\+91)/, '');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -43,11 +44,7 @@ const OrderPlacedScreen = () => {
     }
   }, [currentUser]);
 
-  useEffect(() => {
-    if (pdfPath) {
-      sendInvoice();
-    }
-  }, [pdfPath]);
+
   console.log(cartItems);
 
 
@@ -179,16 +176,22 @@ const OrderPlacedScreen = () => {
     const storageRef = ref(storage, `invoices/${currentUser.uid}/${orderId}`);
     await uploadBytes(storageRef, pdfBlob);
     const pdfUrl = await getDownloadURL(storageRef);
-    setPdfPath(pdfUrl);
+    sendInvoice(pdfUrl)
+
     toast.success("Invoice PDF created and saved.");
   };
 
 
-  const sendInvoice = async () => {
-    const body = {
-      url: pdfPath,
-      phone: currentUser?.phoneNumber,
-    };
+  const sendInvoice = async (pdfUrl) => {
+   
+
+  const body = {
+    url: pdfUrl,
+    phone: phoneNumber,
+  };
+
+
+    
 
     try {
       const response = await axios.post("https://toolsbazaar-server-1036279390366.asia-south1.run.app/sendInvoice", body, {

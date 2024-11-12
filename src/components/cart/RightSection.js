@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import OfferAndPaymentSummary from './OfferAndPaymentSummary';
 import './RightSection.css';
 
-const RightSection = ({ totalAmount, onPriceChange, onAddressChange }) => {
+const RightSection = ({ totalAmount, onPriceChange, onAddressChange, cart }) => {
   const [pincode, setPincode] = useState('');
   const [coupon, setCoupon] = useState('');
   const [location, setLocation] = useState({ city: '', state: '' });
@@ -18,6 +18,7 @@ const RightSection = ({ totalAmount, onPriceChange, onAddressChange }) => {
       });
     }
   };
+  console.log(cart);
 
   const handleCouponChange = (e) => setCoupon(e.target.value);
 
@@ -34,6 +35,7 @@ const RightSection = ({ totalAmount, onPriceChange, onAddressChange }) => {
   return (
     <div className="right-sectionCart">
       <OfferAndPaymentSummary
+        cart={cart}
         totalAmount={totalAmount}
         onUpdateParent={handleParentChange} // Pass the handler to OfferAndPaymentSummary
       />

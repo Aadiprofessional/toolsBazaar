@@ -17,6 +17,7 @@ function CategoriesGrid2() {
         { main: mainId }
       );
       setCategories(response.data);
+      console.log(response.data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -38,7 +39,7 @@ function CategoriesGrid2() {
 
   return (
     <div className="container2">
-      <div className="breadcrumb">
+      <div className="breadcrumb2">
         <p>
           <span className="home-link">Home</span> &gt; All Categories &gt; <span className="category-name">{mainName}</span>
         </p>

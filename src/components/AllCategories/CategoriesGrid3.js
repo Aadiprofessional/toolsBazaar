@@ -23,7 +23,7 @@ function CategoriesGrid3({ mainId, categoryId, mainName, categoryName, selectedB
         
         const filteredProducts = validProducts.filter((product) => {
           // Filter by selected brand if provided
-          const matchesBrand = selectedBrand ? product.brand === selectedBrand : true;
+          const matchesBrand = selectedBrand ? product.brands.includes(selectedBrand) : true;
 
           // Filter by price range if provided
           const matchesPriceRange = selectedPriceRange ? (() => {
@@ -71,7 +71,7 @@ function CategoriesGrid3({ mainId, categoryId, mainName, categoryName, selectedB
           <ProductCard product={product} key={product.id} />
         ))
       ) : (
-        <div>No products available</div>
+        <div>No products available of the selected filter</div>
       )}
     </div>
   );

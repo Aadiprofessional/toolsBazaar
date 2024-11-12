@@ -29,10 +29,10 @@ const DropdownMenu = ({ onClose }) => {
         }
       }
     };
-  
+
     fetchUserName();
   }, []);
-  
+
 
   const handleItemClick = (item, path) => {
     setSelectedItem(item);
@@ -103,17 +103,8 @@ const DropdownMenu = ({ onClose }) => {
         >
           Contact Us
         </div>
-        <div
-          style={
-            activeItem === "Address Book"
-              ? styles.menuItemActive
-              : styles.menuItem
-          }
-          onClick={() => handleItemClick("Address Book", "/Address")}
-        >
-          Address Book
-        </div>
-      
+
+
         {/* <div
           style={
             activeItem === "Manage Password"
@@ -140,7 +131,7 @@ const styles = {
   dropdownMenu: {
     position: "absolute",
     top: "70px",
-   
+
     backgroundColor: "#ffffff",
     borderRadius: "4px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",

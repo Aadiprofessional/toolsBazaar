@@ -36,6 +36,7 @@ const CartScreen = () => {
           finalAmount={finalAmount} // Pass finalAmount as a value
         />
         <RightSection
+          cart={cart}
           totalAmount={totalAmount}
           onPriceChange={handlePriceChange}
           onAddressChange={handleAddressSelect}

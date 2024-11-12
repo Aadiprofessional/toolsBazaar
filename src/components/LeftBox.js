@@ -16,20 +16,20 @@ const LeftBox = () => {
     const fetchAndCacheData = async () => {
       try {
         const response = await axios.get('https://toolsbazaar-server-1036279390366.asia-south1.run.app/drawer');
-        if (response.data && Array.isArray(response.data)) {
-          setCategories(response.data);
-        } else {
-          console.error('Unexpected API response format:', response.data);
-        }
+        setCategories([...response.data]);
+        setLoading(false);
+        console.log(response.data); // Log only after data is fetched
       } catch (error) {
         console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
       }
     };
-
-    fetchAndCacheData();
-  }, []);
+  
+    // Only fetch data when component mounts
+    if (categories.length === 0) {
+      fetchAndCacheData();
+    }
+  }, [categories.length]); // This will trigger once if categories are empty
+  
 
   const navigateToAllCategories = () => {
     navigate("/AllCategories");
@@ -155,7 +155,7 @@ const LeftBox = () => {
 const styles = {
   leftBox: {
     width: "260px",
-    height: "30%",
+    height: "50%",
     backgroundColor: "#FFFFFF",
     boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
     position: "fixed",
@@ -225,6 +225,7 @@ const styles = {
     cursor: "pointer",
     color: "#E9611E",
     fontWeight: "medium",
+    marginRight:'10px',
   },
   filterData: {
     padding: "5px 0",

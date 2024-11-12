@@ -78,7 +78,7 @@ const ProductsGrid5 = () => {
   return (
     <div className="products-containerGrid5">
       {loading
-        ? Array(5).fill(null).map((_, index) => renderSkeletonCard()) // Show skeletons while loading
+        ? Array(4).fill(null).map((_, index) => renderSkeletonCard()) // Show skeletons while loading
         : products.map((product) => (
             <ProductCard product={product} key={product.id} />
           ))}

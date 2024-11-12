@@ -1,9 +1,9 @@
 .product-cardGrid {
   width: 100%;
-  max-width: 220px; /* Set max width */
-  aspect-ratio: 4 / 5; /* Define the aspect ratio */
+  max-width: 220px; 
+  aspect-ratio: 4 / 5.5; 
   border: 1px solid #ddd;
-  padding: 5%; /* Use percentage padding to keep it responsive */
+  padding: 5%; 
   position: relative;
   background-color: #fff;
   box-sizing: border-box;

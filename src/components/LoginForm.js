@@ -10,6 +10,8 @@ import googleIcon from "../assets/google.png"; // Import Google icon image
 import axios from "axios";
 import { signInWithCustomToken, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../firebaseConfig";
+import { getFirestore, doc, getDoc } from "firebase/firestore";  // Add this line
+import { firestore } from "../firebaseConfig"; // Adjust the path to where your firebaseConfig.js is located
 
 const OTP_LENGTH = 6;
 const provider = new GoogleAuthProvider();
@@ -45,15 +47,33 @@ const LoginForm = ({ onLogin }) => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
+  
+      // Check if the user exists in the Firestore database
+      const userDocRef = doc(firestore, "users", user.uid);  // Reference the user's document
+      const userDoc = await getDoc(userDocRef);  // Get the user's document
+  
+      if (userDoc.exists()) {
+        // User exists, navigate to home
+        navigate("/");
+      } else {
+        // User does not exist, navigate to register page with email in state
+        navigate("/registerGoogle", {
+          state: { email: user.email },  // Pass email to the register page
+        });
+      }
+  
+      // Toast notification on successful Google sign-in
       toast.success("Login with Google successful!");
+  
+      // Trigger login action in parent component
       onLogin({ email: user.email });
-      localStorage.setItem("isAuthenticated", "true");
-      navigate("/");
     } catch (error) {
       console.error("Google sign-in error:", error);
       toast.error("Failed to sign in with Google. Please try again.");
     }
   };
+  
+  
 
   const handleOtpChange = (e, index) => {
     const newOtp = e.target.value;

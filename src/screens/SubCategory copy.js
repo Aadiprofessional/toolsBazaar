@@ -18,7 +18,7 @@ console.log(mainName,selectedBrand,selectedPriceRange);
       <TaskBar />
       <div className="contentAll">
         <Banner />
-        <div className="breadcrumb">
+        <div className="breadcrumb2">
           <p>
             <span className="home-link">Home</span> &gt; All Categories &gt; {mainName} &gt; <span className="category-name">{categoryName}</span>
           </p>

@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TaskBar from "../components/TaskBar";
-import userProfileImage from "../assets/human.png"; 
-import { firestore, auth, storage } from "../firebaseConfig"; 
+import userProfileImage from "../assets/human.png";
+import { firestore, auth, storage } from "../firebaseConfig";
 import { collection, doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import Modal from "react-modal"; 
+import Modal from "react-modal";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ProfileScreen = () => {
   const [userData, setUserData] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [activeItem, setActiveItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -64,10 +66,10 @@ const ProfileScreen = () => {
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     setUploading(true);
-    
+
     uploadTask.on(
       "state_changed",
-      (snapshot) => {},
+      (snapshot) => { },
       (error) => {
         console.error("Upload failed:", error);
         setUploading(false);
@@ -107,10 +109,15 @@ const ProfileScreen = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
+  const handleItemClick = (item, path) => {
+    setSelectedItem(item);
+    setActiveItem(item);
+    navigate(path);
+  };
   if (error) {
     return <div>Error: {error}</div>;
   }
+  console.log();
 
   return (
     <div className="profile-screen" style={styles.profileScreen}>
@@ -127,6 +134,12 @@ const ProfileScreen = () => {
               <h2 style={styles.profileName}>{userData.name}</h2>
               <p style={styles.profilePhone}>{userData.phoneNumber}</p>
               <p style={styles.profileRewardPoints}>
+                Address: {userData.address}
+              </p>
+              <p style={styles.profileRewardPoints}>
+                GST No.: {userData.gst}
+              </p>
+              <p style={styles.profileRewardPoints}>
                 Reward Points: {userData.rewardPoints}
               </p>
             </div>
@@ -137,6 +150,12 @@ const ProfileScreen = () => {
           onClick={() => setModalIsOpen(true)}
         >
           Edit Profile
+        </button>
+        <button
+          style={styles.editProfileButton}
+          onClick={() => handleItemClick("Address Book", "/Address")}
+        >
+          Address Book
         </button>
       </div>
       <p style={styles.termsText}>
@@ -241,6 +260,7 @@ const styles = {
     cursor: "pointer",
     backgroundColor: "#FA832A",
     color: "#fff",
+    marginRight:10,
   },
   termsText: {
     marginTop: "20px",

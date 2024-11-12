@@ -19,7 +19,7 @@ const ProductsGrid3 = () => {
       const fetchProducts = async () => {
         try {
           const response = await fetch(
-            "https://toolsbazaar-server-1036279390366.asia-south1.run.app/bestDeals"
+            "https://toolsbazaar-server-1036279390366.asia-south1.run.app/latestProducts"
           );
           const data = await response.json();
           const formattedProducts = data.map((product) => ({
@@ -68,8 +68,8 @@ const ProductsGrid3 = () => {
   }, []);
 
   const renderSkeletonCard = () => (
-    <Card style={{ width: 240, margin: '1px' }}>
-      <Skeleton.Image style={{ width: 200, height: 150 }} />
+    <Card style={{ width: 200 }}>
+      <Skeleton.Image style={{ width: 160, height: 150 }} />
       <Skeleton active title={{ width: '60%' }} paragraph={{ rows: 2 }} />
     </Card>
   );
@@ -77,7 +77,7 @@ const ProductsGrid3 = () => {
   return (
     <div className="products-containerGrid2">
       {loading
-        ? Array(10).fill(null).map((_, index) => renderSkeletonCard()) // Show skeletons while loading
+        ? Array(4).fill(null).map((_, index) => renderSkeletonCard()) // Show skeletons while loading
         : products.map((product) => (
             <ProductCard product={product} key={product.id} />
           ))}

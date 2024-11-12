@@ -1,10 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, collection, doc, getDoc } from "firebase/firestore";
-
-
+import { getFirestore } from "firebase/firestore";
+import { getDatabase } from "firebase/database"; // Corrected import for Realtime Database
 import { getStorage } from "firebase/storage";
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyByqxx_8WYNPufYZEkXV5NUsc8Nl2o67Zs",
@@ -24,8 +22,11 @@ const auth = getAuth(app);
 // Initialize Firestore
 const firestore = getFirestore(app);
 
+// Initialize Realtime Database
+const db = getDatabase(app); // Corrected initialization for Realtime Database
+
 // Initialize Firebase Storage
-const storage = getStorage(app); // Initialize storage
+const storage = getStorage(app); 
 
 // Function to check authentication state
 const checkAuth = (callback) => {
@@ -34,4 +35,4 @@ const checkAuth = (callback) => {
   });
 };
 
-export { auth, firestore, storage, checkAuth ,onAuthStateChanged}; // Export storage
+export { auth, firestore, storage, checkAuth, onAuthStateChanged, db };
