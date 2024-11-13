@@ -168,7 +168,7 @@ const OfferAndPaymentSummary = ({ totalAmount, onUpdateParent ,cart}) => {
 
   return (
     <div style={styles.box}>
-      <ToastContainer/>
+    
       <h2 style={styles.header}>Payment Summary</h2>
       <div style={styles.summaryBox}>
         <div style={styles.companyCard2}>
@@ -309,8 +309,8 @@ const styles = {
   box: { background: '#f9f9f9', borderRadius: '8px', margin: '10px' },
 
   totalRow: { display: 'flex', justifyContent: 'space-between', marginTop: '10px' },
-  totalLabel: { fontSize: '18px', fontWeight: 'bold' },
-  totalValue: { fontSize: '18px', fontWeight: 'bold', color: '#ff4500' },
+  totalLabel: { fontSize: '18px', fontWeight: 'bold' ,fontFamily: "'Outfit', sans-serif",  },
+  totalValue: { fontSize: '18px', fontWeight: 'bold', color: '#ff4500', fontFamily: "'Outfit', sans-serif",  },
 
   companyDetails: {
 
@@ -327,10 +327,12 @@ const styles = {
   summaryLabel: {
     fontSize: '16px',
     margin: '0 10px 10px 0',
+    fontFamily: "'Outfit', sans-serif", 
   
   },
   summaryValue: {
     fontSize: '16px',
+    fontFamily: "'Outfit', sans-serif", 
     margin: 0,
   // Adjust margins to make text touch
   },
@@ -344,6 +346,7 @@ const styles = {
   couponCode: {
     color: '#E9611E',
     fontWeight: 'bold',
+    fontFamily: "'Outfit', sans-serif", 
   },
   addButton: {
    // Hide the button after clicking
@@ -361,7 +364,7 @@ const styles = {
   submitButton: { background: '#333', color: '#fff', padding: '8px 12px', borderRadius: '4px', cursor: 'pointer' },
   input: { padding: '8px', margin: '5px 0', width: '100%', borderRadius: '4px', border: '1px solid #ccc' },
   form: { display: 'flex', flexDirection: 'column', gap: '10px' },
-  header: { fontSize: '24px', fontWeight: 'bold', margin: '20px 0' },
+  header: { fontSize: '24px', fontWeight: 'bold', margin: '20px 0', fontFamily: "'Outfit', sans-serif",  },
 
   couponLine: {
     display: 'flex',
@@ -371,8 +374,8 @@ const styles = {
   },
 
   totalRow: { display: 'flex', justifyContent: 'space-between', marginTop: '10px' },
-  totalLabel: { fontSize: '18px', fontWeight: 'bold' },
-  totalValue: { fontSize: '18px', fontWeight: 'bold' },
+  totalLabel: { fontSize: '18px', fontWeight: 'bold' , fontFamily: "'Outfit', sans-serif", },
+  totalValue: { fontSize: '18px', fontWeight: 'bold' , fontFamily: "'Outfit', sans-serif", },
   input: { padding: '10px', borderRadius: '4px', border: '1px solid #ddd', marginRight: '10px' },
   couponRow: { display: 'flex', alignItems: 'center', marginTop: '10px' },
   transparentButton: { background: 'transparent', color: '#E9611E', border: 'none', cursor: 'pointer', padding: '10px' },
@@ -381,6 +384,7 @@ const styles = {
   header: {
     fontSize: '24px',
     fontWeight: 'bold',
+    fontFamily: "'Outfit', sans-serif", 
     backgroundColor: '#4D4D4D',
     color: '#fff',
     padding: '10px',
@@ -419,10 +423,12 @@ const styles = {
   totalLabel: {
     fontSize: '18px',
     fontWeight: 'bold',
+    fontFamily: "'Outfit', sans-serif", 
   },
   totalValue: {
     fontSize: '18px',
     fontWeight: 'bold',
+    fontFamily: "'Outfit', sans-serif", 
   },
   input: {
     width: '100%',

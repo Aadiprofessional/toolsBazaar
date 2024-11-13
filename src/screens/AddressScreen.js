@@ -40,6 +40,7 @@ const AddressScreen = () => {
       setAddresses(response.data);
     } catch (error) {
       setError('Error fetching addresses.');
+
     }
   };
 
@@ -177,9 +178,11 @@ const AddressScreen = () => {
           <div style={styles.addressList}>
             {addresses.map((address) => (
               <div key={address.id} style={styles.addressCard}>
-                <p style={styles.addressDetailText}>{address.phoneNumber}</p>
-                <p style={styles.addressDetailText}>{address.address}</p>
-                <p style={styles.addressDetailText}>{address.ownerName}</p>
+                {console.log(addresses)
+                }
+                <p style={styles.addressDetailText}>{address.phoneNumber},{address.address}</p>
+               
+                <p style={styles.addressDetailText}>{address.owner}</p>
                 <div style={styles.addressButtons}>
                   <button
                     style={styles.editButton}

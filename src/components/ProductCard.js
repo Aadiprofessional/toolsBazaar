@@ -148,7 +148,7 @@ const styles = {
     textDecoration: "line-through",
     color: "#666",
     fontSize: "12px",
-
+    fontFamily: "'Outfit', sans-serif", 
     marginRight: "10px",
     marginBottom: -10,
   },
@@ -156,12 +156,14 @@ const styles = {
     color: "#EA6021",
     fontSize: "15px",
     fontWeight: "bold",
+    fontFamily: "'Outfit', sans-serif", 
     marginBottom: -10,
   },
   discountText: {
     color: "#25881A",
     fontSize: "14px",
     fontWeight: "Regular",
+    fontFamily: "'Outfit', sans-serif", 
     marginRight: "10px",
     
 
@@ -170,6 +172,7 @@ const styles = {
     color: "#25881A",
     fontSize: "12px",
     fontWeight: "Regular",
+    fontFamily: "'Outfit', sans-serif", 
   },
   hoverContent: {
     display: "flex",

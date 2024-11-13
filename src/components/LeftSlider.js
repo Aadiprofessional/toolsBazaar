@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import './LeftSlider.css'; // Import a CSS file for styling
+import './LeftSlider.css'; // Import the new CSS file
+import { FaChevronDown, FaChevronUp, FaChevronRight } from 'react-icons/fa'; // Import React Icons
 
 const LeftSlider = ({ isOpen, onClose }) => {
   const [categories, setCategories] = useState([]);
@@ -55,7 +56,7 @@ const LeftSlider = ({ isOpen, onClose }) => {
 
   const navigateToSubCategory = (categoryId, mainId, mainName, categoryName) => {
     navigate('/subcategory2', {
-      state: { categoryId, mainId, mainName, categoryName }, // Pass categoryId, mainId, mainName, and categoryName
+      state: { categoryId, mainId, mainName, categoryName },
     });
   };
 
@@ -70,10 +71,10 @@ const LeftSlider = ({ isOpen, onClose }) => {
         <div
           key={id}
           className="subcategory-item"
-          onClick={() => navigateToSubCategory(id, mainId, mainName, categoryName)} // Pass additional names
+          onClick={() => navigateToSubCategory(id, mainId, mainName, categoryName)}
         >
           <span className="subcategory-text">{name}</span>
-          <span className="chevron-icon">›</span>
+          <span className="chevron-icon"><FaChevronRight /></span> {/* Using FaChevronRight */}
         </div>
       ))}
     </div>
@@ -87,7 +88,7 @@ const LeftSlider = ({ isOpen, onClose }) => {
           <span className="nav-text">{category.name}</span>
           {category.companies && (
             <span className="chevron-icon">
-              {isExpanded ? "˄" : "˅"}
+              {isExpanded ? <FaChevronUp /> : <FaChevronDown />} {/* Use FaChevronUp/FaChevronDown */}
             </span>
           )}
         </div>
@@ -106,14 +107,14 @@ const LeftSlider = ({ isOpen, onClose }) => {
       <div className="left-slider-content">
         <div className="categories-header">
           <span className="categories-header-text">Categories</span>
-          <span className="close-icon" onClick={onClose}>×</span>
+          
         </div>
         {categories.length > 0 ? (
           <>
             {categories.map((category) => renderCategoryItem(category))}
             <div className="subcategory-item" onClick={handleAllCategoriesPress}>
               <span className="subcategory-text">All Categories</span>
-              <span className="chevron-icon">›</span>
+              <span className="chevron-icon"><FaChevronRight /></span> {/* Use FaChevronRight */}
             </div>
           </>
         ) : (

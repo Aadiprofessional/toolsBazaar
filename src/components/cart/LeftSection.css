@@ -76,15 +76,27 @@
     background-color: #FB8339;
     color: #fff;
   }
+  .frequently-bought {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Outfit', sans-serif;
+    margin-bottom: 10px;
+  }
   
-  /* Media Query for Tablet (max-width: 768px) */
+  .products-grid5 {
+    display: block;
+  }
+
   @media (max-width: 768px) {
     .left-section-custom {
       width: 100%;
       margin-right: 0;
       padding: 15px;
     }
-  
+    .frequently-bought,
+    .products-grid5 {
+      display: none;
+    }
     .cart-summary-box-custom {
       flex-direction: column;
       align-items: flex-start;
@@ -111,22 +123,27 @@
   
     .cart-summary-title-custom {
       font-size: 16px;
+      font-family: 'Outfit', sans-serif;
       margin-bottom: -10px;
     }
   
     .discount-text-custom {
       font-size: 14px;
+      font-family: 'Outfit', sans-serif;
       text-align: center;
     }
   
     .cart-summary-box-custom {
-      padding: 5px;
+      flex-direction: column;
+      align-items: flex-start;
+      height: 100px;
     }
   
     .continue-button-custom,
     .place-order-button-custom {
       width: 100%;
       font-size: 14px;
+      font-family: 'Outfit', sans-serif;
       padding: 8px;
     }
   

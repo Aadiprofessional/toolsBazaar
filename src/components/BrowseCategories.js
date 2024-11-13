@@ -19,6 +19,7 @@ const styles = {
   browseText: {
     textAlign: 'left',
     fontWeight: 'bold',
+    fontFamily: "'Outfit', sans-serif", 
     marginTop: '10px',
     color: '#666666',
   },

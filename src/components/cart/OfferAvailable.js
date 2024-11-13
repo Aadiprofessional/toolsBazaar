@@ -141,11 +141,13 @@ const styles = {
   },
   itemTotalText: {
     fontSize: "16px",
+    fontFamily: "'Outfit', sans-serif", 
     color: "#333",
   },
   itemTotalPrice: {
     fontSize: "16px",
     fontWeight: "bold",
+    fontFamily: "'Outfit', sans-serif", 
     color: "#333",
   },
   line: {
@@ -180,10 +182,12 @@ const styles = {
   couponCode: {
     fontSize: "14px",
     fontWeight: "bold",
+    fontFamily: "'Outfit', sans-serif", 
     color: "#333",
   },
   couponText: {
     fontSize: "14px",
+    fontFamily: "'Outfit', sans-serif", 
     color: "#333",
     marginLeft: "10px",
   },
@@ -194,6 +198,7 @@ const styles = {
     color: "#FB8339",
     cursor: "pointer",
     fontWeight: "bold",
+    fontFamily: "'Outfit', sans-serif", 
   },
   removeCouponButton: {
     marginTop: "10px",

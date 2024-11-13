@@ -144,6 +144,7 @@ const styles = {
   accountTitle: {
     padding: "10px",
     fontWeight: "bold",
+    fontFamily: "'Outfit', sans-serif", 
     backgroundColor: "#FFFFFF",
     color: "#4D4D4D",
     textAlign: "left",

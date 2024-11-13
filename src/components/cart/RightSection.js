@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import OfferAndPaymentSummary from './OfferAndPaymentSummary';
 import './RightSection.css';
+import ProductsGrid5 from '../ProductsGrid copy 3';
 
 const RightSection = ({ totalAmount, onPriceChange, onAddressChange, cart }) => {
   const [pincode, setPincode] = useState('');
@@ -39,6 +40,11 @@ const RightSection = ({ totalAmount, onPriceChange, onAddressChange, cart }) => 
         totalAmount={totalAmount}
         onUpdateParent={handleParentChange} // Pass the handler to OfferAndPaymentSummary
       />
+      <p className="frequently-bought2">Featured Products</p>
+      <div className="products-grid6">
+        <ProductsGrid5 />
+      </div>
+
     </div>
   );
 };

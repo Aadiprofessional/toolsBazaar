@@ -1,4 +1,5 @@
 import React from 'react';
+import './ImageSlider.css'; // Import the CSS file
 
 const ImageSlider = () => {
   // Updated image URLs
@@ -10,74 +11,36 @@ const ImageSlider = () => {
   ];
 
   return (
-    <div style={styles.container}>
-      <div style={styles.sliderContainer}>
+    <div className="containerSlider">
+      <div className="sliderContainer">
         {/* Display the first image as the main image */}
         <img
           src={images[0]}
           alt="Main"
-          style={styles.mainImage}
+          className="mainImage"
         />
       </div>
-      <div style={styles.additionalImages}>
+      <div className="additionalImages">
         <img
           src={images[1]}
           alt="Side"
-          style={styles.sideImage}
+          className="sideImage"
         />
-        <div style={styles.bottomImagesContainer}>
+        <div className="bottomImagesContainer">
           <img
             src={images[2]}
             alt="Bottom 1"
-            style={styles.bottomImage}
+            className="bottomImage"
           />
           <img
             src={images[3]}
             alt="Bottom 2"
-            style={styles.bottomImage}
+            className="bottomImage"
           />
         </div>
       </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: 'flex',
-    width: '100%',
-  },
-  sliderContainer: {
-    flex: '0 0 50%', // Takes up 50% of the container width
-    position: 'relative',
-  },
-  mainImage: {
-    width: '100%',
-    marginTop: 10, // Added margin top
-    height: 'calc(40% + 40%)', // Adjust the height to the sum of the other two images
-    objectFit: 'cover', // Ensure image covers the container
-  },
-  additionalImages: {
-    flex: '0 0 50%', // Takes up 50% of the container width
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '10px',
-  },
-  sideImage: {
-    width: '100%',
-    height: '50%',
-    objectFit: 'cover',
-    marginBottom: '10px',
-  },
-  bottomImagesContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  bottomImage: {
-    width: 'calc(50% - 5px)', // Each image takes up 50% of the container width, minus margin
-    objectFit: 'cover',
-  },
 };
 
 export default ImageSlider;

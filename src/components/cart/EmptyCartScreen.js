@@ -117,11 +117,13 @@ const styles = {
   emptyCartText: {
     fontSize: "18px",
     fontWeight: "bold",
+    fontFamily: "'Outfit', sans-serif", 
     color: "#666666",
   },
   browseText: {
     textAlign: "left",
     fontWeight: "bold",
+    fontFamily: "'Outfit', sans-serif", 
     marginTop: "10px",
     color: "#666666",
   },
@@ -153,6 +155,7 @@ const styles = {
   termsText: {
     marginTop: "20px",
     fontSize: "12px",
+    fontFamily: "'Outfit', sans-serif", 
     color: "#777",
     textAlign: "center",
   },

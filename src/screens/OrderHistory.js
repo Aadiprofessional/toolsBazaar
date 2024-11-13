@@ -8,6 +8,7 @@ import Lottie from "lottie-react";
 import loadingAnimation from "../assets/Animation - 1730717782675.json";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom"; // Import at the top
+import './OrderHistory.css';
 
 const OrderHistory = () => {
   const [selectedFilter, setSelectedFilter] = useState("Orders");
@@ -118,7 +119,7 @@ const OrderHistory = () => {
   const handleCardClick = (item) => {
     const product = item.product;
     console.log(item);
-    
+
     if (product) {
       // Use navigate function for navigation
       navigate(
@@ -127,7 +128,7 @@ const OrderHistory = () => {
           state: {
             product: {
               ...product,
-            
+
               main: product.main,
               product: product,
               category: product.category,
@@ -155,13 +156,13 @@ const OrderHistory = () => {
   return (
     <div style={styles.container}>
       <TaskBar />
-      <ToastContainer />
+   
       <div style={styles.header}>
         <div style={styles.orderCountBox}>
           <h1>Your Orders: <strong>{filteredOrders.length}</strong></h1>
         </div>
       </div>
-      <div style={styles.filterContainer2}>
+      <div className="filterContainer2">
         <div style={styles.filterButtons}>
           <button
             style={selectedFilter === "Orders" ? { ...styles.filterButton, ...styles.activeFilterButton } : styles.filterButton}
@@ -236,7 +237,7 @@ const OrderHistory = () => {
 
                       </div> */}
                     </div>
-                    <div style={styles.contactBox}>
+                    <div className="contactBox ">
                       <p style={styles.contactText}>Send Us A Message</p>
                       <p style={styles.contactText}>If you are not able to find your answer, please contact Us.</p>
                       <button style={styles.contactButton}>Contact Us</button>
@@ -336,10 +337,12 @@ const styles = {
     backgroundColor: "white",
     cursor: "pointer",
     fontWeight: "normal",
+    fontFamily: "'Outfit', sans-serif", 
     color: '#3E3D3DFF', // Set text color to white
   },
   activeFilterButton: {
     fontWeight: "bold",
+    fontFamily: "'Outfit', sans-serif", 
     backgroundColor: "#f0f0f0",
     padding: "10px",
     borderRadius: "8px",
@@ -361,6 +364,7 @@ const styles = {
     cursor: "pointer",
     boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
     fontWeight: "normal",
+    fontFamily: "'Outfit', sans-serif", 
     color: "#333",
   },
   dropdownMenu: {
@@ -397,6 +401,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     fontWeight: "semi-bold",
+    fontFamily: "'Outfit', sans-serif", 
 
   },
   orderDetailsHeaderItem: {
@@ -412,11 +417,13 @@ const styles = {
     flex: 1,
     textAlign: "center",
     fontWeight: "bold",
+    fontFamily: "'Outfit', sans-serif", 
   },
   orderDetailsDataItem2: {
     flex: 1,
     textAlign: "center",
     fontWeight: "bold",
+    fontFamily: "'Outfit', sans-serif", 
     color: "#E9611E"
   },
   orderDetailsDropdown: {
@@ -617,22 +624,21 @@ const styles = {
       boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
       position: "relative",
     },
+
     contactBox: {
-      contactBox: {
 
 
-        borderRadius: "8px",
-        textAlign: "center",
-        marginTop: "20px", // Align below buttons on mobile
-        right: "10px",
-        top: "10px",
-        border: "2px solid #ddd",
-        color: "black",
-        padding: "20px",
-        borderRadius: "8px",
-        width: "780px",
-      },// Separate contact box on mobile
-    },
+      borderRadius: "8px",
+      textAlign: "center",
+      marginTop: "20px", // Align below buttons on mobile
+      right: "10px",
+      top: "10px",
+      border: "2px solid #ddd",
+      color: "black",
+      padding: "20px",
+      borderRadius: "8px",
+      width: "980px",
+    }
   },
 
 };

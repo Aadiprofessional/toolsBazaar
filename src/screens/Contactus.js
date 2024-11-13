@@ -124,6 +124,7 @@ const styles = {
   contactText: {
     fontSize: '18px',
     fontWeight: 'bold',
+    fontFamily: "'Outfit', sans-serif", 
     color: '#666666',
   },
   buttonContainer: {
@@ -162,6 +163,7 @@ const styles = {
   termsText: {
     marginTop: '20px',
     fontSize: '12px',
+    fontFamily: "'Outfit', sans-serif", 
     color: '#777',
     textAlign: 'center',
   },

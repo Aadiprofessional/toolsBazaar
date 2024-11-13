@@ -3,6 +3,7 @@
     color: #fff;
     z-index: 100;
     font-size: 14px;
+    font-family: 'Outfit', sans-serif;
     position: relative;
 }
 
@@ -54,6 +55,7 @@ form div {
 
 label {
     font-weight: bold;
+    font-family: 'Outfit', sans-serif;
     color: #333;
     margin-bottom: 8px;
 }
@@ -94,6 +96,7 @@ textarea {
     cursor: pointer;
     padding: 10px 20px;
     font-size: 16px;
+    font-family: 'Outfit', sans-serif;
 }
 
 .footer-buttons .active {
@@ -149,6 +152,7 @@ textarea {
 @media (max-width: 768px) {
     .footer-buttons button {
         font-size: 14px;
+        font-family: 'Outfit', sans-serif;
     }
 
     .footer-content .content-grid {
@@ -167,6 +171,7 @@ textarea {
 
     .footer-section div {
         font-size: 12px; /* Smaller font size for smaller screens */
+        font-family: 'Outfit', sans-serif;
     }
 
     .footer-bottom-image {

@@ -43,12 +43,14 @@
   margin-top: 5px;
   font-weight: bold;
   font-size: 14px;
+  font-family: 'Outfit', sans-serif;
   text-align: left; /* Left-aligns the title */
 }
 
 .noCategories {
   font-size: 18px;
   font-weight: bold;
+  font-family: 'Outfit', sans-serif;
 }
 
 .loadingContainer {
@@ -61,6 +63,7 @@
 
 .spinner {
   font-size: 24px;
+  font-family: 'Outfit', sans-serif;
   color: #000;
   margin-left: 20px; /* Adjusted left margin for the spinner text */
 }

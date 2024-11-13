@@ -27,13 +27,18 @@ const CartScreen = () => {
 
   return (
     <div>
-      <div style={styles.container}>
+      <div
+        style={{
+          ...styles.container,
+          ...(window.innerWidth <= 768 ? styles.containerMobile : {}),
+        }}
+      >
         <TaskBar />
         <LeftSection
           cart={cart}
           totalAmount={setTotalAmount}
           address={selectedAddress}
-          finalAmount={finalAmount} // Pass finalAmount as a value
+          finalAmount={finalAmount}
         />
         <RightSection
           cart={cart}
@@ -45,7 +50,7 @@ const CartScreen = () => {
       <Footer />
     </div>
   );
-};
+}  
 
 const styles = {
   container: {
@@ -53,6 +58,10 @@ const styles = {
     justifyContent: "space-between",
     padding: "20px",
     backgroundColor: "#F3F3F3",
+    flexWrap: "wrap",
+  },
+  containerMobile: {
+    flexDirection: "column", // Stacks items vertically on mobile
   },
 };
 

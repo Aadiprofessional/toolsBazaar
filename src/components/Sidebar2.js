@@ -35,6 +35,7 @@ const styles = {
   headerText: {
     fontWeight: "bold",
     fontSize: "16px",
+    fontFamily: "'Outfit', sans-serif", 
   },
   viewAllButton: {
     border: "none",

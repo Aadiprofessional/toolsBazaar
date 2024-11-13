@@ -134,13 +134,10 @@ const ProfileScreen = () => {
               <h2 style={styles.profileName}>{userData.name}</h2>
               <p style={styles.profilePhone}>{userData.phoneNumber}</p>
               <p style={styles.profileRewardPoints}>
-                Address: {userData.address}
-              </p>
-              <p style={styles.profileRewardPoints}>
                 GST No.: {userData.gst}
               </p>
               <p style={styles.profileRewardPoints}>
-                Reward Points: {userData.rewardPoints}
+                Email: {userData.email}
               </p>
             </div>
           </div>
@@ -198,7 +195,6 @@ const ProfileScreen = () => {
         </div>
       </Modal>
 
-      <ToastContainer />
     </div>
   );
 };
@@ -242,14 +238,17 @@ const styles = {
   profileName: {
     fontSize: "22px",
     fontWeight: "bold",
+    fontFamily: "'Outfit', sans-serif", 
     color: "#333333",
   },
   profilePhone: {
     fontSize: "16px",
+    fontFamily: "'Outfit', sans-serif", 
     color: "#666666",
   },
   profileRewardPoints: {
     fontSize: "16px",
+    fontFamily: "'Outfit', sans-serif", 
     color: "#666666",
   },
   editProfileButton: {
@@ -265,6 +264,7 @@ const styles = {
   termsText: {
     marginTop: "20px",
     fontSize: "12px",
+    fontFamily: "'Outfit', sans-serif", 
     color: "#777",
     textAlign: "center",
   },

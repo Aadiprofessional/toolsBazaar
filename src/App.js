@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes, 
-  Route, 
-  Navigate, 
-  useNavigate
-} from "react-router-dom";
-
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import TaskBar from "./components/TaskBar";
 import LoginPage from "./screens/LoginPage";
 import LandingPage from "./screens/LandingPage";
@@ -29,6 +22,7 @@ import SubCategory2 from "./screens/SubCategory copy";
 import FAQScreen from "./screens/faq";
 import InvoiceScreen from "./screens/InvoiceScreen";
 import RegisterPage2 from "./screens/RegisterPage copy";
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
@@ -53,14 +47,20 @@ function App() {
 
   return (
     <Router>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-right" // Toast appears at the top-center
+        autoClose={1000} // Auto-close after 3 seconds
+        hideProgressBar={false} // Show progress bar
+        newestOnTop={true} // Ensure newest toast is on top
+        closeOnClick={true} // Allow closing the toast by clicking
+        rtl={false} // Set direction to LTR (left to right)
+        draggable={true} // Allow dragging of toast
+        pauseOnHover={true} // Pause toast on hover
+      />
       <CartProvider>
         <Routes>
           <Route path="/" element={<LandingPageWrapper />} />
-          <Route
-            path="/login"
-            element={<LoginPageWrapper onLogin={handleLogin} />}
-          />
+          <Route path="/login" element={<LoginPageWrapper onLogin={handleLogin} />} />
           <Route path="/Cart" element={<CartScreen />} />
           <Route path="/product/:mainId/:categoryId/:productId/:attribute1D/:attribute2D/:attribute3D" element={<ProductDetail />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -71,28 +71,22 @@ function App() {
           <Route path="/orders" element={<OrderHistory />} />
           <Route path="/faqs" element={<FAQScreen />} />
           <Route path="/invoice" element={<InvoiceScreen />} />
-          <Route path="/Address" element={<AddressScreen/>}/>
-          <Route path="/subcategories" element={<SubCategory />}/>
+          <Route path="/Address" element={<AddressScreen />} />
+          <Route path="/subcategories" element={<SubCategory />} />
           <Route path="/subcategory2" element={<SubCategory2 />} />
-          <Route path="/blogs" element={<Blogs/>}/>
-          <Route path="/blogs/:id" element={<BlogsInfo/>}/>
-          <Route
-            path="/landing"
-            element={
-              isAuthenticated ? (
-                <>
-                  <TaskBar
-                    onSearch={(query) => console.log("Search query:", query)}
-                    onLogout={handleLogout}
-                  />
-                  <LandingPage />
-                </>
-              ) : (
-                <Navigate to="/" replace />
-              )
-            }
-          />
-          
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/:id" element={<BlogsInfo />} />
+          <Route path="/landing" element={isAuthenticated ? (
+            <>
+              <TaskBar
+                onSearch={(query) => console.log("Search query:", query)}
+                onLogout={handleLogout}
+              />
+              <LandingPage />
+            </>
+          ) : (
+            <Navigate to="/" replace />
+          )} />
           <Route path="/AllCategories" element={<AllCategories />} />
         </Routes>
       </CartProvider>

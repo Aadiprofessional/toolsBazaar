@@ -7,7 +7,7 @@ import LeftMiddleSection from "../components/prodectDetail/LeftMiddleSection";
 import RightSection from "../components/prodectDetail/RightSection";
 import Lottie from "lottie-react";
 
-import loadingAnimation from "../assets/Animation - 1730717782675.json"; 
+import loadingAnimation from "../assets/Animation - 1730717782675.json";
 import { ToastContainer } from "react-toastify";
 
 const ProductDetail = () => {
@@ -48,13 +48,13 @@ const ProductDetail = () => {
         const data = response.data;
         setProduct(data);
         console.log(data);
-        
+
         // Extract initial selected attributes
         const attribute1 = data.attribute1;
         const attribute2 = data.attribute2;
         const attribute3Data =
           data.data[attribute1]?.[Object.keys(data.data[attribute1])[0]]?.[
-            attribute2
+          attribute2
           ];
         const firstKey = attribute3Data ? Object.keys(attribute3Data)[0] : null;
         const selectedAttribute = firstKey ? attribute3Data[firstKey] : null;
@@ -82,13 +82,13 @@ const ProductDetail = () => {
   // Find the current product based on selected attributes
   const selectedData =
     product.data?.[product.attribute1]?.[selectedAttribute1]?.[
-      product.attribute2
+    product.attribute2
     ]?.[selectedAttribute2]?.[selectedAttribute3] || {};
 
 
   return (
     <div>
-      <ToastContainer/>
+
       <div style={styles.pageContainer}>
         <TaskBar />
         <div style={styles.contentContainer}>
@@ -138,13 +138,13 @@ const styles = {
     justifyContent: "space-between",
     padding: "20px",
   },
-    loadingContainer: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      minHeight: "100vh",
-      backgroundColor: "#ffffff",
-    },
+  loadingContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: "100vh",
+    backgroundColor: "#ffffff",
+  },
 };
 
 export default ProductDetail;

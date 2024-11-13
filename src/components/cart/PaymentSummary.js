@@ -122,9 +122,11 @@ const styles = {
   itemTotalText: {
     fontSize: '16px',
     color: '#333',
+    fontFamily: "'Outfit', sans-serif", 
   },
   itemTotalPrice: {
     fontSize: '16px',
+    fontFamily: "'Outfit', sans-serif", 
     fontWeight: 'bold',
     color: '#333',
   },
@@ -141,16 +143,19 @@ const styles = {
   },
   summaryLabel: {
     fontSize: '16px',
+    fontFamily: "'Outfit', sans-serif", 
     color: '#333',
   },
   summaryValue: {
     fontSize: '16px',
     fontWeight: 'bold',
+    fontFamily: "'Outfit', sans-serif", 
     color: '#333',
   },
   couponDiscount: {
     fontSize: '16px',
     fontWeight: 'bold',
+    fontFamily: "'Outfit', sans-serif", 
     color: '#E74C3C', // Red for discount
   },
   totalRow: {
@@ -164,11 +169,13 @@ const styles = {
   totalLabel: {
     fontSize: '18px',
     fontWeight: 'bold',
+    fontFamily: "'Outfit', sans-serif", 
     color: '#333',
   },
   totalValue: {
     fontSize: '18px',
     fontWeight: 'bold',
+    fontFamily: "'Outfit', sans-serif", 
     color: '#333',
   },
 };

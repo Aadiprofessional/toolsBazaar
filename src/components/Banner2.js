@@ -42,6 +42,7 @@ const styles = {
   text: {
     fontWeight: "bold", // Bold text
     fontSize: "18px", // Optional font size
+    fontFamily: "'Outfit', sans-serif", 
     textAlign: "left", // Align text to the left
     display: "block", // Ensure the text takes full width
   },

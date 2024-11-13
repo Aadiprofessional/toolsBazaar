@@ -1,118 +1,111 @@
+/* Base styles for LeftSlider */
 .left-slider-container {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 250px;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    transition: opacity 0.3s ease;
+    background-color: #FFF;
+    padding-top: 20px;
+    padding-left: 10px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
     z-index: 1000;
-    visibility: hidden;
-    opacity: 0;
-}
-
-.left-slider-container.open {
-    visibility: visible;
-    opacity: 1;
-}
-
-.left-slider-content {
-    background: white;
-    width: 50%;
-    height: 100%;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
+  }
+  
+  .left-slider-container.open {
+    transform: translateX(0);
+  }
+  
+  .left-slider-content {
     display: flex;
     flex-direction: column;
-}
-
-.nav-item {
+    height: 100%;
+  }
+  
+  .categories-header {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 5px 10px;
-    flex-wrap: wrap;
-    cursor: pointer;
-}
-
-.nav-text {
-    font-size: 15px;
-    font-family: 'Outfit-Regular', sans-serif;
-    margin-left: 10px;
-    margin-right: auto;
-    color: #000;
-    max-width: 70%;
-}
-
-.subcategory-container {
-    margin-top: 5px;
-    padding-left: 20px;
-}
-
-.subcategory-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     justify-content: space-between;
-    padding: 5px 15px;
-    flex-wrap: wrap;
-}
-
-.subcategory-text {
-    font-size: 15px;
-    font-family: 'Outfit-Regular', sans-serif;
-    color: #000;
-    max-width: 70%;
-}
-
-.categories-header {
-    display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: space-between;
     margin-bottom: 20px;
-}
-
-.categories-header-text {
-    font-size: 24px;
-    font-family: 'Outfit-Medium', sans-serif;
-    color: #ff6600;
-}
-
-.footer-container {
-    margin-top: auto; /* Ensures footer stays at the bottom */
-    display: flex;
-    align-items: center;
-    padding: 10px;
-}
-
-.footer-button {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 5px 10px;
+  }
+  
+  .categories-header-text {
+    font-size: 32px;
+    font-family: 'Outfit', sans-serif;
+    color: #333;
+  }
+  
+  .close-icon {
+    font-size: 32px;
     cursor: pointer;
-}
-
-.footer-text {
+    color: #aaa;
+  }
+  
+  .nav-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .nav-text {
     font-size: 16px;
-    font-family: 'Outfit-Regular', sans-serif;
+    font-family: 'Outfit', sans-serif;
+    color: #333;
+    flex: 1;
+  }
+  
+  .chevron-icon {
+    font-size: 18px;
     color: #888;
-    margin-left: 10px;
-}
-
-.chevron-icon {
-    font-size: 20px;
-    margin-left: 10px;
-    color: #ff0000;
-}
-
-.close-icon {
+  }
+  
+  .subcategory-container {
+    padding-left: 20px;
+    border-left: 2px solid #f0f0f0;
+    margin-top: 10px;
+  }
+  
+  .subcategory-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
     cursor: pointer;
+  }
+  
+  .subcategory-text {
+    font-size: 15px;
+    font-family: 'Outfit', sans-serif;
+    color: #333;
+    flex: 1;
+  }
+  
+  .footer-container {
+    margin-top: auto;
+    padding: 10px 0;
+    border-top: 1px solid #f0f0f0;
+    text-align: center;
+  }
+  
+  .footer-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .call-icon {
     font-size: 24px;
-    padding-left: 10px;
-}
+    color: #007bff;
+  }
+  
+  .footer-text {
+    font-size: 16px;
+    font-family: 'Outfit', sans-serif;
+    color: #007bff;
+    margin-left: 10px;
+  }
+  

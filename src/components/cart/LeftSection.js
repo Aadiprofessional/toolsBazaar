@@ -11,12 +11,12 @@ import './CartItem.css'
 import ProductsGrid2 from "../ProductsGrid";
 import ProductsGrid3 from "../ProductsGrid copy";
 
-const LeftSection = ({ cart, totalAmount, address,finalAmount }) => {
+const LeftSection = ({ cart, totalAmount, address, finalAmount }) => {
   const { updateCartItemQuantity, removeCartItem } = useCart();
   const [calculatedTotalAmount, setCalculatedTotalAmount] = useState(0);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-console.log('Final pRice',finalAmount);
+  console.log('Final pRice', finalAmount);
 
   const itemCount = cart.length;
 
@@ -61,7 +61,7 @@ console.log('Final pRice',finalAmount);
       const cartItems = cart;
       const useRewardPoints = false;
       const appliedCoupon = false;
-      
+
       const response = await axios.post(
         `https://toolsbazaar-server-1036279390366.asia-south1.run.app/checkout`,
         {
@@ -207,7 +207,6 @@ console.log('Final pRice',finalAmount);
                         style: 'currency',
                         currency: 'INR',
                       })}
-                      <button className="details-button">Details</button>
                     </p>
                     <p className="right-part-text">
                       <strong className="detail-title">GST @ {item.product.gst}%:</strong>
@@ -234,7 +233,10 @@ console.log('Final pRice',finalAmount);
       </div>
 
       <p className="frequently-bought">Featured Products</p>
-      <ProductsGrid5 />
+      <div className="products-grid5">
+        <ProductsGrid5 />
+      </div>
+
     </div>
   );
 };

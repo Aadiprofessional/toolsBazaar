@@ -31,23 +31,6 @@ const LandingPage = ({ onSearch }) => {
   };
 
   useEffect(() => {
-    const checkUserData = async () => {
-      if (!auth.currentUser) {
-        navigate("/login"); // Redirect to login if user is not authenticated
-        return;
-      }
-
-      const userDocRef = doc(firestore, "users", auth.currentUser.uid); // Reference to user data in Firestore
-      const userDoc = await getDoc(userDocRef);
-
-      if (!userDoc.exists()) {
-        navigate("/registerGoogle"); // Redirect to registerGoogle if user data is missing
-      }
-    };
-
-    // Check user data on page load
-    checkUserData();
-
     const handleScroll = () => {
       if (leftBoxRef.current && footerRef.current) {
         const leftBoxBottom = leftBoxRef.current.getBoundingClientRect().bottom;
@@ -71,7 +54,8 @@ const LandingPage = ({ onSearch }) => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", checkScreenSize);
     };
-  }, [navigate]);
+  }, []);
+
 
   return (
     <div>

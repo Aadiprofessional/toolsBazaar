@@ -47,6 +47,7 @@
 .register-title {
   font-size: 2rem;
   font-weight: bold;
+  font-family: 'Outfit', sans-serif;
   margin-bottom: 20px;
 }
 
@@ -67,6 +68,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
+  font-family: 'Outfit', sans-serif;
 }
 
 /* OTP input container */
@@ -83,6 +85,7 @@
   height: 40px;
   text-align: center;
   font-size: 1.2rem;
+  font-family: 'Outfit', sans-serif;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
@@ -94,6 +97,7 @@
   border: none; /* Remove border */
   cursor: pointer;
   font-size: 16px; /* Adjust font size as needed */
+  font-family: 'Outfit', sans-serif;
   text-decoration: underline; /* Add underline to indicate it's clickable */
 }
 
@@ -111,6 +115,7 @@
   cursor: pointer;
   width: 100%;
   font-size: 1rem;
+  font-family: 'Outfit', sans-serif;
   border-radius: 5px;
 }
 
@@ -144,10 +149,12 @@
 
   .register-title {
     font-size: 1.5rem;
+    font-family: 'Outfit', sans-serif;
   }
 
   .register-input {
     font-size: 0.9rem;
+    font-family: 'Outfit', sans-serif;
     padding: 8px;
   }
 
@@ -155,10 +162,12 @@
     width: 35px;
     height: 35px;
     font-size: 1rem;
+    font-family: 'Outfit', sans-serif;
   }
 
   .register-button, .resend-otp-button {
     font-size: 0.9rem;
+    font-family: 'Outfit', sans-serif;
     padding: 8px;
   }
 }

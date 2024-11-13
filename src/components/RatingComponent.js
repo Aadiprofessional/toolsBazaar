@@ -51,6 +51,7 @@ const RatingComponent = ({ productId, hasRated }) => {
           onClick={() => handleRating(star)}
           style={{
             fontSize: '24px',
+            fontFamily: "'Outfit', sans-serif", 
             cursor: 'pointer',
             color: star <= rating ? '#FFD700' : '#ccc', // Selected star color vs unselected star color
           }}

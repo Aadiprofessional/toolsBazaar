@@ -98,7 +98,7 @@ const RegisterForm2 = () => {
 
   return (
     <div className="register-container">
-      <ToastContainer />
+
       <div className="register-left">
         <img src={loginImage} alt="Login" className="login-image" />
       </div>

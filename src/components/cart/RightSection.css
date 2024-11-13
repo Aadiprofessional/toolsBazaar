@@ -1,16 +1,52 @@
-/* Default styles for right section */
+/* Default Layout for Desktop and Laptops */
+.left-section-custom {
+  width: 60%;
+  padding: 20px;
+  background-color: #F3F3F3;
+  margin-top: 50px;
+  margin-right: 20px;
+}
+
 .right-sectionCart {
-    width: 35%;
-    padding: 20px;
-    background-color: #F3F3F3;
-    border-radius: 8px;
-    margin-top: 50px;
+  width: 35%;
+  padding: 20px;
+  background-color: #F3F3F3;
+  border-radius: 8px;
+  margin-top: 50px;
+}
+
+/* Hide frequently-bought2 and products-grid6 by default on larger screens */
+.frequently-bought2,
+.products-grid6 {
+  display: none;
+}
+
+/* Adjust Layout for Tablets and Smaller Screens (Max Width 768px) */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
   }
-  
-  /* Media query to hide the right section on screens smaller than 768px */
-  @media (max-width: 768px) {
-    .right-sectionCart {
-      display: none;
-    }
+
+  .left-section-custom {
+    width: 100%;
+    margin-right: 0;
+    padding: 15px;
   }
-  
+
+  .right-sectionCart {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+/* Show frequently-bought2 and products-grid6 only on smaller screens (Max Width 768px) */
+@media (max-width: 768px) {
+  .frequently-bought2,
+  .products-grid6 {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Outfit', sans-serif;
+    margin-bottom: 10px;
+  }
+}

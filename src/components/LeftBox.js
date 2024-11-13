@@ -181,6 +181,7 @@ const styles = {
   categoryName: {
     fontSize: "14px",
     fontWeight: "bold",
+    fontFamily: "'Outfit', sans-serif", 
     display: "flex",
     alignItems: "center",
   },
@@ -225,6 +226,7 @@ const styles = {
     cursor: "pointer",
     color: "#E9611E",
     fontWeight: "medium",
+    fontFamily: "'Outfit', sans-serif", 
     marginRight:'10px',
   },
   filterData: {
@@ -232,11 +234,13 @@ const styles = {
     cursor: "pointer",
     color: "#535353FF",
     fontWeight: "regular",
+    fontFamily: "'Outfit', sans-serif", 
   },
   seeAllCategories: {
     padding: "10px",
     color: "#0193E6",
     fontSize: "14px",
+    fontFamily: "'Outfit', sans-serif", 
     cursor: "pointer",
     textAlign: "center",
     borderTop: "1px solid #ccc",

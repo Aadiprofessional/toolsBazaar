@@ -300,10 +300,12 @@ const styles = {
   orderPlacedText: {
     fontSize: "24px",
     fontWeight: "bold",
+    fontFamily: "'Outfit', sans-serif", 
     marginBottom: "10px",
   },
   welcomeText: {
     fontSize: "16px",
+    fontFamily: "'Outfit', sans-serif", 
     color: "#555",
   },
   iconBox: {
@@ -313,6 +315,7 @@ const styles = {
   mailText: {
     marginLeft: "10px",
     fontSize: "14px",
+    fontFamily: "'Outfit', sans-serif", 
     color: "#555",
   },
   browseCategoriesBox: {
