@@ -5,7 +5,7 @@ const Banner = () => {
 
   return (
     <div style={{ ...styles.banner, backgroundImage: `url(${bannerImageUrl})` }}>
-      {/* Banner content */}
+     
     </div>
   );
 };

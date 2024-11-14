@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 import { Skeleton, Card } from 'antd';
 import './ProductsGrid2.css';
 
-const ProductsGrid5 = () => {
+const ProductsGrid6 = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -75,7 +75,7 @@ const ProductsGrid5 = () => {
   );
 
   return (
-    <div className="products-containerGrid2">
+    <div className="products-containerGrid5">
       {loading
         ? Array(4).fill(null).map((_, index) => renderSkeletonCard()) // Show skeletons while loading
         : products.map((product) => (
@@ -85,4 +85,4 @@ const ProductsGrid5 = () => {
   );
 };
 
-export default ProductsGrid5;
+export default ProductsGrid6;

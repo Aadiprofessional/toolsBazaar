@@ -8,6 +8,8 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Modal from "react-modal";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Button } from "antd";
+import { noop } from "antd/es/_util/warning";
 
 const ProfileScreen = () => {
   const [userData, setUserData] = useState(null);
@@ -186,10 +188,12 @@ const ProfileScreen = () => {
             type="file"
             accept="image/*"
             onChange={(e) => handleImageUpload(e.target.files[0])}
-            style={styles.input}
+            style={{ display:'none'}}
+            id="ProfileImage"
           />
+          <Button  style={{width:'100%'}} onClick={()=>document.getElementById('ProfileImage').click()} >Upload Image</Button>
           {uploading && <p>Uploading image...</p>}
-          <button onClick={handleSubmit} disabled={uploading}>
+          <button  style={styles.editProfileButton} onClick={handleSubmit} disabled={uploading}>
             Save Changes
           </button>
         </div>

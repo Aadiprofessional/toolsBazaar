@@ -1,68 +1,57 @@
 .containerSlider {
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap; /* Allow wrapping of elements in mobile */
-  }
-  
-  .sliderContainer {
-    flex: 0 0 50%; /* Takes up 50% of the container width */
-    position: relative;
-  }
-  
-  .mainImage {
-    width: 100%;
-    margin-top: 10px; /* Added margin top */
-    height: calc(40% + 40%); /* Adjust the height to the sum of the other two images */
-    object-fit: cover; /* Ensure image covers the container */
-  }
-  
-  .additionalImages {
-    flex: 0 0 50%; /* Takes up 50% of the container width */
-    display: flex;
+  display: flex;
+  width: 100%;
+}
+
+.additionalImages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sideImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.bottomImagesContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.bottomImage {
+  width: calc(50% - 5px);
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  .containerSlider {
     flex-direction: column;
-    padding: 10px;
   }
-  
+
+  .additionalImages {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+  }
+
   .sideImage {
-    width: 100%;
-    height: 50%;
-    object-fit: cover;
-    margin-bottom: 10px;
+    height: 150px;
   }
-  
+
   .bottomImagesContainer {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+    display: none;
   }
-  
-  .bottomImage {
-    width: calc(50% - 5px); /* Each image takes up 50% of the container width, minus margin */
-    object-fit: cover;
-  }
-  
-  /* Media query for mobile screens */
-  @media (max-width: 768px) {
-    .additionalImages {
-      display: flex;
-      width: 100%;
-      flex-direction: column;
-      justify-content: space-between; /* Add space between images */
-      height: 140%; /* Take up full height */
-    }
-  
-    .sideImage {
-      height: 50%; /* Ensure both images have the same height */
-      object-fit: cover; /* Make sure images cover the available space */
-      margin-bottom: 0; /* Remove bottom margin */
-    }
-  
-    .bottomImagesContainer {
-      display: none; /* Hide the bottom images on mobile */
-    }
-  
-    .bottomImage {
-      display: none; /* Hide each bottom image individually on mobile */
-    }
-  }
-  
+}

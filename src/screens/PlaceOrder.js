@@ -11,6 +11,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import html2pdf from "html2pdf.js";
 import jsPDF from "jspdf";
 import { toast } from "react-toastify";
+import { Space } from "antd";
 
 const OrderPlacedScreen = () => {
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ const OrderPlacedScreen = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [pdfPath, setPdfPath] = useState("");
   const phoneNumber = address?.phoneNumber?.replace(/^(\+91)/, '');
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [activeItem, setActiveItem] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -48,7 +51,11 @@ const OrderPlacedScreen = () => {
   console.log(cartItems);
 
 
-
+  const handleItemClick = (item, path) => {
+    setSelectedItem(item);
+    setActiveItem(item);
+    navigate(path);
+  };
   const generatePdf = async () => {
     const invoiceData = {
       owner: address.owner || "N/A",
@@ -257,6 +264,18 @@ const OrderPlacedScreen = () => {
               <FaEnvelope size={32} />
               <p style={styles.mailText}>A copy of the invoice has been sent to your WhatsApp</p>
             </div>
+            <Space>
+
+          <button type="button" style={styles.editProfileButton}  onClick={() => handleItemClick("My Orders", "/")} >
+           
+            Continue Shopping
+          </button>
+          
+          <button type="button"  style={styles.editProfileButton}  onClick={() => handleItemClick("My Orders", "/orders")} >
+           
+            Your Orders
+          </button>
+            </Space>
           </div>
         </div>
         <div style={styles.browseCategoriesBox}>
@@ -278,6 +297,16 @@ const styles = {
     borderRadius: "20px",
     margin: "50px auto",
     boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)",
+  },
+  editProfileButton: {
+    marginTop: "20px",
+    padding: "10px 20px",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    backgroundColor: "#FA832A",
+    color: "#fff",
+    marginRight:10,
   },
   grayBox: {
     backgroundColor: "#FAFAFA",

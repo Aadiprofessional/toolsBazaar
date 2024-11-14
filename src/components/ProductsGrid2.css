@@ -4,28 +4,29 @@
 .products-containerGrid5,
 .products-containerGrid3 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Flexible columns */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Flexible columns */
   gap: 0px;
   padding: 0;
 }
 
-/* Product card settings */
+
+
 .skeleton-cardGrid {
-  width: 100%;
-  max-width: 220px;
-  height: 300px;
-  border: 1px solid #ddd;
-  padding: 20px;
-  background-color: #fff;
-  box-sizing: border-box;
-  cursor: pointer;
-  overflow: hidden;
+  width: 200px;
+  margin: 1px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  align-items: center;
 }
 
+.skeleton-imageGrid {
+  width: 140%;
+  height: 150px;
+}
+
+.skeleton-titleGrid {
+  width: 100%;
+}
 /* Large screen (laptops and desktops) */
 @media (min-width: 1424px) {
   .products-containerGrid {
@@ -35,8 +36,11 @@
     grid-template-columns: repeat(5, 1fr);
   }
  
-  .products-containerGrid5 .products-containerGrid3 {
+  .products-containerGrid5  {
     grid-template-columns: repeat(6, 1fr);
+  }
+  .products-containerGrid3{
+    grid-template-columns: repeat(7, 1fr);
   }
 }
 
@@ -49,7 +53,7 @@
     grid-template-columns: repeat(5, 1fr);
   }
   .products-containerGrid3 {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(7, 1fr);
   }
   .products-containerGrid5 {
     grid-template-columns: repeat(5, 1fr);
@@ -65,7 +69,7 @@
     grid-template-columns: repeat(4, 1fr);
   }
   .products-containerGrid3 {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(7, 1fr);
   }
   .products-containerGrid5 {
     grid-template-columns: repeat(4, 1fr);
@@ -79,6 +83,13 @@
   .products-containerGrid3,
   .products-containerGrid5 {
     grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+  }
+  .skeleton-cardGrid {
+    width: 140px; /* Adjust width for smaller screens */
+  }
+
+  .skeleton-imageGrid {
+    height: 120px;
   }
 }
 

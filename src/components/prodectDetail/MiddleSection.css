@@ -71,11 +71,7 @@
     margin-bottom: 10px;
     margin-top: 10px;
   }
-  .out-of-stock-textPage{
-    font-size: 16px;
-    font-family: 'Outfit', sans-serif;
-    color: #c71111;
-  }
+  
   .quantity-buttonPage {
     background-color: #ddd;
     border: none;
@@ -120,7 +116,18 @@
     font-family: 'Outfit', sans-serif;
   }
   
-  
+  .out-of-stock-textPage{
+    padding: 15px 0;
+   
+    color: #ff5733;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Outfit', sans-serif;
+  }
   
   .add-to-cart-button:disabled {
     background-color: #ccc;
@@ -142,6 +149,7 @@
     .price-textProductPage, 
     .gst-inclusive-textPage,
     .gst-extra-textPage,
+    .out-of-stock-textPage,
     .quantity-containerPage {
       display: block;
     }

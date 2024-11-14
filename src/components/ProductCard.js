@@ -98,14 +98,14 @@ const ProductCard = ({ product }) => {
               <div style={styles.rightColumn}>
                 {discountedPrice < product.price && (
                   <>
-                    <p style={styles.regularPrice}> {Number(product.price).toLocaleString('en-IN', {
+                    <p className="regular-price"> {Number(product.price).toLocaleString('en-IN', {
                 maximumFractionDigits: 0,
                 style: 'currency',
                 currency: 'INR',
               })}</p>
                   </>
                 )}
-                <p style={styles.cutPrice}> {Number(discountedPrice).toLocaleString('en-IN', {
+                <p className="cut-price"> {Number(discountedPrice).toLocaleString('en-IN', {
                 maximumFractionDigits: 0,
                 style: 'currency',
                 currency: 'INR',
@@ -114,8 +114,8 @@ const ProductCard = ({ product }) => {
               <div style={styles.rightColumn}>
                 {discountedPrice < product.price && (
                   <>
-                    <p style={styles.discountText}>{product.additionalDiscount}% off!</p>
-                    <p style={styles.saveText}>You save ₹{(product.price - discountedPrice).toFixed(2)}!</p>
+                    <p className="discount-text">{product.additionalDiscount}% off!</p>
+                    <p className="save-text">You save ₹{(product.price - discountedPrice).toFixed(2)}!</p>
                   </>
                 )}
               </div>
@@ -144,36 +144,8 @@ const styles = {
     flexDirection: "row",
     alignItems: "center",
   },
-  regularPrice: {
-    textDecoration: "line-through",
-    color: "#666",
-    fontSize: "12px",
-    fontFamily: "'Outfit', sans-serif", 
-    marginRight: "10px",
-    marginBottom: -10,
-  },
-  cutPrice: {
-    color: "#EA6021",
-    fontSize: "15px",
-    fontWeight: "bold",
-    fontFamily: "'Outfit', sans-serif", 
-    marginBottom: -10,
-  },
-  discountText: {
-    color: "#25881A",
-    fontSize: "14px",
-    fontWeight: "Regular",
-    fontFamily: "'Outfit', sans-serif", 
-    marginRight: "10px",
-    
-
-  },
-  saveText: {
-    color: "#25881A",
-    fontSize: "12px",
-    fontWeight: "Regular",
-    fontFamily: "'Outfit', sans-serif", 
-  },
+ 
+ 
   hoverContent: {
     display: "flex",
     flexDirection: "column",

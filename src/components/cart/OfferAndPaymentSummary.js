@@ -21,6 +21,8 @@ const OfferAndPaymentSummary = ({ totalAmount, onUpdateParent ,cart}) => {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [newAddress, setNewAddress] = useState({ phoneNumber: '', ownerName: '', address: '' });
   const [showForm, setShowForm] = useState(false);
+  const [couponInfo, setCouponInfo] = useState(null);
+
   const calculateProductGST = (price, quantity, gstRate) => {
     return (price * quantity * gstRate) / 100;
   };
@@ -48,9 +50,6 @@ const OfferAndPaymentSummary = ({ totalAmount, onUpdateParent ,cart}) => {
   }, [totalAmount, cart, shippingCharges, totalAdditionalDiscountValue, appliedCouponState, selectedAddress]);
   const finalPrice = totalAmount + shippingCharges - totalAdditionalDiscountValue - parseFloat(appliedCouponState?.value ?? 0);
 
-  useEffect(() => {
-    onUpdateParent({ finalPrice, selectedAddress });
-  }, [finalPrice, selectedAddress, onUpdateParent]);
 
 
   const handleInputChange = (e) => {
@@ -108,21 +107,37 @@ const OfferAndPaymentSummary = ({ totalAmount, onUpdateParent ,cart}) => {
   }, []);
 
   const handleApplyCoupon = (selectedCoupon) => {
+    if (!selectedCoupon) {
+      toast.error("Invalid Coupon");
+      return;
+    }
+  
     if (appliedCouponState?.code === selectedCoupon.code) {
       setAppliedCouponState(null);
+      setCouponInfo(null); // Reset couponInfo when coupon is removed
       setDiscountedAmount(totalAmount);
       setCoupon('');
       toast.error("Coupon Removed Successfully");
     } else {
       setAppliedCouponState(selectedCoupon);
+      setCouponInfo(selectedCoupon); // Set couponInfo when a new coupon is applied
       setDiscountedAmount(totalAmount - parseFloat(selectedCoupon.value));
       setCoupon(selectedCoupon.code);
-      toast.success('Coupon Applied')
-      if (typeof onUpdateParent === 'function') {
-        onUpdateParent({ selectedCoupon });
-      }
+      toast.success('Coupon Applied');
+    }
+  
+    // Send the coupon state and details to the parent component
+    if (typeof onUpdateParent === 'function') {
+      onUpdateParent({
+        selectedCoupon,
+        isCouponApplied: appliedCouponState ? true : false, // true if coupon is applied, false otherwise
+        couponInfo: couponInfo, // Ensure couponInfo is passed
+      });
     }
   };
+  
+  
+  
   useEffect(() => {
     const fetchCoupons = async () => {
       try {
@@ -163,8 +178,8 @@ const OfferAndPaymentSummary = ({ totalAmount, onUpdateParent ,cart}) => {
 
 
   useEffect(() => {
-    onUpdateParent({ finalPrice, selectedAddress });
-  }, [finalPrice, selectedAddress, onUpdateParent]);
+    onUpdateParent({ finalPrice, selectedAddress,couponInfo });
+  }, [finalPrice, selectedAddress, couponInfo ,onUpdateParent]);
 
   return (
     <div style={styles.box}>
@@ -361,10 +376,10 @@ const styles = {
   couponRow: { display: 'flex', alignItems: 'center', gap: '10px', margin: '10px 0' },
   couponSection: { display: 'flex', flexDirection: 'column', gap: '10px' },
 
-  submitButton: { background: '#333', color: '#fff', padding: '8px 12px', borderRadius: '4px', cursor: 'pointer' },
+
   input: { padding: '8px', margin: '5px 0', width: '100%', borderRadius: '4px', border: '1px solid #ccc' },
   form: { display: 'flex', flexDirection: 'column', gap: '10px' },
-  header: { fontSize: '24px', fontWeight: 'bold', margin: '20px 0', fontFamily: "'Outfit', sans-serif",  },
+
 
   couponLine: {
     display: 'flex',
@@ -388,7 +403,7 @@ const styles = {
     backgroundColor: '#4D4D4D',
     color: '#fff',
     padding: '10px',
-    marginBottom: '10px',
+    marginBottom: '0px',
   },
   summaryBox: {
     marginBottom: '20px',
@@ -448,15 +463,7 @@ const styles = {
     marginLeft: 20,
   },
 
-  submitButton: {
-    backgroundColor: '#E9611E',
-    color: '#fff',
-    padding: '10px',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    marginTop: '5px',
-  },
+
   couponSection: {
     marginTop: '10px',
   },

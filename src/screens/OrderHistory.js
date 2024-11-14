@@ -108,7 +108,7 @@ const OrderHistory = () => {
 
   const handleCancelOrder = async (orderId) => {
     try {
-      await axios.post('/cancel', { id: orderId });
+      await axios.post('https://toolsbazaar-server-1036279390366.asia-south1.run.app/admin/transfer/order', { orderId,from : "In Review",to : "Cancelled" ,uid : auth.currentUser.uid});
       toast.success("Order cancelled successfully");
       // Update order status in state if needed
       setOrders(orders.map(order => order.id === orderId ? { ...order, status: 'Cancelled' } : order));
@@ -293,7 +293,8 @@ const styles = {
     backgroundColor: "#F59F13", // You can change this color
     cursor: "pointer",
     color: "white",
-    marginTop: "10px", // Adds spacing from the submit button
+    marginRight : 10,
+   
   },
   header: {
     marginBottom: "20px",
@@ -485,7 +486,7 @@ const styles = {
     backgroundColor: "#DB3F1F",
     cursor: "pointer",
     color: "white",
-    margin: 10,
+    marginRight : 10,
   },
   orderCard: {
     border: "1px solid #ddd",
@@ -595,6 +596,7 @@ const styles = {
     borderRadius: "8px",
     border: "none",
     cursor: "pointer",
+    marginRight : 10,
   },
   // Media queries
   "@media (max-width: 768px)": {

@@ -1,7 +1,7 @@
 .product-cardGrid {
   width: 100%;
-  max-width: 220px; 
-  aspect-ratio: 4 / 5.5; 
+
+  aspect-ratio: 4 / 5; 
   border: 1px solid #ddd;
   padding: 5%; 
   position: relative;
@@ -25,7 +25,7 @@
 }
 
 .image-container {
-  width: 125%;
+  width: 100%;
   align-self: center;
   aspect-ratio: 2 / 1;
   position: relative;
@@ -40,7 +40,7 @@ margin-bottom: 1%;
 
 .product-name {
   font-weight: 600;
-  font-size: 0.86em;
+  font-size: 0.9vw;
   font-family: 'Outfit', sans-serif;
   margin-bottom: 2%;
   overflow: hidden;
@@ -70,79 +70,6 @@ margin-bottom: 1%;
   display: none;
 }
 
-/* Media Query for Tablets */
-@media (max-width: 768px) {
-  .product-card {
-    max-width: 150px;
-  }
-  .label-container-large {
-    display: none;
-  }
-  .price-container {
-    margin-top: 10%;
-  }
-  .label-container-small {
-    display: block;
-  }
-}
-
-/* Media Query for Phones */
-@media (max-width: 468px) {
-  .product-card {
-    max-width: 167px;
-    padding: 5%;
-  }
-  .price-container {
-    margin-top: 8%;
-  }
-  .label-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 70;
-  }
-  
-  .label {
-    background-color: #ea6021;
-    color: #fff;
-    padding: 5px 8px;
-    border-radius: 15px 0 0 15px;
-    font-size: 8px;
-    font-weight: bold;
-    font-family: 'Outfit', sans-serif;
-    display: flex;
-    align-items: center;
-  }
-  
-  .label-content {
-    display: flex;
-    align-items: center;
-  }
-  
-  .circle {
-    background-color: #fff;
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 5px; /* Increased margin for better spacing */
-  }
-  
-  .truck-icon {
-    width: 12px;
-    height: 12px;
-  }
-  
-  /* New styles for multiline text */
-  .label-text {
-    display: flex;
-    flex-direction: column; /* Stack text lines vertically */
-    line-height: 1; /* Adjust line height for spacing */
-  }
-  
-}
 
 
 .label-container {
@@ -205,36 +132,45 @@ margin-bottom: 1%;
   display: flex;
   justify-content: space-between;
   position: relative;
+  padding: 7px;
   bottom: 10%;
 }
 
 .regular-price {
   text-decoration: line-through;
   color: #666;
-  font-size: 0.4em;
+  font-size: 0.9vw;
   font-family: 'Outfit', sans-serif;
+  margin: 0;
+  margin-top: 8px;
   margin-right: 10px;
 }
 
 .cut-price {
   color: #ea6021;
-  font-size: 1em;
+  font-size: 1vw;
   font-weight: bold;
+  margin: 0;
+  margin-top: 8px;
   font-family: 'Outfit', sans-serif;
 }
 
 .discount-text {
   color: #25881a;
-  font-size: 0.8em;
+  font-size: 1vw;
   font-weight: bold;
+  margin: 0;
   font-family: 'Outfit', sans-serif;
+  margin-top: 8px;
   margin-right: 10px;
 }
 
 .save-text {
   color: #25881a;
-  font-size: 0.8em;
+  font-size: 0.8vw;
   font-weight: bold;
+  margin: 0;
+  margin-top: 8px;
   font-family: 'Outfit', sans-serif;
 }
 
@@ -260,7 +196,7 @@ margin-bottom: 1%;
 }
 
 .hover-description {
-  font-size: 1em;
+  font-size: 1vw;
   color: #333;
   font-family: 'Outfit', sans-serif;
   text-align: center;
@@ -276,4 +212,100 @@ margin-bottom: 1%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 5%;
+}
+
+/* Media Query for Tablets */
+@media (max-width: 768px) {
+  .product-card {
+    max-width: 150px;
+  }
+  .label-container-large {
+    display: none;
+  }
+  .price-container {
+    margin-top: 10%;
+  }
+  .label-container-small {
+    display: block;
+  }
+ 
+  .product-name {
+   
+    font-size: 4vw;
+   
+  }
+  .regular-price {
+    font-size: 4vw;
+  }
+  
+  .cut-price {
+    font-size: 4vw;
+  }
+  
+  .discount-text {
+    font-size: 3vw;
+  }
+  
+  .save-text {
+    font-size: 3vw;
+  }
+  
+}
+
+/* Media Query for Phones */
+@media (max-width: 468px) {
+  .product-card {
+    max-width: 167px;
+    padding: 5%;
+  }
+  .price-container {
+    margin-top: 8%;
+  }
+  .label-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 70;
+  }
+  
+  .label {
+    background-color: #ea6021;
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 15px 0 0 15px;
+    font-size: 8px;
+    font-weight: bold;
+    font-family: 'Outfit', sans-serif;
+    display: flex;
+    align-items: center;
+  }
+  
+  .label-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .circle {
+    background-color: #fff;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px; /* Increased margin for better spacing */
+  }
+  
+  .truck-icon {
+    width: 12px;
+    height: 12px;
+  }
+  
+  /* New styles for multiline text */
+  .label-text {
+    display: flex;
+    flex-direction: column; /* Stack text lines vertically */
+    line-height: 1; /* Adjust line height for spacing */
+  }
+  
 }

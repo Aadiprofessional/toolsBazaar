@@ -13,23 +13,27 @@ const LeftBox = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAndCacheData = async () => {
+    let isMounted = true; // Prevent setting state on unmounted component
+    const fetchData = async () => {
+
       try {
         const response = await axios.get('https://toolsbazaar-server-1036279390366.asia-south1.run.app/drawer');
-        setCategories([...response.data]);
+        setCategories(response.data);
+      
         setLoading(false);
-        console.log(response.data); // Log only after data is fetched
+      
+      
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-  
-    // Only fetch data when component mounts
-    if (categories.length === 0) {
-      fetchAndCacheData();
-    }
-  }, [categories.length]); // This will trigger once if categories are empty
-  
+    fetchData();
+
+    return () => {
+      
+      isMounted = false; // Cleanup on unmount
+    };
+  }, []); // Fetch only once
 
   const navigateToAllCategories = () => {
     navigate("/AllCategories");
@@ -140,6 +144,7 @@ const LeftBox = () => {
               )}
             </li>
           ))
+          
         ) : (
           <li>No categories available</li>
         )}
@@ -155,7 +160,7 @@ const LeftBox = () => {
 const styles = {
   leftBox: {
     width: "260px",
-    height: "50%",
+    height: "max-content",
     backgroundColor: "#FFFFFF",
     boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
     position: "fixed",

@@ -68,9 +68,9 @@ const ProductsGrid4 = () => {
   }, []);
 
   const renderSkeletonCard = () => (
-    <Card style={{ width: 200, margin: '1px' }}>
-      <Skeleton.Image style={{ width: 160, height: 150 }} />
-      <Skeleton active title={{ width: '60%' }} paragraph={{ rows: 2 }} />
+    <Card className="skeleton-cardGrid">
+      <Skeleton.Image className="skeleton-imageGrid" />
+      <Skeleton active title className="skeleton-titleGrid" paragraph={{ rows: 1 }} />
     </Card>
   );
 

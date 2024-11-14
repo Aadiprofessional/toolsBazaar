@@ -3,35 +3,33 @@ import OfferAndPaymentSummary from './OfferAndPaymentSummary';
 import './RightSection.css';
 import ProductsGrid5 from '../ProductsGrid copy 3';
 
-const RightSection = ({ totalAmount, onPriceChange, onAddressChange, cart }) => {
-  const [pincode, setPincode] = useState('');
+const RightSection = ({ totalAmount, onPriceChange, onAddressChange, cart, onCouponChange }) => {
   const [coupon, setCoupon] = useState('');
   const [location, setLocation] = useState({ city: '', state: '' });
-  const [selectedAddress, setSelectedAddress] = useState(null);
 
-  const handlePincodeChange = (e) => {
-    const newPincode = e.target.value;
-    setPincode(newPincode);
-    if (newPincode.length === 6) {
-      setLocation({
-        city: 'Sample City',
-        state: 'Sample State',
-      });
+  const handleCouponChange = (e) => {
+    const selectedCoupon = e.target.value;
+    setCoupon(selectedCoupon);
+    if (onPriceChange) {
+      onPriceChange(totalAmount); // Update the price when coupon changes
+    }
+    if (onCouponChange) {
+      // Send the coupon info to the parent (CartScreen)
+      onCouponChange({ couponCode: selectedCoupon, discount: 10 }); // Example coupon info with discount
     }
   };
-  console.log(cart);
 
-  const handleCouponChange = (e) => setCoupon(e.target.value);
-
-  // Define handleParentChange to pass price and address to CartScreen
-  const handleParentChange = useCallback(({ finalPrice, selectedAddress }) => {
+  const handleParentChange = useCallback(({ finalPrice, selectedAddress, couponInfo }) => {
     if (onPriceChange) {
       onPriceChange(finalPrice); // Update the price in CartScreen
     }
     if (onAddressChange) {
       onAddressChange(selectedAddress); // Update the address in CartScreen
     }
-  }, [onPriceChange, onAddressChange]);
+    if (couponInfo) {
+      onCouponChange(couponInfo); // Pass the coupon info to the parent
+    }
+  }, [onPriceChange, onAddressChange, onCouponChange]);
 
   return (
     <div className="right-sectionCart">
@@ -50,3 +48,4 @@ const RightSection = ({ totalAmount, onPriceChange, onAddressChange, cart }) => 
 };
 
 export default RightSection;
+

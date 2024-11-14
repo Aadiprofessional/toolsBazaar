@@ -11,7 +11,7 @@ import './CartItem.css'
 import ProductsGrid2 from "../ProductsGrid";
 import ProductsGrid3 from "../ProductsGrid copy";
 
-const LeftSection = ({ cart, totalAmount, address, finalAmount }) => {
+const LeftSection = ({ cart, totalAmount, address, finalAmount ,coupon}) => {
   const { updateCartItemQuantity, removeCartItem } = useCart();
   const [calculatedTotalAmount, setCalculatedTotalAmount] = useState(0);
   const navigate = useNavigate();
@@ -60,7 +60,8 @@ const LeftSection = ({ cart, totalAmount, address, finalAmount }) => {
       const userId = auth.currentUser.uid;
       const cartItems = cart;
       const useRewardPoints = false;
-      const appliedCoupon = false;
+      const appliedCoupon = coupon;
+
 
       const response = await axios.post(
         `https://toolsbazaar-server-1036279390366.asia-south1.run.app/checkout`,

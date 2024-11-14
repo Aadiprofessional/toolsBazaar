@@ -7,6 +7,7 @@ import RightSection from "./RightSection";
 import { useParams } from "react-router-dom";
 import ProductsGrid2 from "../ProductsGrid";
 import ProductsGrid5 from "../ProductsGrid copy 3";
+import ProductsGrid6 from "../ProductsGrid copy 4";
 
 const LeftMiddleSection = ({
   product,
@@ -171,7 +172,7 @@ const LeftMiddleSection = ({
       {/* Frequently Bought Together Section */}
       <p className="frequently-bought">Frequently bought together</p>
       <div className="mt-2">
-        <ProductsGrid5 />
+        <ProductsGrid6 />
       </div>
     </div>
   );

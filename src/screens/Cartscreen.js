@@ -9,11 +9,17 @@ import Footer from "../components/Footer";
 const CartScreen = () => {
   const { cart } = useCart();
   const [selectedAddress, setSelectedAddress] = useState(null);
+  const [selectedCoupon , setSelectedCoupon] = useState(null)
   const [totalAmount, setTotalAmount] = useState(0);
   const [finalAmount, setFinalAmount] = useState(0);
 
   const handleAddressSelect = (address) => {
     setSelectedAddress(address);
+  };
+
+  const handleCouponChange = (coupon) => {
+    setSelectedCoupon(coupon);
+    console.log("coupon",coupon);
   };
 
   const handlePriceChange = (price) => {
@@ -24,6 +30,7 @@ const CartScreen = () => {
   if (cart.length === 0) {
     return <EmptyCartScreen />;
   }
+
 
   return (
     <div>
@@ -39,18 +46,21 @@ const CartScreen = () => {
           totalAmount={setTotalAmount}
           address={selectedAddress}
           finalAmount={finalAmount}
+          coupon={selectedCoupon}
         />
         <RightSection
           cart={cart}
           totalAmount={totalAmount}
           onPriceChange={handlePriceChange}
           onAddressChange={handleAddressSelect}
+          onCouponChange={handleCouponChange} // Pass the coupon handler here
         />
       </div>
       <Footer />
     </div>
   );
-}  
+};
+
 
 const styles = {
   container: {

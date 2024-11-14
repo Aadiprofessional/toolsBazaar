@@ -12,7 +12,7 @@ const ImageSlider = () => {
 
   return (
     <div className="containerSlider">
-      <div className="sliderContainer">
+      <div className="additionalImages">
         {/* Display the first image as the main image */}
         <img
           src={images[0]}

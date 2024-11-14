@@ -22,12 +22,26 @@ import SubCategory2 from "./screens/SubCategory copy";
 import FAQScreen from "./screens/faq";
 import InvoiceScreen from "./screens/InvoiceScreen";
 import RegisterPage2 from "./screens/RegisterPage copy";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth, firestore } from "./firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
   React.useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userDocRef = doc(firestore, "users", user.uid);  // Reference the user's document
+        const userDoc = await getDoc(userDocRef);  // Get the user's document
+
+        if (!userDoc.exists()) {
+          signOut(auth)
+        }
+      }
+    })
     const storedAuth = localStorage.getItem("isAuthenticated");
+
     if (storedAuth === "true") {
       setIsAuthenticated(true);
     }
@@ -59,7 +73,7 @@ function App() {
       />
       <CartProvider>
         <Routes>
-          <Route path="/" element={<LandingPageWrapper />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPageWrapper onLogin={handleLogin} />} />
           <Route path="/Cart" element={<CartScreen />} />
           <Route path="/product/:mainId/:categoryId/:productId/:attribute1D/:attribute2D/:attribute3D" element={<ProductDetail />} />
@@ -94,18 +108,7 @@ function App() {
   );
 }
 
-function LandingPageWrapper() {
-  const navigate = useNavigate();
 
-  React.useEffect(() => {
-    const storedAuth = localStorage.getItem("isAuthenticated");
-    if (storedAuth === "true") {
-      navigate("/landing");
-    }
-  }, [navigate]);
-
-  return <LandingPage onLogin={() => navigate("/login")} />;
-}
 
 function LoginPageWrapper({ onLogin }) {
   const navigate = useNavigate();
