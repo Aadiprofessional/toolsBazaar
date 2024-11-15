@@ -10,6 +10,7 @@ const ProductsGrid2 = () => {
   useEffect(() => {
     const cachedProducts = localStorage.getItem("cachedProductsBest");
 
+ 
     if (cachedProducts) {
       setProducts(JSON.parse(cachedProducts));
       setLoading(false);
@@ -23,15 +24,23 @@ const ProductsGrid2 = () => {
           const formattedProducts = data.map((product) => ({
             id: product.productId,
             name: product.displayName,
-            description: `This is ${product.displayName} description.`,
+            description: product.description,
             price: product.price,
-            attribute1: product.attribute1,
-            attribute2: product.attribute2,
-            attribute3: product.attribute3,
+            attribute1Name: product.attribute1Name,
+            attribute2Name: product.attribute2Name,
+            attribute3Name: product.attribute3Name,
+            rating : product.rating,
+            ratings: product.ratings,
             attribute1Id: product.attribute1Id,
             attribute2Id: product.attribute2Id,
             attribute3Id: product.attribute3Id,
-            image: product.image,
+            minCartValue : product.minCartValue,
+            image:product.image,
+            gst: product.gst,
+            attribute1 : product.attribute1,
+            attribute2 : product.attribute2,
+            attribute3 : product.attribute3,
+            images: product.images,
             categoryId: product.categoryId,
             mainId: product.mainId,
             productId: product.productId,
@@ -39,6 +48,7 @@ const ProductsGrid2 = () => {
             main: product.main,
             product: product.product,
             additionalDiscount: product.additionalDiscount,
+            brand : product.brands,
           }));
           setProducts(formattedProducts);
           localStorage.setItem("cachedProductslatest", JSON.stringify(formattedProducts));
@@ -68,6 +78,7 @@ const ProductsGrid2 = () => {
       <Skeleton active title className="skeleton-titleGrid" paragraph={{ rows: 2 }} />
     </Card>
   );
+
 
   return (
     <div className="products-containerGrid">

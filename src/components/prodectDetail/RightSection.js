@@ -73,6 +73,8 @@ console.log('asd',product);
     }
   
     if (product) {
+      console.log('Add to cart details',product);
+      
       setIsLoading(true);
       try {
         await addToCart(

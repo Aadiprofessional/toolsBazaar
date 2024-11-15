@@ -71,8 +71,6 @@ const RegisterForm = () => {
           "https://toolsbazaar-server-1036279390366.asia-south1.run.app/getRegisterCustomToken",
           {
             phoneNumber: "91" + phoneNumber,
-            companyName: "1212313",
-            gst: "asdasdsd",
             email,
             address: `${mainAddress}, ${city}, ${state}, ${pincode}`,
             ownerName,

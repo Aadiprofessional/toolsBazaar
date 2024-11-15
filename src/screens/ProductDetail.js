@@ -8,7 +8,8 @@ import RightSection from "../components/prodectDetail/RightSection";
 import Lottie from "lottie-react";
 
 import loadingAnimation from "../assets/Animation - 1730717782675.json";
-import { ToastContainer } from "react-toastify";
+
+import { auth } from "../firebaseConfig";
 
 const ProductDetail = () => {
   const location = useLocation();
@@ -43,6 +44,10 @@ const ProductDetail = () => {
             main: mainId,
             category: categoryId,
             product: productId,
+            uid: auth.currentUser.uid,
+            mainName: main,
+            categoryName: category,
+            productName: productName
           }
         );
         const data = response.data;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TaskBar from "../components/TaskBar";
 import { auth } from "../firebaseConfig";
-import { Flex, Rate } from 'antd';
+import { Button, Flex, Input, Modal, Rate } from 'antd';
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import Lottie from "lottie-react";
 import loadingAnimation from "../assets/Animation - 1730717782675.json";
@@ -24,7 +24,9 @@ const OrderHistory = () => {
   const [ratings, setRatings] = useState({}); // To store ratings for each product
   const [value, setValue] = useState(3);
   const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
-
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [feedback, setFeedback] = useState("");
+  const [cancelOrderId, setCancelOrderId] = useState(null);
   useEffect(() => {
     const fetchOrders = async (user) => {
       try {
@@ -67,10 +69,14 @@ const OrderHistory = () => {
 
   const handleSubmitRatings = async (orderId) => {
     const order = orders.find(order => order.id === orderId);
+    
     const updatedCartItems = order.cartItems.map(item => ({
+
       ...item,
       rating: ratings[item.cartId] || 0
     }));
+    console.log(updatedCartItems);
+    
 
     try {
       await axios.post('https://toolsbazaar-server-1036279390366.asia-south1.run.app/rateOrder', {
@@ -106,15 +112,36 @@ const OrderHistory = () => {
     }
   };
 
-  const handleCancelOrder = async (orderId) => {
+  const handleOpenModal = (orderId) => {
+    setCancelOrderId(orderId);
+    setIsModalVisible(true);
+  };
+
+  const handleCancelOrder = async () => {
     try {
-      await axios.post('https://toolsbazaar-server-1036279390366.asia-south1.run.app/admin/transfer/order', { orderId,from : "In Review",to : "Cancelled" ,uid : auth.currentUser.uid});
-      toast.success("Order cancelled successfully");
-      // Update order status in state if needed
-      setOrders(orders.map(order => order.id === orderId ? { ...order, status: 'Cancelled' } : order));
+      await axios.post("https://toolsbazaar-server-1036279390366.asia-south1.run.app/admin/transfer/order", {
+        orderId: cancelOrderId,
+        from: "In Review",
+        to: "Cancelled",
+        uid: auth.currentUser.uid,
+        review :feedback,
+      });
+      toast.success("Order cancelled successfully with feedback.");
+      setOrders((prevOrders) =>
+        prevOrders.map((order) =>
+          order.id === cancelOrderId ? { ...order, status: "Cancelled" } : order
+        )
+      );
+      setIsModalVisible(false);
+      setFeedback("");
     } catch (error) {
-      toast.error("Failed to cancel order");
+      toast.error("Failed to cancel order.");
     }
+  };
+
+  const handleModalCancel = () => {
+    setIsModalVisible(false);
+    setFeedback("");
   };
   const handleCardClick = (item) => {
     const product = item.product;
@@ -156,7 +183,7 @@ const OrderHistory = () => {
   return (
     <div style={styles.container}>
       <TaskBar />
-   
+
       <div style={styles.header}>
         <div style={styles.orderCountBox}>
           <h1>Your Orders: <strong>{filteredOrders.length}</strong></h1>
@@ -252,14 +279,30 @@ const OrderHistory = () => {
                     </button>
                   )}
                   {order.status === "In Review" && (
-                    <button onClick={() => handleCancelOrder(order.id)} style={{ ...styles.contactButton2, flex: 1 }}>
-                      Cancel
-                    </button>
+                    <button onClick={() => handleOpenModal(order.id)}style={{ ...styles.contactButton2, flex: 1 }}>Cancel Order</button>
                   )}
                   <button onClick={() => handleDownloadInvoice(order.id)} style={{ ...styles.contactButton2, flex: 1 }}>
                     Download Invoice
                   </button>
                 </div>
+                <Modal
+                  title="Submit Feedback Before Canceling"
+                  visible={isModalVisible}
+                  onOk={handleCancelOrder}
+                  onCancel={handleModalCancel}
+                  footer={[
+                    <Button key="submit" type="primary" onClick={handleCancelOrder}style={{ ...styles.contactButton2, flex: 1 }}>
+                      Submit Feedback
+                    </Button>,
+                  ]}
+                >
+                  <Input.TextArea
+                    rows={4}
+                    placeholder="Reason for cancel"
+                    value={feedback}
+                    onChange={(e) => setFeedback(e.target.value)}
+                  />
+                </Modal>
               </div>
             )}
           </div>
@@ -293,8 +336,8 @@ const styles = {
     backgroundColor: "#F59F13", // You can change this color
     cursor: "pointer",
     color: "white",
-    marginRight : 10,
-   
+    marginRight: 10,
+
   },
   header: {
     marginBottom: "20px",
@@ -338,12 +381,12 @@ const styles = {
     backgroundColor: "white",
     cursor: "pointer",
     fontWeight: "normal",
-    fontFamily: "'Outfit', sans-serif", 
+    fontFamily: "'Outfit', sans-serif",
     color: '#3E3D3DFF', // Set text color to white
   },
   activeFilterButton: {
     fontWeight: "bold",
-    fontFamily: "'Outfit', sans-serif", 
+    fontFamily: "'Outfit', sans-serif",
     backgroundColor: "#f0f0f0",
     padding: "10px",
     borderRadius: "8px",
@@ -365,7 +408,7 @@ const styles = {
     cursor: "pointer",
     boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
     fontWeight: "normal",
-    fontFamily: "'Outfit', sans-serif", 
+    fontFamily: "'Outfit', sans-serif",
     color: "#333",
   },
   dropdownMenu: {
@@ -402,7 +445,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     fontWeight: "semi-bold",
-    fontFamily: "'Outfit', sans-serif", 
+    fontFamily: "'Outfit', sans-serif",
 
   },
   orderDetailsHeaderItem: {
@@ -418,13 +461,13 @@ const styles = {
     flex: 1,
     textAlign: "center",
     fontWeight: "bold",
-    fontFamily: "'Outfit', sans-serif", 
+    fontFamily: "'Outfit', sans-serif",
   },
   orderDetailsDataItem2: {
     flex: 1,
     textAlign: "center",
     fontWeight: "bold",
-    fontFamily: "'Outfit', sans-serif", 
+    fontFamily: "'Outfit', sans-serif",
     color: "#E9611E"
   },
   orderDetailsDropdown: {
@@ -486,7 +529,7 @@ const styles = {
     backgroundColor: "#DB3F1F",
     cursor: "pointer",
     color: "white",
-    marginRight : 10,
+    marginRight: 10,
   },
   orderCard: {
     border: "1px solid #ddd",
@@ -596,7 +639,7 @@ const styles = {
     borderRadius: "8px",
     border: "none",
     cursor: "pointer",
-    marginRight : 10,
+    marginRight: 10,
   },
   // Media queries
   "@media (max-width: 768px)": {

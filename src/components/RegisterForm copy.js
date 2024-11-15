@@ -69,8 +69,6 @@ const RegisterForm2 = () => {
         {
           uid: auth.currentUser?.uid,
           phoneNumber: `91${phoneNumber}`,
-          companyName,
-          gst,
           email,
           address: `${mainAddress}, ${city}, ${state}, ${pincode}`,
           ownerName,
@@ -131,24 +129,6 @@ const RegisterForm2 = () => {
             placeholder="Enter Your Email"
             className="register-input"
             disabled={true}
-            required
-          />
-          <input
-            type="text"
-            value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
-            placeholder="Enter Company Name"
-            className="register-input"
-            disabled={loading}
-            required
-          />
-          <input
-            type="text"
-            value={gst}
-            onChange={(e) => setGst(e.target.value)}
-            placeholder="Enter GST Number"
-            className="register-input"
-            disabled={loading}
             required
           />
           <input

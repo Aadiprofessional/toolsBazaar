@@ -25,15 +25,23 @@ const ProductsGrid5 = () => {
           const formattedProducts = data.map((product) => ({
             id: product.productId,
             name: product.displayName,
-            description: `This is ${product.displayName} description.`,
+            description: product.description,
             price: product.price,
-            attribute1: product.attribute1,
-            attribute2: product.attribute2,
-            attribute3: product.attribute3,
+            attribute1Name: product.attribute1Name,
+            attribute2Name: product.attribute2Name,
+            attribute3Name: product.attribute3Name,
+            rating : product.rating,
+            ratings: product.ratings,
             attribute1Id: product.attribute1Id,
             attribute2Id: product.attribute2Id,
             attribute3Id: product.attribute3Id,
-            image: product.image,
+            minCartValue : product.minCartValue,
+            image:product.image,
+            gst: product.gst,
+            attribute1 : product.attribute1,
+            attribute2 : product.attribute2,
+            attribute3 : product.attribute3,
+            images: product.images,
             categoryId: product.categoryId,
             mainId: product.mainId,
             productId: product.productId,
@@ -41,6 +49,7 @@ const ProductsGrid5 = () => {
             main: product.main,
             product: product.product,
             additionalDiscount: product.additionalDiscount,
+            brand : product.brands,
           }));
           setProducts(formattedProducts);
           // Save the fetched products to local storage
@@ -75,7 +84,7 @@ const ProductsGrid5 = () => {
   );
 
   return (
-    <div className="products-containerGrid2">
+    <div className="products-containerGrid">
       {loading
         ? Array(4).fill(null).map((_, index) => renderSkeletonCard()) // Show skeletons while loading
         : products.map((product) => (

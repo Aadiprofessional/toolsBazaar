@@ -99,7 +99,7 @@ const TaskBar = ({ onSearch, onLogout }) => {
       console.log('Attribute 3:', product.attribute3);
 
       navigate(
-        `/product/${product.mainId}/${product.categoryId}/${product.productId}/${product.attribute1}/${product.attribute2}/${product.attribute3}`, // Pass attribute IDs
+        `/product/${product.mainId}/${product.categoryId}/${product.productId}/${product.attribute1Name}/${product.attribute2Name}/${product.attribute3Name}`, // Pass attribute IDs
         {
           state: {
             product: {
@@ -108,9 +108,9 @@ const TaskBar = ({ onSearch, onLogout }) => {
               main: product.main,
               product: product.product,
               category: product.category,
-              attribute1D: product.attribute1, // Include attribute1D
-              attribute2D: product.attribute2, // Include attribute2D
-              attribute3D: product.attribute3  // Include attribute3D
+              attribute1D: product.attribute1Name,
+              attribute2D: product.attribute2Name, 
+              attribute3D: product.attribute3Name  
             },
           },
         }

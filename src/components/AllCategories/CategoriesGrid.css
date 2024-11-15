@@ -6,14 +6,35 @@
 }
 
 .grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: 20px;
-  justify-content: flex-start; /* Aligns the cards to the left */
+  justify-items: flex-start; /* Aligns the cards to the left */
+}
+
+/* Default grid for larger screens (8 items per row) */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+/* Grid for smaller laptops (6 items per row) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* Grid for phone screens (2 items per row) */
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .card {
-  width: 200px;
+  width: 100%; /* Automatically adjust card width to fit grid */
+  max-width: 200px; /* Optional: maximum width for each card */
   padding: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -24,19 +45,17 @@
 }
 
 .cardImageContainer {
-  height: 80%; /* Image container occupies 85% of the card height */
+  height: 80%;
   overflow: hidden;
   background-color: #FFF;
-  border-bottom: 2px solid #DDD; /* Border only on the bottom */
+  border-bottom: 2px solid #DDD;
   position: relative;
-
 }
-
 
 .cardImage {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Ensures the image covers the container */
+  object-fit: contain;
 }
 
 .cardTitle {
@@ -44,7 +63,7 @@
   font-weight: bold;
   font-size: 14px;
   font-family: 'Outfit', sans-serif;
-  text-align: left; /* Left-aligns the title */
+  text-align: left;
 }
 
 .noCategories {
@@ -58,12 +77,12 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  padding-left: 50px; /* Adjusted left padding for loading container */
+  padding-left: 50px;
 }
 
 .spinner {
   font-size: 24px;
   font-family: 'Outfit', sans-serif;
   color: #000;
-  margin-left: 20px; /* Adjusted left margin for the spinner text */
+  margin-left: 20px;
 }

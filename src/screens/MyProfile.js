@@ -136,9 +136,6 @@ const ProfileScreen = () => {
               <h2 style={styles.profileName}>{userData.name}</h2>
               <p style={styles.profilePhone}>{userData.phoneNumber}</p>
               <p style={styles.profileRewardPoints}>
-                GST No.: {userData.gst}
-              </p>
-              <p style={styles.profileRewardPoints}>
                 Email: {userData.email}
               </p>
             </div>
